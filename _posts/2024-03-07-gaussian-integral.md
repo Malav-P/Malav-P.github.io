@@ -13,7 +13,9 @@ In this problem we are interested in the integral shown below. For convenience w
 
 \begin{equation} I = \int_{-\infty}^{\infty} e^{-x^2} \, dx \tag{1} \end{equation}
 
-## Problem 2
+We can instead consider the square of this integral. 
+
+\begin{align} I^2 &= \bigg(\int_{-\infty}^{\infty} e^{-x^2} \, dx \bigg)^2 \\\ &=  \end{align}
 
 
 
