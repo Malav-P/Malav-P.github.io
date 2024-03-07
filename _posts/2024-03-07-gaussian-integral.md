@@ -49,9 +49,9 @@ In the second line above we use the u-substitution $u = r^2$.
 
 Thus the gaussian integral is given by 
 
-\begin{center}
-    \boxed{I = \int_{-\infty}^{\infty} e^{-x^2} \, dx = \sqrt{\pi}}
-\end{center}
+
+\boxed{I = \int_{-\infty}^{\infty} e^{-x^2} \, dx = \sqrt{\pi}}
+
 
 
 
