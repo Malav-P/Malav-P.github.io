@@ -19,10 +19,7 @@ We can instead consider the square of the integral.
 
 Since this integral is over the entirety of $\mathbb{R}^2$, we can alternatively parameterize the integral over the polar coordinates $r$ and $\theta$. The relationships between the variables are shown below. 
 
-\begin{align*}
-    x &= r \cos{\phi}   &&&  r^2 &= x^2 + y^2\\\ 
-    y &= r \sin{\phi}   &&& \phi &= \text{atan2}(y, x)
-\end{align*}
+\begin{align} x &= r \cos{\phi}   &&&  r^2 &= x^2 + y^2\\\ y &= r \sin{\phi}   &&& \phi &= \text{atan2}(y, x) \end{align}
 
 <center>
 <figure>
