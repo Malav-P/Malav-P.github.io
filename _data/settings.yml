@@ -7,7 +7,7 @@ disqus:
 google-ID: 'UA-112060364-1'
 
 menu:
-- {name: 'Publications',   url: 'about.html'}
+- {name: 'Publications',   url: 'publications.html'}
 - {name: 'Resume', url: 'writing.html'}
 - {name: 'Technical Notes', url: 'contact.html'}
 
