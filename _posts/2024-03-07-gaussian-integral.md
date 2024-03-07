@@ -21,32 +21,21 @@ Since this integral is over the entirety of $\mathbb{R}^2$, we can alternatively
 
 \begin{align} x &= r \cos{\phi}   &&&  r^2 &= x^2 + y^2\\\ y &= r \sin{\phi}   &&& \phi &= \text{atan2}(y, x) \end{align}
 
-<!-- <center>
+<center>
 <figure>
   <img src="/assets/img/IMG_7122.PNG">
   <figcaption><i>Polar Coordinates.</i></figcaption>
 </figure>
-</center> -->
+</center>
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Two Images Next to Each Other</title>
-    <style>
-        .container {
-            display: flex;
-        }
-        .image {
-            margin-right: 10px; /* Adjust spacing between images */
-        }
-    </style>
-</head>
-<body>
-    <div class="container">
-        <img src="/assets/img/IMG_7122.PNG" alt="Image 1" class="image">
-        <img src="/assets/img/IMG_7123.JPG" alt="Image 2" class="image">
-    </div>
-</body>
+<center>
+<figure>
+  <img src="/assets/img/IMG_7123.JPG">
+  <figcaption><i>Polar Coordinates.</i></figcaption>
+</figure>
+</center>
+
+
 
 
 ### Header 3
