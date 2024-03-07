@@ -11,7 +11,7 @@ tags: []
 
 In this problem we are interested in the integral shown below. For convenience we will define the result of the integral as the variable $I$.
 
-\begin{equation} I = 4 \tag{1} \end{equation}
+\begin{equation} I = \int_{-\infty}^{\infty} e^{-x^2} \, dx \tag{1} \end{equation}
 
 ## Problem 2
 
