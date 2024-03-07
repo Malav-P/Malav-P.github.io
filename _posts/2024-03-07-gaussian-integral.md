@@ -9,11 +9,11 @@ tags: []
 <!-- image: -->
 ---
 
-## Problem 2
-
 In this problem we are interested in the integral shown below. For convenience we will define the result of the integral as the variable $I$.
 
-\begin{equation} M_X(t) = \mathbb{E}\left[e^{tX}\right]. \label{eq:mgf} \tag{1} \end{equation}
+\begin{equation} I = \int_{-\infty}^{\infty} e^{-x^2} \, dx \tag{1} \end{equation}
+
+## Problem 2
 
 
 
