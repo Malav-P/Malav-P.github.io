@@ -48,10 +48,3 @@ Using this change of variable our expression for $I^2$ now becomes the following
 Where the second line above is due to a u - substitution $ du  = 2r\, dr $. Thus the gaussian integral is given by 
 
 \begin{equation} I = \int_{-\infty}^{\infty} e^{-x^2} \, dx = \sqrt{\pi} \end{equation}
-
-
-
-
-
-### Header 3
-
