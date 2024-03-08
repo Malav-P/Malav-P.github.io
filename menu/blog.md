@@ -6,7 +6,7 @@ permalink: /blog
 
 Here I will present notes from my learning throughout my undergrad and PhD.
 
-<ul class="posts">
+<ul class="posts-container">
   {% for post in site.posts %}
     {% unless post.img == "essay" %}
       <div style="margin-top:10%;">
