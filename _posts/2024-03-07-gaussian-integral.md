@@ -43,10 +43,9 @@ The differential area element in the rectangular and polar coordinates is given 
 
 Using this change of variable our expression for $I^2$ now becomes the following,
 
-\begin{align} I^2 &= \int\limits_{0}^{2\pi} \int\limits_{0}^{\infty} e^{-r^2} \,r\,dr\,d\theta \\\ &= 2\pi \Bigg[\frac{1}{2} \int\limits_{0}^{\infty} e^{-u} \, du\Bigg] \quad \text{Use u-substitution} u = r^2 \\\ &= \pi  \end{align}
+\begin{align} I^2 &= \int\limits_{0}^{2\pi} \int\limits_{0}^{\infty} e^{-r^2} \,r\,dr\,d\theta \\\ &= 2\pi \Bigg[\frac{1}{2} \int\limits_{0}^{\infty} e^{-u} \, du\Bigg] \\\ &= \pi  \end{align}
 
-Thus the gaussian integral is given by 
-
+Where the second line above is due to a u - substitution $ du  = 2r\, dr. Thus the gaussian integral is given by 
 
 \begin{equation} I = \int_{-\infty}^{\infty} e^{-x^2} \, dx = \sqrt{\pi} \end{equation}
 
