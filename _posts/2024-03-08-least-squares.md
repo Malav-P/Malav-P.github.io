@@ -63,7 +63,7 @@ Before we solve the least squares problem in \eqref{1} state the fundamental res
 
   must obey the $\textbf{normal equations}$:
   \begin{equation}
-  \boldsymbol{A}^T\boldsymbol{A}\boldsymbol{x} = \boldsymbol{A}^T\boldsymbol{y}
+  \boldsymbol{A}^T\boldsymbol{A}\hat{\boldsymbol{x}} = \boldsymbol{A}^T\boldsymbol{y}
   \end{equation}
 </div>
 
