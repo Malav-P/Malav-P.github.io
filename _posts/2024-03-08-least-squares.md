@@ -49,6 +49,21 @@ Then the minimization problem takes the following form of a $$\textit{least squa
 
 ## Solving the Least Squares Problem
 
-\\[
-\boxed{E=mc^2}
-\\]
+Before we solve the least squares problem in \eqref{1} state the fundamental result of the least-squares problem.
+
+\noindent
+\fbox{\begin{minipage}{\dimexpr\linewidth-2\fboxsep-2\fboxrule}
+Let $$\boldsymbol{A}$$ be an $M$ by $N$ matrix. Then any solution $$\hat{\boldsymbol{x}}$$ to the least squares problem
+
+\begin{equation}
+\begin{aligned}
+& \underset{\boldsymbol{x} \in \mathbb{R}^N}{\text{minimize}}
+& & \\| \boldsymbol{y} - \boldsymbol{A}\boldsymbol{x} \\|_2^2 
+\end{aligned}
+\end{equation}
+
+must obey the \textbf{normal equations}:
+\begin{equation}
+\boldsymbol{A}^T\boldsymbol{A}\boldsymbol{x} = \boldsymbol{A}^T\boldsymbol{y}
+\end{equation}
+\end{minipage}}
