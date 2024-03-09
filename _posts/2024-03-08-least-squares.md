@@ -71,9 +71,9 @@ The optimization problem in \eqref{2} is convex, continuous, and differentiable 
 
 
 \begin{align}
-  \nabla_{\boldsymbol{x}} \\, \\| \boldsymbol{y} - \boldsymbol{A}\boldsymbol{x} \\|_2^2 &= \big(\boldsymbol{y} - \boldsymbol{A}\boldsymbol{x} \big)^T \big(\boldsymbol{y} - \boldsymbol{A}\boldsymbol{x} \big)  \\\ 
-  &= \nabla_{\boldsymbol{x}} \\, \big(\boldsymbol{y}^T\boldsymbol{y} - 2\boldsymbol{x}^T\boldsymbol{A}^T\boldsymbol{y} + \boldsymbol{x}^T\boldsymbol{A}^T\boldsymbol{A}\boldsymbol{x} \big) \\\
-  &= 2\boldsymbol{A}^T\boldsymbol{A}\boldsymbol{x} - 2\boldsymbol{A}^T\boldsymbol{y}
+  \nabla_{\boldsymbol{x}} \\, \\| \boldsymbol{y} - \boldsymbol{A}\boldsymbol{x} \\|_2^2 & = \big(\boldsymbol{y} - \boldsymbol{A}\boldsymbol{x} \big)^T \big(\boldsymbol{y} - \boldsymbol{A}\boldsymbol{x} \big)  \\\ 
+  & = \nabla_{\boldsymbol{x}} \\, \big(\boldsymbol{y}^T\boldsymbol{y} - 2\boldsymbol{x}^T\boldsymbol{A}^T\boldsymbol{y} + \boldsymbol{x}^T\boldsymbol{A}^T\boldsymbol{A}\boldsymbol{x} \big) \\\
+  & = 2\boldsymbol{A}^T\boldsymbol{A}\boldsymbol{x} - 2\boldsymbol{A}^T\boldsymbol{y}
 \end{align}
 
 
