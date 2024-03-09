@@ -52,18 +52,18 @@ Then the minimization problem takes the following form of a $$\textit{least squa
 Before we solve the least squares problem in \eqref{1} state the fundamental result of the least-squares problem.
 
 <div style="border: 1px solid black; padding: 10px;">
-Let $$\boldsymbol{A}$$ be an $M$ by $N$ matrix. Then any solution $$\hat{\boldsymbol{x}}$$ to the least squares problem
+  Let $\boldsymbol{A}$ be an $M$ by $N$ matrix. Then any solution $\hat{\boldsymbol{x}}$ to the least squares problem
 
-\begin{equation}
-\begin{aligned}
-& \underset{\boldsymbol{x} \in \mathbb{R}^N}{\text{minimize}}
-& & \\| \boldsymbol{y} - \boldsymbol{A}\boldsymbol{x} \\|_2^2 
-\end{aligned}
-\end{equation}
+  \begin{equation}
+  \begin{aligned}
+  & \underset{\boldsymbol{x} \in \mathbb{R}^N}{\text{minimize}}
+  & & \\| \boldsymbol{y} - \boldsymbol{A}\boldsymbol{x} \\|_2^2 
+  \end{aligned}
+  \end{equation}
 
-must obey the $$\textbf{normal equations}$$:
-\begin{equation}
-\boldsymbol{A}^T\boldsymbol{A}\boldsymbol{x} = \boldsymbol{A}^T\boldsymbol{y}
-\end{equation}
+  must obey the $\textbf{normal equations}$:
+  \begin{equation}
+  \boldsymbol{A}^T\boldsymbol{A}\boldsymbol{x} = \boldsymbol{A}^T\boldsymbol{y}
+  \end{equation}
 </div>
 
