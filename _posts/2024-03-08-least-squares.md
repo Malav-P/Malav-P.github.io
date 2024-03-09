@@ -43,6 +43,6 @@ Then the minimization problem takes the following form of a $$\textit{least squa
 \begin{equation}
 \begin{aligned}
 & \underset{\boldsymbol{\theta} \in \mathbb{R}^d}{\text{minimize}}
-& & \| \boldsymbol{y} - \boldsymbol{X}\boldsymbol{\theta} \|_2^2 
+& & \\| \boldsymbol{y} - \boldsymbol{X}\boldsymbol{\theta} \\|_2^2 
 \end{aligned} \tag{1}
 \end{equation}
