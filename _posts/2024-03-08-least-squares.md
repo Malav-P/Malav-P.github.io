@@ -53,7 +53,7 @@ Then the minimization problem takes the following form of a $$\textit{least squa
 
 Before we solve \eqref{1}, we state the fundamental result of the least-squares problem and its immediate consequences.
 
-<div style="border: 1px solid black; padding: 10px;">
+<!-- <div style="border: 1px solid black; padding: 10px;">
   Let $\boldsymbol{A}$ be an $M$ by $N$ matrix. Then any solution $\hat{\boldsymbol{x}}$ to the least squares problem
 
   \begin{equation}
@@ -67,12 +67,12 @@ Before we solve \eqref{1}, we state the fundamental result of the least-squares 
   \begin{equation}
   \boldsymbol{A}^T\boldsymbol{A}\hat{\boldsymbol{x}} = \boldsymbol{A}^T\boldsymbol{y}
   \end{equation}
-</div>
+</div> -->
 
 The optimization problem in \eqref{2} is convex, continuous, and differentiable in the variable $$\boldsymbol{x}$$. Because it is convex, a global minimizer to \eqref{2} exists. Because it is continuous and differentiable, we may find the global minimizer by taking the gradient of our objective and setting it equal to zero.
 
 \begin{align}
-  \nabla_{\boldsymbol{x}} \\, \\| \boldsymbol{y} - \boldsymbol{A}\boldsymbol{x} \\|_2^2 &= \nabla__{x}
+  \nabla_{\boldsymbol{x}} \\, \\| \boldsymbol{y} - \boldsymbol{A}\boldsymbol{x} \\|_2^2 &= \nabla_{x}
 \end{align}
 
 This means
