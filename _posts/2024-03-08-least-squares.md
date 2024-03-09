@@ -47,6 +47,8 @@ Then the minimization problem takes the following form of a $$\textit{least squa
 \end{aligned} \tag{1} \label{1}
 \end{equation}
 
+
+
 ## Solving the Least Squares Problem
 
 Before we solve \eqref{1}, we state the fundamental result of the least-squares problem and its immediate consequences.
@@ -69,14 +71,9 @@ Before we solve \eqref{1}, we state the fundamental result of the least-squares 
 
 The optimization problem in \eqref{2} is convex, continuous, and differentiable in the variable $$\boldsymbol{x}$$. Because it is convex, a global minimizer to \eqref{2} exists. Because it is continuous and differentiable, we may find the global minimizer by taking the gradient of our objective and setting it equal to zero.
 
-
 \begin{align}
-  \nabla_{\boldsymbol{x}} \\, \\| \boldsymbol{y} - \boldsymbol{A}\boldsymbol{x} \\|_2^2 & = \big(\boldsymbol{y} - \boldsymbol{A}\boldsymbol{x} \big)^T \big(\boldsymbol{y} - \boldsymbol{A}\boldsymbol{x} \big)  \\\ 
-  & = \nabla_{\boldsymbol{x}} \\, \big(\boldsymbol{y}^T\boldsymbol{y} - 2\boldsymbol{x}^T\boldsymbol{A}^T\boldsymbol{y} + \boldsymbol{x}^T\boldsymbol{A}^T\boldsymbol{A}\boldsymbol{x} \big) \\\
-  & = 2\boldsymbol{A}^T\boldsymbol{A}\boldsymbol{x} - 2\boldsymbol{A}^T\boldsymbol{y}
+  \nabla_{\boldsymbol{x}} \\, \\| \boldsymbol{y} - \boldsymbol{A}\boldsymbol{x} \\|_2^2 &= \nabla__{x}
 \end{align}
-
-
 
 This means
 
