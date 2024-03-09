@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "The Least Squares Problem"
-blurb: "Deriving and solving the least square problem in the context of linear regression"
+blurb: "Deriving and solving the least squares problem in the context of linear regression"
 img: ""
 author: "Malav Patel"
 categories: journal
@@ -44,5 +44,11 @@ Then the minimization problem takes the following form of a $$\textit{least squa
 \begin{aligned}
 & \underset{\boldsymbol{\theta} \in \mathbb{R}^d}{\text{minimize}}
 & & \\| \boldsymbol{y} - \boldsymbol{X}\boldsymbol{\theta} \\|_2^2 
-\end{aligned} \tag{1}
+\end{aligned} \tag{1} \label{1}
 \end{equation}
+
+## Solving the Least Squares Problem
+
+\\[
+\boxed{E=mc^2}
+\\]
