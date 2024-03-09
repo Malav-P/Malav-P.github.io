@@ -31,14 +31,14 @@ If we consider the vector $$\boldsymbol{y} = [y_1,\, y_2,\, ...\, y_n]^T$$ and t
 
 \begin{align}
     \boldsymbol{X} = \begin{bmatrix}
-    - & \boldsymbol{x}_1^T & -  \\
-    - & \boldsymbol{x}_2^T & -  \\
-    - &\vdots & - \\
-    - & \boldsymbol{x}_n^T & - \\
+    - & \boldsymbol{x}_1^T & -  \\\
+    - & \boldsymbol{x}_2^T & -  \\\
+    - &\vdots & - \\\
+    - & \boldsymbol{x}_n^T & - \\\
 \end{bmatrix}
 \end{align}
 
-Then the minimization problem takes the following form of a \textit{least squares} problem:
+Then the minimization problem takes the following form of a $$\textit{least squares}$$ problem:
 
 \begin{equation}
 \begin{aligned}
