@@ -71,7 +71,8 @@ The optimization problem in \eqref{2} is convex, continuous, and differentiable 
 
 
 \begin{align}
-  \nabla_{\boldsymbol{x}}   
+  \nabla_{\boldsymbol{x}}   \\| \boldsymbol{y} - \boldsymbol{A}\boldsymbol{x} \\|_2^2 \\\ 
+  &= \nabla_{\boldsymbol{x}}  
 \end{align}
 
 
