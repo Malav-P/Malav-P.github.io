@@ -57,7 +57,7 @@ Before we solve the least squares problem in \eqref{1} state the fundamental res
   \begin{equation}
   \begin{aligned}
   & \underset{\boldsymbol{x} \in \mathbb{R}^N}{\text{minimize}}
-  & & \\| \boldsymbol{y} - \boldsymbol{A}\boldsymbol{x} \\|_2^2 
+  & & \| \boldsymbol{y} - \boldsymbol{A}\boldsymbol{x} \|_2^2 
   \end{aligned}
   \end{equation}
 
