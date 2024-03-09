@@ -49,7 +49,7 @@ Then the minimization problem takes the following form of a $$\textit{least squa
 
 ## Solving the Least Squares Problem
 
-Before we solve the least squares problem in \eqref{1} state the fundamental result of the least-squares problem.
+Before we solve \eqref{1}, we state the fundamental result of the least-squares problem and its immediate consequences.
 
 <div style="border: 1px solid black; padding: 10px;">
   Let $\boldsymbol{A}$ be an $M$ by $N$ matrix. Then any solution $\hat{\boldsymbol{x}}$ to the least squares problem
@@ -58,7 +58,7 @@ Before we solve the least squares problem in \eqref{1} state the fundamental res
   \begin{aligned}
   & \underset{\boldsymbol{x} \in \mathbb{R}^N}{\text{minimize}}
   & & \| \boldsymbol{y} - \boldsymbol{A}\boldsymbol{x} \|_2^2 
-  \end{aligned}
+  \end{aligned} \tag{2} \label{2}
   \end{equation}
 
   must obey the $\textbf{normal equations}$:
@@ -66,4 +66,20 @@ Before we solve the least squares problem in \eqref{1} state the fundamental res
   \boldsymbol{A}^T\boldsymbol{A}\hat{\boldsymbol{x}} = \boldsymbol{A}^T\boldsymbol{y}
   \end{equation}
 </div>
+
+The optimization problem in \eqref{2} is convex, continuous, and differentiable in the variable $$\boldsymbol{x}$$. Because it is convex, a global minimizer to \eqref{2} exists. Because it is continuous and differentiable, we may find the global minimizer by taking the gradient of our objective and setting it equal to zero.
+
+$$
+\begin{align} \nabla_{\boldsymbol{x}} \,  \| \boldsymbol{y} - \boldsymbol{A}\boldsymbol{x} \|_2^2
+&= \nabla_{\boldsymbol{x}} \, \big(\boldsymbol{y} - \boldsymbol{A}\boldsymbol{x} \big)^T \, \big(\boldsymbol{y} - \boldsymbol{A}\boldsymbol{x} \big)\\\
+&= \nabla_{\boldsymbol{x}} \, \big(\boldsymbol{y}^T\boldsymbol{y} - 2\boldsymbol{x}^T\boldsymbol{A}^T\boldsymbol{y} + \boldsymbol{x}^T\boldsymbol{A}^T\boldsymbol{A}\boldsymbol{x} \big) \\\
+&= 2\boldsymbol{A}^T\boldsymbol{A}\boldsymbol{x} - 2\boldsymbol{A}^T\boldsymbol{y}
+\end{align}
+
+This means
+
+\begin{equation}
+     \nabla_{\boldsymbol{x}} \,  \| \boldsymbol{y} - \boldsymbol{A}\boldsymbol{x} \|_2^2 = 0 \implies \boldsymbol{A}^T\boldsymbol{A}\boldsymbol{x} - \boldsymbol{A}^T\boldsymbol{y} = 0
+\end{equation}
+$$
 
