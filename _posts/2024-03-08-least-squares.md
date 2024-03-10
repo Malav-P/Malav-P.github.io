@@ -22,32 +22,34 @@ $$
 The question now is what is the best estimate for $$\boldsymbol{\theta}\,$$? We may consider the following minimization problem which sums up the squared loss of each datapoint from its label:
 
 
-\begin{equation}
+$$
 \begin{aligned}
 & \underset{\boldsymbol{\theta} \in \mathbb{R}^d}{\text{minimize}}
 & & \sum_{i=1}^{n} | y_i - \boldsymbol{\theta}^T\boldsymbol{x}_i |^2 
 \end{aligned} 
-\end{equation}
+$$
 
 If we consider the vector $$\boldsymbol{y} = [y_1,\, y_2,\, ...\, y_n]^T$$ and the matrix $$\boldsymbol{X}$$ with rows given by the $$\boldsymbol{x}_i $$:
 
-\begin{align}
+$$
+\begin{aligned}
     \boldsymbol{X} = \begin{bmatrix}
     - & \boldsymbol{x}_1^T & -  \\\ 
     - & \boldsymbol{x}_2^T & -  \\\ 
     - &\vdots & - \\\ 
     - & \boldsymbol{x}_n^T & -
 \end{bmatrix}
-\end{align}
+\end{aligned}
+$$
 
 Then the minimization problem takes the following form of a $$\textit{least squares}$$ problem:
 
-\begin{equation}
+$$
 \begin{aligned}
 & \underset{\boldsymbol{\theta} \in \mathbb{R}^d}{\text{minimize}}
 & & \\| \boldsymbol{y} - \boldsymbol{X}\boldsymbol{\theta} \\|_2^2 
 \end{aligned} \tag{1} \label{1}
-\end{equation}
+$$
 
 
 
