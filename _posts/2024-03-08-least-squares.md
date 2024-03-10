@@ -48,9 +48,9 @@ $$
 \begin{aligned}
 & \underset{\boldsymbol{\theta} \in \mathbb{R}^d}{\text{minimize}}
 & & \\| \boldsymbol{y} - \boldsymbol{X}\boldsymbol{\theta} \\|_2^2 
-\end{aligned} \tag{1} \label{1}
+\end{aligned} 
 $$
-
+<!-- \tag{1} \label{1} -->
 
 
 ## Solving the Least Squares Problem
