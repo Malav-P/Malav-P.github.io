@@ -1,6 +1,7 @@
 ---
 layout: post
 title: "The Least Squares Problem"
+katex: True
 blurb: "Deriving and solving the least squares problem in the context of linear regression"
 img: ""
 author: "Malav Patel"
