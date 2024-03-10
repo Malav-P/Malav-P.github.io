@@ -92,10 +92,10 @@ In the case that rank(\\(\boldsymbol{A}\\)) = \\(N\\), the square matrix \\(\bol
 \begin{equation}
     \hat{\boldsymbol{x}} = \big(\boldsymbol{A}^T\boldsymbol{A}\big)^{-1}\boldsymbol{A}^T\boldsymbol{y}
 \end{equation}
-In the case that rank(\\(\boldsymbol{A}\\)) \\(<\\) \\(N\\), there are infinitely many solutions to \eqref{3} since the null space of \\(\boldsymbol{A}^T\boldsymbol{A}\\) is nontrivial. To see this, consider a solution \\(\hat{\boldsymbol{x}}\\) to \eqref{2} and define a vector \\(\boldsymbol{z} = \hat{\boldsymbol{x}} + \boldsymbol{x}\_{\text{null}}\\), where \\(\boldsymbol{x}_{\text{null}} \in \text{Null}(\boldsymbol{A}^T\boldsymbol{A})\\). Then
+In the case that rank(\\(\boldsymbol{A}\\)) \\(<\\) \\(N\\), there are infinitely many solutions to \eqref{3} since the null space of \\(\boldsymbol{A}^T\boldsymbol{A}\\) is nontrivial. To see this, consider a solution \\(\hat{\boldsymbol{x}}\\) to \eqref{2} and define a vector \\(\boldsymbol{z} = \hat{\boldsymbol{x}} + \boldsymbol{x}\_{\text{null}}\\), where \\(\boldsymbol{x}\_{\text{null}} \in \text{Null}(\boldsymbol{A}^T\boldsymbol{A})\\). Then
 \begin{align}
-    \boldsymbol{A}^T\boldsymbol{A}\boldsymbol{z} &= \boldsymbol{A}^T\boldsymbol{A}(\hat{\boldsymbol{x}} + \boldsymbol{x}_{\text{null}}) \\\
-    &= \boldsymbol{A}^T\boldsymbol{A}\hat{\boldsymbol{x}} + \boldsymbol{A}^T\boldsymbol{A}\boldsymbol{x}_{\text{null}} \\\ 
+    \boldsymbol{A}^T\boldsymbol{A}\boldsymbol{z} &= \boldsymbol{A}^T\boldsymbol{A}(\hat{\boldsymbol{x}} + \boldsymbol{x}\_{\text{null}}) \\\
+    &= \boldsymbol{A}^T\boldsymbol{A}\hat{\boldsymbol{x}} + \boldsymbol{A}^T\boldsymbol{A}\boldsymbol{x}\_{\text{null}} \\\ 
     &= \boldsymbol{A}^T\boldsymbol{y} + \boldsymbol{0} \\\ 
     &= \boldsymbol{A}^T\boldsymbol{y}
 \end{align}
