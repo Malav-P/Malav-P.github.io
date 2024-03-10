@@ -85,6 +85,7 @@ This means
 
 A couple of immediate consequences we can see are:
 
+$$
 \begin{itemize}
     \item A solution to \eqref{2} always exists. Since the vector \(\boldsymbol{A}^T\boldsymbol{y}\) \(\in\) \text{Row}(\(\boldsymbol{A}\)), and it is a fact that Row(\(\boldsymbol{A}\)) \(\triangleq\) Col(\(\boldsymbol{A}^T\)) = Col(\(\boldsymbol{A}^T\boldsymbol{A}\)), we can conclude that \(\boldsymbol{A}^T\boldsymbol{y}\) \(\in\) Col(\(\boldsymbol{A}^T\boldsymbol{A}\)). In other words, we can express the vector \(\boldsymbol{A}^T\boldsymbol{y}\) as linear combination of the columns of \(\boldsymbol{A}^T\boldsymbol{A}\), i.e. there exists at least one \(\hat{\boldsymbol{x}}\) such that \(\boldsymbol{A}^T\boldsymbol{A}\hat{\boldsymbol{x}} = \boldsymbol{A}^T\boldsymbol{y}\).
     \item In the case that rank(\(\boldsymbol{A}\)) = \(N\), the square matrix \(\boldsymbol{A}^T\boldsymbol{A}\) has full rank and hence is invertible. There exists one unique solution to \eqref{2} given by 
@@ -101,5 +102,5 @@ A couple of immediate consequences we can see are:
 
     So \(\boldsymbol{z}\) is also a solution of \eqref{2}.
 \end{itemize}
-
+$$
 
