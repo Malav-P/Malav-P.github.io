@@ -65,7 +65,7 @@ Before we solve \eqref{1}, we state the fundamental result of the least-squares 
 
   must obey the $\textbf{normal equations}$:
   \begin{equation}
-  \boldsymbol{A}^T\boldsymbol{A}\hat{\boldsymbol{x}} = \boldsymbol{A}^T\boldsymbol{y} \tag{2} \label{2}
+  \boldsymbol{A}^T\boldsymbol{A}\hat{\boldsymbol{x}} = \boldsymbol{A}^T\boldsymbol{y} \tag{3} \label{3}
   \end{equation}
 </div>
 
@@ -87,12 +87,12 @@ A couple of immediate consequences we can see are:
 
 $$
 \begin{itemize}
-    \item A solution to \eqref{2} always exists. Since the vector \(\boldsymbol{A}^T\boldsymbol{y}\) \(\in\) \text{Row}(\(\boldsymbol{A}\)), and it is a fact that Row(\(\boldsymbol{A}\)) \(\triangleq\) Col(\(\boldsymbol{A}^T\)) = Col(\(\boldsymbol{A}^T\boldsymbol{A}\)), we can conclude that \(\boldsymbol{A}^T\boldsymbol{y}\) \(\in\) Col(\(\boldsymbol{A}^T\boldsymbol{A}\)). In other words, we can express the vector \(\boldsymbol{A}^T\boldsymbol{y}\) as linear combination of the columns of \(\boldsymbol{A}^T\boldsymbol{A}\), i.e. there exists at least one \(\hat{\boldsymbol{x}}\) such that \(\boldsymbol{A}^T\boldsymbol{A}\hat{\boldsymbol{x}} = \boldsymbol{A}^T\boldsymbol{y}\).
-    \item In the case that rank(\(\boldsymbol{A}\)) = \(N\), the square matrix \(\boldsymbol{A}^T\boldsymbol{A}\) has full rank and hence is invertible. There exists one unique solution to \eqref{2} given by 
+    \item A solution to \eqref{3} always exists. Since the vector \(\boldsymbol{A}^T\boldsymbol{y}\) \(\in\) \text{Row}(\(\boldsymbol{A}\)), and it is a fact that Row(\(\boldsymbol{A}\)) \(\triangleq\) Col(\(\boldsymbol{A}^T\)) = Col(\(\boldsymbol{A}^T\boldsymbol{A}\)), we can conclude that \(\boldsymbol{A}^T\boldsymbol{y}\) \(\in\) Col(\(\boldsymbol{A}^T\boldsymbol{A}\)). In other words, we can express the vector \(\boldsymbol{A}^T\boldsymbol{y}\) as linear combination of the columns of \(\boldsymbol{A}^T\boldsymbol{A}\), i.e. there exists at least one \(\hat{\boldsymbol{x}}\) such that \(\boldsymbol{A}^T\boldsymbol{A}\hat{\boldsymbol{x}} = \boldsymbol{A}^T\boldsymbol{y}\).
+    \item In the case that rank(\(\boldsymbol{A}\)) = \(N\), the square matrix \(\boldsymbol{A}^T\boldsymbol{A}\) has full rank and hence is invertible. There exists one unique solution to \eqref{3} given by 
     \begin{equation}
         \hat{\boldsymbol{x}} = \big(\boldsymbol{A}^T\boldsymbol{A}\big)^{-1}\boldsymbol{A}^T\boldsymbol{y}
     \end{equation}
-    \item In the case that rank(\(\boldsymbol{A}\)) \(<\) \(N\), there are infinitely many solutions to \eqref{2} since the null space of \(\boldsymbol{A}^T\boldsymbol{A}\) is nontrivial. To see this, consider a solution \(\hat{\boldsymbol{x}}\) to \eqref{2} and define a vector \(\boldsymbol{z} = \hat{\boldsymbol{x}} + \boldsymbol{x}_{\text{null}}\), where \(\boldsymbol{x}_{\text{null}} \in \text{Null}(\boldsymbol{A}^T\boldsymbol{A})\). Then
+    \item In the case that rank(\(\boldsymbol{A}\)) \(<\) \(N\), there are infinitely many solutions to \eqref{3} since the null space of \(\boldsymbol{A}^T\boldsymbol{A}\) is nontrivial. To see this, consider a solution \(\hat{\boldsymbol{x}}\) to \eqref{2} and define a vector \(\boldsymbol{z} = \hat{\boldsymbol{x}} + \boldsymbol{x}_{\text{null}}\), where \(\boldsymbol{x}_{\text{null}} \in \text{Null}(\boldsymbol{A}^T\boldsymbol{A})\). Then
     \begin{align}
         \boldsymbol{A}^T\boldsymbol{A}\boldsymbol{z} &= \boldsymbol{A}^T\boldsymbol{A}(\hat{\boldsymbol{x}} + \boldsymbol{x}_{\text{null}}) \\\
         &= \boldsymbol{A}^T\boldsymbol{A}\hat{\boldsymbol{x}} + \boldsymbol{A}^T\boldsymbol{A}\boldsymbol{x}_{\text{null}} \\\ 
@@ -100,7 +100,8 @@ $$
         &= \boldsymbol{A}^T\boldsymbol{y}
     \end{align}
 
-    So \(\boldsymbol{z}\) is also a solution of \eqref{2}.
+    So \(\boldsymbol{z}\) is also a solution of \eqref{3}.
+    \item In the case that rank(\(\boldsymbol{A}\)) = \(M\), there exists at least one \(\hat{\boldsymbol{x}}\) that satisfies \(\boldsymbol{A}\hat{\boldsymbol{x}} = \boldsymbol{y}\). Note that this solution satifies \eqref{3} and achieves the smallest possible objective value: \(\|\boldsymbol{y} - \boldsymbol{A}\hat{\boldsymbol{x}}\|_2^2 = 0\).
 \end{itemize}
 $$
 
