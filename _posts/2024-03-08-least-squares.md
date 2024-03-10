@@ -13,10 +13,7 @@ tags: []
 
 To frame the least squares problem, let us consider a dataset $$\mathcal{D} =  \{ \boldsymbol{x}_i, y_i \}_{i=1}^{n}$$. We will assume that the $$y_i$$ are realizations of a random variable $$Y$$ that is a linear function of a non-random variable $$\boldsymbol{x}$$ and zero-mean noise:
 
-
-$$\begin{align}
-    Y &= \boldsymbol{\theta}^T \boldsymbol{x} + \epsilon &&& \epsilon \sim \mathcal{N}(0, \sigma^2)
-\end{align}$$
+$$\begin{align} Y &= \boldsymbol{\theta}^T \boldsymbol{x} + \epsilon &&& \epsilon \sim \mathcal{N}(0, \sigma^2)\end{align}$$
 
 The question now is what is the best estimate for $$\boldsymbol{\theta}\,$$? We may consider the following minimization problem which sums up the squared loss of each datapoint from its label:
 
