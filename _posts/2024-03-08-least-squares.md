@@ -13,17 +13,24 @@ tags: []
 
 To frame the least squares problem, let us consider a dataset $$\mathcal{D} =  \{ \boldsymbol{x}_i, y_i \}_{i=1}^{n}$$. We will assume that the $$y_i$$ are realizations of a random variable $$Y$$ that is a linear function of a non-random variable $$\boldsymbol{x}$$ and zero-mean noise:
 
-$$\begin{align} Y &= \boldsymbol{\theta}^T \boldsymbol{x} + \epsilon &&& \epsilon \sim \mathcal{N}(0, \sigma^2)\end{align}$$
+$$
+\begin{equation}
+\begin{aligned}
+    Y &= \boldsymbol{\theta}^T \boldsymbol{x} + \epsilon &&& \epsilon \sim \mathcal{N}(0, \sigma^2)
+\end{aligned}
+\end{equation}
+$$
 
 The question now is what is the best estimate for $$\boldsymbol{\theta}\,$$? We may consider the following minimization problem which sums up the squared loss of each datapoint from its label:
 
-
+$$
 \begin{equation}
 \begin{aligned}
 & \underset{\boldsymbol{\theta} \in \mathbb{R}^d}{\text{minimize}}
 & & \sum_{i=1}^{n} | y_i - \boldsymbol{\theta}^T\boldsymbol{x}_i |^2 
 \end{aligned} 
 \end{equation}
+$$
 
 If we consider the vector $$\boldsymbol{y} = [y_1,\, y_2,\, ...\, y_n]^T$$ and the matrix $$\boldsymbol{X}$$ with rows given by the $$\boldsymbol{x}_i $$:
 
