@@ -65,7 +65,7 @@ Before we solve \eqref{1}, we state the fundamental result of the least-squares 
 
   must obey the $\textbf{normal equations}$:
   \begin{equation}
-  \boldsymbol{A}^T\boldsymbol{A}\hat{\boldsymbol{x}} = \boldsymbol{A}^T\boldsymbol{y}
+  \boldsymbol{A}^T\boldsymbol{A}\hat{\boldsymbol{x}} = \boldsymbol{A}^T\boldsymbol{y} \tag{2} \label{2}
   \end{equation}
 </div>
 
@@ -74,7 +74,7 @@ The optimization problem in \eqref{2} is convex, continuous, and differentiable 
 \begin{align}
  \nabla_{\boldsymbol{x}} \\,  \\| \boldsymbol{y} - \boldsymbol{A}\boldsymbol{x} \\|\_2^2 &= \nabla_{\boldsymbol{x}} \, \big(\boldsymbol{y} - \boldsymbol{A}\boldsymbol{x} \big)^T \\, \big(\boldsymbol{y} - \boldsymbol{A}\boldsymbol{x} \big) \\\ 
  &= \nabla_{\boldsymbol{x}} \\, \big(\boldsymbol{y}^T\boldsymbol{y} - 2\boldsymbol{x}^T\boldsymbol{A}^T\boldsymbol{y} + \boldsymbol{x}^T\boldsymbol{A}^T\boldsymbol{A}\boldsymbol{x} \big) \\\ 
- &= 2\boldsymbol{A}^T\boldsymbol{A}\boldsymbol{x} - 2\boldsymbol{A}^T\boldsymbol{y}
+ &= 2\boldsymbol{A}^T\boldsymbol{A}\boldsymbol{x} - 2\boldsymbol{A}^T\boldsymbol{y} 
 \end{align}
 
 This means
@@ -82,5 +82,24 @@ This means
 \begin{equation}
      \nabla_{\boldsymbol{x}} \,  \\| \boldsymbol{y} - \boldsymbol{A}\boldsymbol{x} \\|_2^2 = 0 \implies \boldsymbol{A}^T\boldsymbol{A}\boldsymbol{x} - \boldsymbol{A}^T\boldsymbol{y} = 0
 \end{equation}
+
+A couple of immediate consequences we can see are:
+
+\begin{itemize}
+    \item A solution to \eqref{2} always exists. Since the vector \(\boldsymbol{A}^T\boldsymbol{y}\) \(\in\) \text{Row}(\(\boldsymbol{A}\)), and it is a fact that Row(\(\boldsymbol{A}\)) \(\triangleq\) Col(\(\boldsymbol{A}^T\)) = Col(\(\boldsymbol{A}^T\boldsymbol{A}\)), we can conclude that \(\boldsymbol{A}^T\boldsymbol{y}\) \(\in\) Col(\(\boldsymbol{A}^T\boldsymbol{A}\)). In other words, we can express the vector \(\boldsymbol{A}^T\boldsymbol{y}\) as linear combination of the columns of \(\boldsymbol{A}^T\boldsymbol{A}\), i.e. there exists at least one \(\hat{\boldsymbol{x}}\) such that \(\boldsymbol{A}^T\boldsymbol{A}\hat{\boldsymbol{x}} = \boldsymbol{A}^T\boldsymbol{y}\).
+    \item In the case that rank(\(\boldsymbol{A}\)) = \(N\), the square matrix \(\boldsymbol{A}^T\boldsymbol{A}\) has full rank and hence is invertible. There exists one unique solution to \eqref{2} given by 
+    \begin{equation}
+        \hat{\boldsymbol{x}} = \big(\boldsymbol{A}^T\boldsymbol{A}\big)^{-1}\boldsymbol{A}^T\boldsymbol{y}
+    \end{equation}
+    \item In the case that rank(\(\boldsymbol{A}\)) \(<\) \(N\), there are infinitely many solutions to \eqref{2} since the null space of \(\boldsymbol{A}^T\boldsymbol{A}\) is nontrivial. To see this, consider a solution \(\hat{\boldsymbol{x}}\) to \eqref{2} and define a vector \(\boldsymbol{z} = \hat{\boldsymbol{x}} + \boldsymbol{x}_{\text{null}}\), where \(\boldsymbol{x}_{\text{null}} \in \text{Null}(\boldsymbol{A}^T\boldsymbol{A})\). Then
+    \begin{align}
+        \boldsymbol{A}^T\boldsymbol{A}\boldsymbol{z} &= \boldsymbol{A}^T\boldsymbol{A}(\hat{\boldsymbol{x}} + \boldsymbol{x}_{\text{null}}) \\\
+        &= \boldsymbol{A}^T\boldsymbol{A}\hat{\boldsymbol{x}} + \boldsymbol{A}^T\boldsymbol{A}\boldsymbol{x}_{\text{null}} \\\ 
+        &= \boldsymbol{A}^T\boldsymbol{y} + \boldsymbol{0} \\\ 
+        &= \boldsymbol{A}^T\boldsymbol{y}
+    \end{align}
+
+    So \(\boldsymbol{z}\) is also a solution of \eqref{2}.
+\end{itemize}
 
 
