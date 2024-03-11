@@ -115,3 +115,45 @@ $$ -->
 
 ### A Universal Solution via the Singular Value Decomposition
 
+Consider the singular value decomposition of our matrix $\boldsymbol{A} = \boldsymbol{U}\boldsymbol{\Sigma}\boldsymbol{V}^T$. Let $R =$ rank($\boldsymbol{A}$). As a quick recap, the properties of the three matrices are outlined below.
+
+- $\boldsymbol{U}$ is a $M \times R$ matrix with orthonormal columns that span the column space of $\boldsymbol{A}$. The orthonormal columns imply that $\boldsymbol{U}^T\boldsymbol{U} = \boldsymbol{I}$ (note that generally $\boldsymbol{U}\boldsymbol{U}^T \neq \boldsymbol{I}$)
+
+$$
+\begin{aligned}
+    \boldsymbol{U} = \begin{bmatrix}
+      | & | &  & | \\\ 
+      | & | &  & | \\\ 
+      | & | &  & | \\\ 
+      \boldsymbol{u}_1 & \boldsymbol{u}_2 & \cdots & \boldsymbol{u}_R \\\
+      | & | &  & | \\\
+      | & | &  & | \\\ 
+      | & | &  & |
+\end{bmatrix}
+\end{aligned}
+$$
+
+- $\boldsymbol{\Sigma}$ is a $R \times R$ diagonal matrix of the singular values of the matrix $\boldsymbol{A}$.
+
+$$
+  \boldsymbol{\Sigma} =
+  \begin{bmatrix}
+    \sigma_{1} & & \\
+    & \ddots & \\
+    & & \sigma_{R}
+  \end{bmatrix}
+$$
+
+- $\boldsymbol{V}$ is a $N \times R$ matrix with orthonormal columns that span the row space of $\boldsymbol{A}$. The orthonormal columns imply that $\boldsymbol{V}^T\boldsymbol{V} = \boldsymbol{I}$ (note that generally $\boldsymbol{V}\boldsymbol{V}^T \neq \boldsymbol{I}$)
+
+$$
+\begin{aligned}
+    \boldsymbol{V}^T = \begin{bmatrix}
+    ---- & \boldsymbol{v}_1^T & ---- \\\ 
+    ---- & \boldsymbol{v}_2^T & ----  \\\ 
+     &\vdots &  \\\ 
+    ---- & \boldsymbol{v}_R^T & ----
+\end{bmatrix}
+\end{aligned}
+$$
+
