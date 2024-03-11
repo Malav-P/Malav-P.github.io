@@ -53,7 +53,7 @@ $$
 
 ## Solving the Least Squares Problem
 
-Before we solve \eqref{1}, we state the fundamental result of the least-squares problem and its immediate consequences.
+Before we solve (1), we state the fundamental result of the least-squares problem and its immediate consequences.
 
 <div style="border: 1px solid black; padding: 10px;">
   Let $\boldsymbol{A}$ be an $M$ by $N$ matrix. Then any solution $\hat{\boldsymbol{x}}$ to the least squares problem
@@ -71,7 +71,7 @@ Before we solve \eqref{1}, we state the fundamental result of the least-squares 
   $$
 </div>
 
-The optimization problem in \eqref{2} is convex, continuous, and differentiable in the variable $\boldsymbol{x}$. Because it is convex, a global minimizer to \eqref{2} exists. Because it is continuous and differentiable, we may find the global minimizer by taking the gradient of our objective and setting it equal to zero.
+The optimization problem in (2) is convex, continuous, and differentiable in the variable $\boldsymbol{x}$. Because it is convex, a global minimizer to (2) exists. Because it is continuous and differentiable, we may find the global minimizer by taking the gradient of our objective and setting it equal to zero.
 
 $$
 \begin{aligned}
@@ -91,14 +91,14 @@ A couple of immediate consequences we can see are:
 
 <!-- $$
 \begin{itemize} -->
-- A solution to \eqref{3} always exists. Since the vector $\boldsymbol{A}^T\boldsymbol{y}$ $\in$ Row($\boldsymbol{A}$), and it is a fact that Row($\boldsymbol{A}$) $\triangleq$ Col($\boldsymbol{A}^T$) = Col($\boldsymbol{A}^T\boldsymbol{A}$), we can conclude that $\boldsymbol{A}^T\boldsymbol{y}$ $\in$ Col($\boldsymbol{A}^T\boldsymbol{A}$). In other words, we can express the vector $\boldsymbol{A}^T\boldsymbol{y}$ as a linear combination of the columns of $\boldsymbol{A}^T\boldsymbol{A}$, i.e. there exists at least one $\hat{\boldsymbol{x}}$ such that $\boldsymbol{A}^T\boldsymbol{A}\hat{\boldsymbol{x}} = \boldsymbol{A}^T\boldsymbol{y}$.
-- In the case that rank($\boldsymbol{A}$) = $N$, the square matrix $\boldsymbol{A}^T\boldsymbol{A}$ has full rank and hence is invertible. There exists one unique solution to \eqref{3} given by 
+- A solution to (3) always exists. Since the vector $\boldsymbol{A}^T\boldsymbol{y}$ $\in$ Row($\boldsymbol{A}$), and it is a fact that Row($\boldsymbol{A}$) $\triangleq$ Col($\boldsymbol{A}^T$) = Col($\boldsymbol{A}^T\boldsymbol{A}$), we can conclude that $\boldsymbol{A}^T\boldsymbol{y}$ $\in$ Col($\boldsymbol{A}^T\boldsymbol{A}$). In other words, we can express the vector $\boldsymbol{A}^T\boldsymbol{y}$ as a linear combination of the columns of $\boldsymbol{A}^T\boldsymbol{A}$, i.e. there exists at least one $\hat{\boldsymbol{x}}$ such that $\boldsymbol{A}^T\boldsymbol{A}\hat{\boldsymbol{x}} = \boldsymbol{A}^T\boldsymbol{y}$.
+- In the case that rank($\boldsymbol{A}$) = $N$, the square matrix $\boldsymbol{A}^T\boldsymbol{A}$ has full rank and hence is invertible. There exists one unique solution to (3) given by 
 
 $$
 \hat{\boldsymbol{x}} = \big(\boldsymbol{A}^T\boldsymbol{A}\big)^{-1}\boldsymbol{A}^T\boldsymbol{y}
 $$
 
-- In the case that rank($\boldsymbol{A}$) $<$ $N$, there are infinitely many solutions to \eqref{3} since the null space of $\boldsymbol{A}^T\boldsymbol{A}$ is nontrivial. To see this, consider a solution $\hat{\boldsymbol{x}}$ to \eqref{3} and define a vector $\hat{\boldsymbol{z}} = \hat{\boldsymbol{x}} + \boldsymbol{x}\_{\text{null}}$, where $\boldsymbol{x}\_{\text{null}} \in \text{Null}(\boldsymbol{A}^T\boldsymbol{A})$. Then $\hat{\boldsymbol{z}}$ is also a solution of \eqref{3}:
+- In the case that rank($\boldsymbol{A}$) $<$ $N$, there are infinitely many solutions to (3) since the null space of $\boldsymbol{A}^T\boldsymbol{A}$ is nontrivial. To see this, consider a solution $\hat{\boldsymbol{x}}$ to (3) and define a vector $\hat{\boldsymbol{z}} = \hat{\boldsymbol{x}} + \boldsymbol{x}\_{\text{null}}$, where $\boldsymbol{x}\_{\text{null}} \in \text{Null}(\boldsymbol{A}^T\boldsymbol{A})$. Then $\hat{\boldsymbol{z}}$ is also a solution of (3):
 
 $$
 \begin{aligned}
@@ -109,7 +109,7 @@ $$
 \end{aligned}
 $$
 
-- In the case that rank($\boldsymbol{A}$) = $M$, there exists at least one $\hat{\boldsymbol{x}}$ that satisfies $\boldsymbol{A}\hat{\boldsymbol{x}} = \boldsymbol{y}$. Note that this solution satifies \eqref{3} and achieves the smallest possible objective value: $\\|\boldsymbol{y} - \boldsymbol{A}\hat{\boldsymbol{x}}\\|_2^2 = 0$.
+- In the case that rank($\boldsymbol{A}$) = $M$, there exists at least one $\hat{\boldsymbol{x}}$ that satisfies $\boldsymbol{A}\hat{\boldsymbol{x}} = \boldsymbol{y}$. Note that this solution satifies (3) and achieves the smallest possible objective value: $\\|\boldsymbol{y} - \boldsymbol{A}\hat{\boldsymbol{x}}\\|_2^2 = 0$.
 <!-- \end{itemize}
 $$ -->
 
