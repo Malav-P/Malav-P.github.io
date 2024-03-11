@@ -162,8 +162,18 @@ With the SVD of $\boldsymbol{A}$ given, we can use a combination of the above ma
 $$
 \begin{aligned}
   \hat{\boldsymbol{x}} &= \boldsymbol{V}\boldsymbol{\Sigma}^{-1}\boldsymbol{U}^T\boldsymbol{y}
-\end{aligned}
+\end{aligned} \tag{4}
 $$
 
-The combination $\boldsymbol{A}^{\dag} \triangleq \boldsymbol{V}\boldsymbol{\Sigma}^{-1}\boldsymbol{U}^T $, is called the 
+The combination $\boldsymbol{A}^{\dag} \triangleq \boldsymbol{V}\boldsymbol{\Sigma}^{-1}\boldsymbol{U}^T $, is called the *pseudo-inverse* of $\boldsymbol{A}$. The pseudo-inverse enjoys many nice mathematical properties that will be covered in another post on the singular value decomposition. To see that (4) is actually a solution to the normal equation, we simply plug it into (3) along with the SVD of $\boldsymbol{A}$:
+
+$$
+\begin{aligned}
+  \boldsymbol{A}^T\boldsymbol{A}\hat{\boldsymbol{x}} &= \boldsymbol{V}\boldsymbol{\Sigma}\boldsymbol{U}^T\boldsymbol{U}\boldsymbol{\Sigma}\boldsymbol{V}^T\hat{\boldsymbol{x}} \\\ 
+  &= \boldsymbol{V}\boldsymbol{\Sigma}^2\boldsymbol{V}^T\hat{\boldsymbol{x}} \\\ 
+  &= \boldsymbol{V}\boldsymbol{\Sigma}^2\boldsymbol{V}^T\boldsymbol{V}\boldsymbol{\Sigma}^{-1}\boldsymbol{U}^T\boldsymbol{y} \\\ 
+  &= \boldsymbol{V}\boldsymbol{\Sigma}\boldsymbol{U}^T\boldsymbol{y} \\\ 
+  &= \boldsymbol{A}^T\boldsymbol{y}
+\end{aligned}
+$$
 
