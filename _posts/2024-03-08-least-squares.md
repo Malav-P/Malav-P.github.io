@@ -98,13 +98,12 @@ $$
 $$
 - In the case that rank($\boldsymbol{A}$) $<$ $N$, there are infinitely many solutions to \eqref{3} since the null space of $\boldsymbol{A}^T\boldsymbol{A}$ is nontrivial. To see this, consider a solution $\hat{\boldsymbol{x}}$ to \eqref{3} and define a vector $\hat{\boldsymbol{z}} = \hat{\boldsymbol{x}} + \boldsymbol{x}\_{\text{null}}$, where $\boldsymbol{x}\_{\text{null}} \in \text{Null}(\boldsymbol{A}^T\boldsymbol{A})$. Then $\hat{\boldsymbol{z}}$ is also a solution of \eqref{3}:
 
-\begin{align}
+$$
     \boldsymbol{A}^T\boldsymbol{A}\hat{\boldsymbol{z}} &= \boldsymbol{A}^T\boldsymbol{A}(\hat{\boldsymbol{x}} + \boldsymbol{x}_{\text{null}}) \\\ 
     &= \boldsymbol{A}^T\boldsymbol{A}\hat{\boldsymbol{x}} + \boldsymbol{A}^T\boldsymbol{A}\boldsymbol{x}_{\text{null}} \\\ 
     &= \boldsymbol{A}^T\boldsymbol{y} + \boldsymbol{0} \\\ 
     &= \boldsymbol{A}^T\boldsymbol{y}
-\end{align}
-
+$$
 
 - In the case that rank($\boldsymbol{A}$) = $M$, there exists at least one $\hat{\boldsymbol{x}}$ that satisfies $\boldsymbol{A}\hat{\boldsymbol{x}} = \boldsymbol{y}$. Note that this solution satifies \eqref{3} and achieves the smallest possible objective value: $\\|\boldsymbol{y} - \boldsymbol{A}\hat{\boldsymbol{x}}\\|_2^2 = 0$.
 <!-- \end{itemize}
