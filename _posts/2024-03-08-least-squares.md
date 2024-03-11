@@ -62,12 +62,12 @@ Before we solve (1), we state the fundamental result of the least-squares proble
   \begin{aligned}
   & \underset{\boldsymbol{x} \in \mathbb{R}^N}{\text{minimize}}
   & & \| \boldsymbol{y} - \boldsymbol{A}\boldsymbol{x} \|_2^2 
-  \end{aligned}
+  \end{aligned} \tag{2}
   $$
 
   must obey the $\textbf{normal equations}$:
   $$
-  \boldsymbol{A}^T\boldsymbol{A}\hat{\boldsymbol{x}} = \boldsymbol{A}^T\boldsymbol{y}
+  \boldsymbol{A}^T\boldsymbol{A}\hat{\boldsymbol{x}} = \boldsymbol{A}^T\boldsymbol{y} \tag{3}
   $$
 </div>
 
