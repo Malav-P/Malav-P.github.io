@@ -11,7 +11,7 @@ tags: []
 ---
 
 
-To frame the least squares problem, let us consider a dataset $$\mathcal{D} =  \{ \boldsymbol{x}_i, y_i \}_{i=1}^{n}$$. We will assume that the $$y_i$$ are realizations of a random variable $$Y$$ that is a linear function of a non-random variable $$\boldsymbol{x}$$ and zero-mean noise:
+To frame the least squares problem, let us consider a dataset $\mathcal{D} =  \{ \boldsymbol{x}_i, y_i \}_{i=1}^{n}$. We will assume that the $$y_i$$ are realizations of a random variable $$Y$$ that is a linear function of a non-random variable $$\boldsymbol{x}$$ and zero-mean noise:
 
 $$
 \begin{aligned}
@@ -29,7 +29,7 @@ $$
 \end{aligned} 
 $$
 
-If we consider the vector $$\boldsymbol{y} = [y_1,\, y_2,\, ...\, y_n]^T$$ and the matrix $$\boldsymbol{X}$$ with rows given by the $$\boldsymbol{x}_i $$:
+If we consider the vector $\boldsymbol{y} = [y_1,\, y_2,\, ...\, y_n]^T$ and the matrix $\boldsymbol{X}$ with rows given by the $\boldsymbol{x}_i $:
 
 $$
 \begin{aligned}
@@ -42,14 +42,12 @@ $$
 \end{aligned}
 $$
 
-Then the minimization problem takes the following form of a $$\textit{least squares}$$ problem:
+Then the minimization problem takes the following form of a $\textit{least squares}$ problem:
 
 $$\begin{aligned}
 & \underset{\boldsymbol{\theta} \in \mathbb{R}^d}{\text{minimize}}
 & & \| \boldsymbol{y} - \boldsymbol{X}\boldsymbol{\theta} \|_2^2 
-\end{aligned} \tag{1} \label{1}$$
-
-Above we are minimizing a squared norm. We will investigate the structure of the problem below.
+\end{aligned}$$
 
 ## Solving the Least Squares Problem
 
