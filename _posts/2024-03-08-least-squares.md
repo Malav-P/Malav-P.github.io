@@ -96,7 +96,7 @@ A couple of immediate consequences we can see are:
 $$
     \hat{\boldsymbol{x}} = \big(\boldsymbol{A}^T\boldsymbol{A}\big)^{-1}\boldsymbol{A}^T\boldsymbol{y}
 $$
-- In the case that rank($\boldsymbol{A}$) $<$ $N$, there are infinitely many solutions to \eqref{3} since the null space of $\boldsymbol{A}^T\boldsymbol{A}$ is nontrivial. To see this, consider a solution $\hat{\boldsymbol{x}}$ to \eqref{3} and define a vector $\hat{\boldsymbol{z}} = \hat{\boldsymbol{x}} + \boldsymbol{x}_{\text{null}}$, where $\boldsymbol{x}_{\text{null}} \in \text{Null}(\boldsymbol{A}^T\boldsymbol{A})$. Then $\hat{\boldsymbol{z}}$ is also a solution of \eqref{3}:
+- In the case that rank($\boldsymbol{A}$) $<$ $N$, there are infinitely many solutions to \eqref{3} since the null space of $\boldsymbol{A}^T\boldsymbol{A}$ is nontrivial. To see this, consider a solution $\hat{\boldsymbol{x}}$ to \eqref{3} and define a vector $\hat{\boldsymbol{z}} = \hat{\boldsymbol{x}} + \boldsymbol{x}\_{\text{null}}$, where $\boldsymbol{x}\_{\text{null}} \in \text{Null}(\boldsymbol{A}^T\boldsymbol{A})$. Then $\hat{\boldsymbol{z}}$ is also a solution of \eqref{3}:
 $$
   \begin{aligned}
       \boldsymbol{A}^T\boldsymbol{A}\hat{\boldsymbol{z}} &= \boldsymbol{A}^T\boldsymbol{A}(\hat{\boldsymbol{x}} + \boldsymbol{x}_{\text{null}}) \\\ 
