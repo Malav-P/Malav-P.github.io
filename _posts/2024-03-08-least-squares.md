@@ -93,9 +93,11 @@ A couple of immediate consequences we can see are:
 \begin{itemize} -->
 - A solution to \eqref{3} always exists. Since the vector $\boldsymbol{A}^T\boldsymbol{y}$ $\in$ Row($\boldsymbol{A}$), and it is a fact that Row($\boldsymbol{A}$) $\triangleq$ Col($\boldsymbol{A}^T$) = Col($\boldsymbol{A}^T\boldsymbol{A}$), we can conclude that $\boldsymbol{A}^T\boldsymbol{y}$ $\in$ Col($\boldsymbol{A}^T\boldsymbol{A}$). In other words, we can express the vector $\boldsymbol{A}^T\boldsymbol{y}$ as a linear combination of the columns of $\boldsymbol{A}^T\boldsymbol{A}$, i.e. there exists at least one $\hat{\boldsymbol{x}}$ such that $\boldsymbol{A}^T\boldsymbol{A}\hat{\boldsymbol{x}} = \boldsymbol{A}^T\boldsymbol{y}$.
 - In the case that rank($\boldsymbol{A}$) = $N$, the square matrix $\boldsymbol{A}^T\boldsymbol{A}$ has full rank and hence is invertible. There exists one unique solution to \eqref{3} given by 
+
 $$
 \hat{\boldsymbol{x}} = \big(\boldsymbol{A}^T\boldsymbol{A}\big)^{-1}\boldsymbol{A}^T\boldsymbol{y}
 $$
+
 - In the case that rank($\boldsymbol{A}$) $<$ $N$, there are infinitely many solutions to \eqref{3} since the null space of $\boldsymbol{A}^T\boldsymbol{A}$ is nontrivial. To see this, consider a solution $\hat{\boldsymbol{x}}$ to \eqref{3} and define a vector $\hat{\boldsymbol{z}} = \hat{\boldsymbol{x}} + \boldsymbol{x}\_{\text{null}}$, where $\boldsymbol{x}\_{\text{null}} \in \text{Null}(\boldsymbol{A}^T\boldsymbol{A})$. Then $\hat{\boldsymbol{z}}$ is also a solution of \eqref{3}:
 
 $$
