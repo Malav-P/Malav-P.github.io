@@ -133,7 +133,7 @@ $$
 \end{aligned}
 $$
 
-- $\boldsymbol{\Sigma}$ is a $R \times R$ diagonal matrix of the singular values of the matrix $\boldsymbol{A}$.
+- $\boldsymbol{\Sigma}$ is a $R \times R$ diagonal matrix of the sorted singular values of the matrix $\boldsymbol{A}.$ ($\sigma_1 \geq \sigma_2 \geq \ldots \geq \sigma_R \geq 0 $)
 
 $$
   \boldsymbol{\Sigma} =
@@ -156,4 +156,14 @@ $$
 \end{bmatrix}
 \end{aligned}
 $$
+
+With the SVD of $\boldsymbol{A}$ given, we can use a combination of the above matrices to write down a solution to (3):
+
+$$
+\begin{aligned}
+  \hat{\boldsymbol{x}} &= \boldsymbol{V}\boldsymbol{\Sigma}^{-1}\boldsymbol{U}^T\boldsymbol{y}
+\end{aligned}
+$$
+
+The combination $\boldsymbol{A}^{\dag} \triangleq \boldsymbol{V}\boldsymbol{\Sigma}^{-1}\boldsymbol{U}^T $, is called the 
 
