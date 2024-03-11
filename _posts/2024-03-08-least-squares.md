@@ -48,8 +48,8 @@ $$\begin{aligned}
 & \underset{\boldsymbol{\theta} \in \mathbb{R}^d}{\text{minimize}}
 & & \| \boldsymbol{y} - \boldsymbol{X}\boldsymbol{\theta} \|_2^2
 \end{aligned}$$
-<!-- \tag{1} \label{1} -->
 
+Above we are minimizing a squared norm. We will investigate the structure of the problem below.
 
 ## Solving the Least Squares Problem
 
