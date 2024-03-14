@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "The Gaussian Integral"
+title: "Gaussian Integral"
 blurb: "Computing the Gaussian integral by a change of variable"
 img: ""
 author: "Malav Patel"
