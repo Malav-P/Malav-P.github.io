@@ -57,7 +57,7 @@ div.box {margin:  10px auto;}
     <div class="column">    
         <DIV class="box">
             <h2>Simulation and Animations</h2>
-                <ul>
+                <ul style="list-style-type:none;">
                 <li><a href="../assets/Resume_MalavPatel.pdf" >Mathematica apps</a> </li>
                 <li><a href="../assets/Resume_MalavPatel.pdf" >Simulation notes</a> </li>
                 <li><a href="../assets/Resume_MalavPatel.pdf">Lorenz, limit cycle, Van der Pol, etc ...</a> </li>
