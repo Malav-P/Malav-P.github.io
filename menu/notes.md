@@ -61,7 +61,6 @@ div.box {margin:  10px auto;}
                     <ul style="list-style-type:none;">
                         {% for note in site.notes %}
                             <li><a href="{{ note.url }}"> {{ note.title }}</a></li>
-                            <!-- <p>{{ note.content | markdownify }}</p> -->
                         {% endfor %}
                     </ul>
             </DIV>
