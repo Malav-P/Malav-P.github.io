@@ -7,7 +7,6 @@ img: ""
 author: "Malav Patel"
 categories: journal
 tags: []
-<!-- image: -->
 ---
 
 
