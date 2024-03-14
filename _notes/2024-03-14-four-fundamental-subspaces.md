@@ -60,7 +60,7 @@ There are interesting relationships between elements of these subspaces that we 
     $$
 <center>
 <figure>
-  <img src="../assets/img/orthocomplnullrow.jpeg" width=65%>
+  <img src="../assets/img/orthocomplnullrow.jpeg" width="65%">
   <figcaption><i>Visualization of the null space and row space</i></figcaption>
 </figure>
 </center>
@@ -80,7 +80,7 @@ There are interesting relationships between elements of these subspaces that we 
 
 <center>
 <figure>
-  <img src="../assets/img/orthocomplleftnullcol.jpeg" width=65%>
+  <img src="../assets/img/orthocomplleftnullcol.jpeg" width="65%">
   <figcaption><i>Visualization of the left null space and column space</i></figcaption>
 </figure>
 </center>
@@ -90,7 +90,7 @@ There are interesting relationships between elements of these subspaces that we 
 The rank-nullility theorem helps us decompose $\mathbb{R}^N$ and $\mathbb{R}^M$.
 
 <div style="border: 1px solid black; padding: 10px;">
-  Rank Nullility Theorem
+  Rank Nullility Theorem <br>
 
   Let $\boldsymbol{A}$ be a $M \times N$ matrix. Then,
 
