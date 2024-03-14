@@ -29,14 +29,14 @@ $$
 $$
 
 ### Column Space
-Define the columns space as the span of the columns of $\boldsymbol{A}$. In other words, the column space is the set of all vectors that can be written as a linear combination of the columns of $\boldsymbol{A}$:
+Define the column space as the span of the columns of $\boldsymbol{A}$. In other words, the column space is the set of all vectors that can be written as a linear combination of the columns of $\boldsymbol{A}$:
 
 $$
 \text{Col}(\boldsymbol{A}) \triangleq \{\boldsymbol{z} \in \mathbb{R}^M : \boldsymbol{z} = \boldsymbol{Ay}, \quad \boldsymbol{y} \in \mathbb{R}^N\}
 $$
 
 ### Left Null Space
-Define the null space as the set of all vectors $\boldsymbol{z} \in \mathbb{R}^M$ that get mapped to the zero vector by the matrix $\boldsymbol{A}^T$:
+Define the left null space as the set of all vectors $\boldsymbol{z} \in \mathbb{R}^M$ that get mapped to the zero vector by the matrix $\boldsymbol{A}^T$:
 
 $$
 \text{Null}(\boldsymbol{A}^T) \triangleq \{\boldsymbol{z} \in \mathbb{R}^M: \boldsymbol{A}^T\boldsymbol{z} = \boldsymbol{0}\}
@@ -58,10 +58,9 @@ There are interesting relationships between elements of these subspaces that we 
         &= 0 & & \text{since } \boldsymbol{x} \in \text{Null}(\boldsymbol{A})
     \end{aligned}
     $$
-
 <center>
 <figure>
-  <img src="../assets/img/orthocomplnullrow.jpeg">
+  <img src="../assets/img/orthocomplnullrow.jpeg" width=65%>
   <figcaption><i>Visualization of the null space and row space</i></figcaption>
 </figure>
 </center>
@@ -81,9 +80,43 @@ There are interesting relationships between elements of these subspaces that we 
 
 <center>
 <figure>
-  <img src="../assets/img/orthocomplleftnullcol.jpeg">
+  <img src="../assets/img/orthocomplleftnullcol.jpeg" width=65%>
   <figcaption><i>Visualization of the left null space and column space</i></figcaption>
 </figure>
 </center>
 
+## Decomposition of $\mathbb{R}^N$ and $\mathbb{R}^M$
+
+The rank-nullility theorem helps us decompose $\mathbb{R}^N$ and $\mathbb{R}^M$.
+
+<div style="border: 1px solid black; padding: 10px;">
+  Rank Nullility Theorem
+
+  Let $\boldsymbol{A}$ be a $M \times N$ matrix. Then,
+
+  $$
+    \text{dim}\big[\text{Null}(\boldsymbol{A})\big] + \text{dim}\big[\text{Row}(\boldsymbol{A})\big] = N
+  $$
+</div>
+
+The rank nullility theorem allows us to decompose $\mathbb{R}^N$ into a union of two disjoint sets: the null space and the row space. As such, we can write any element of $\mathbb{R}^N$ as a sum of an element from the null space and an element from the row space:
+
+$$
+  \boldsymbol{x} = \boldsymbol{x}_{\text{row}} + \boldsymbol{x}_{\text{null}}
+$$
+
+The rank nullility theorem also lets us make a statement about $\boldsymbol{A}^T$:
+
+$$
+  \text{dim}\big[\text{Null}(\boldsymbol{A}^T)\big] + \text{dim}\big[\text{Row}(\boldsymbol{A}^T)\big] = M
+$$
+
+The corresponding decomposition for any element in $\mathbb{R}^M$ is:
+
+$$
+  \boldsymbol{x} = \boldsymbol{x}_{\text{column}} + \boldsymbol{x}_{\text{left\_null}}
+$$
+
+
+These types of decompositions are used in finding minimum norm solutions to least squares problems when there are infinitely many solutions.
 
