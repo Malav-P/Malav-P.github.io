@@ -59,7 +59,7 @@ div.box {margin:  10px auto;}
             <DIV class="box">
                 <h2>Simulation and Animations</h2>
                     <ul style="list-style-type:none;">
-                    <li><a href="../assets/Resume_MalavPatel.pdf" >Mathematica apps</a> </li>
+                    <li><a href="../_notes/2024-03-14-heat-equation.html" >Heat Equation</a> </li>
                     <li><a href="../assets/Resume_MalavPatel.pdf" >Simulation notes</a> </li>
                     <li><a href="../assets/Resume_MalavPatel.pdf">Lorenz, limit cycle, Van der Pol, etc ...</a> </li>
                     <LI><a href="../assets/Resume_MalavPatel.pdf" >Fourier series animations</a></li>
