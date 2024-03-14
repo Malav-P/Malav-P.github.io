@@ -59,10 +59,10 @@ div.box {margin:  10px auto;}
             <DIV class="box">
                 <h2>Simulation and Animations</h2>
                     <ul style="list-style-type:none;">
-                    <li><a href="../_posts/2024-03-14-heat-equation.html" >Heat Equation</a> </li>
-                    <li><a href="../assets/Resume_MalavPatel.pdf" >Simulation notes</a> </li>
-                    <li><a href="../assets/Resume_MalavPatel.pdf">Lorenz, limit cycle, Van der Pol, etc ...</a> </li>
-                    <LI><a href="../assets/Resume_MalavPatel.pdf" >Fourier series animations</a></li>
+                        {% for note in site.notes %}
+                            <li><a href="{{ note.url }}"> {{ note.title }}</a></li>
+                            <!-- <p>{{ note.content | markdownify }}</p> -->
+                        {% endfor %}
                     </ul>
             </DIV>
         </div>
