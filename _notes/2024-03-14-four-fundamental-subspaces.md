@@ -81,7 +81,7 @@ There are interesting relationships between elements of these subspaces that we 
 
 <center>
 <figure>
-  <img src="../assets/img/orthocomplnullrow.jpeg">
+  <img src="../assets/img/orthocomplleftnullcol.jpeg">
   <figcaption><i>Visualization of the left null space and column space</i></figcaption>
 </figure>
 </center>
