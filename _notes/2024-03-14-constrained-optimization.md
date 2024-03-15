@@ -24,10 +24,7 @@ Above, we assume both $f$ and $\boldsymbol{c}$ are continuous and differentiable
 $$
 \begin{aligned}
     \boldsymbol{A} = \begin{bmatrix}
-    - & \nabla c_1^T & -  \\[1mm]
-    - & \nabla c_2^T & -  \\[1mm]
-    - &\vdots & - \\[1mm]
-    - & \nabla c_m^T & -
+    \nabla c_1 & | &  \nabla c_2 & | & \cdots & | & \nabla c_m
 \end{bmatrix}
 \end{aligned}
 $$
@@ -41,7 +38,7 @@ $$
 Define the set of *descent* directions at a point $\boldsymbol{x}$ as the set of unit-step directions which result in a descrease in the objective function's value:
 
 $$
-\mathcal{D}(\boldsymbol{x}) \triangleq \{\boldsymbol{d} \in \mathbb{R}^n : \boldsymbol{d}^T\,\nabla f(\boldsymbol{x}) \leq 0, \quad \lVert \boldsymbol{d}\rVert_2 = 1\}
+\mathcal{D}(\boldsymbol{x}) \triangleq \{\boldsymbol{d} \in \mathbb{R}^n : \boldsymbol{d}^T\,\nabla f(\boldsymbol{x}) < 0, \quad \lVert \boldsymbol{d}\rVert_2 = 1\}
 $$
 
 Define the set of all *feasible directions* as the set of step directions that result in a new point that satisfies our constraints. At a point $\boldsymbol{x}$ we only care about not violating the constraints that are active: we want to move in a direction orthogonal to the active constraint gradients or in a direction opposite to them:
@@ -55,4 +52,41 @@ Note that if $\boldsymbol{x}^*$ is a local optimal solution of (1), then we must
   Suppose that $\mathcal{D}(\boldsymbol{x}^*)\, \cap\, \mathcal{F}(\boldsymbol{x}^*) \neq \empty$. Then we can choose a direction $\boldsymbol{d} \in \mathcal{D}(\boldsymbol{x}^*)\, \cap\, \mathcal{F}(\boldsymbol{x}^*)$. Let $\bar{\boldsymbol{x}} = \boldsymbol{x}^* + \alpha\boldsymbol{d}$ for a small value of $\alpha > 0$. Then $\bar{\boldsymbol{x}}$ is feasible and $f(\bar{\boldsymbol{x}}) \leq f(\boldsymbol{x}^*)$ since $\boldsymbol{d}$ is both a feasible and descent direction. This violates our initial assumption that $\boldsymbol{x}^*$ was the local minimizer.
 
 ## Towards the KKT Conditions
-At $\boldsymbol{x}^*$ we must have $\mathcal{D}(\boldsymbol{x}^*)\, \cap\, \mathcal{F}(\boldsymbol{x}^*) = \empty$. 
+At $\boldsymbol{x}^*$ we must have
+
+$$
+\mathcal{D}(\boldsymbol{x}^*)\, \cap\, \mathcal{F}(\boldsymbol{x}^*) = \empty \tag{2}
+$$
+From this, we can intuit a form for the gradient of our objective at the optimizer:
+
+$$
+\begin{aligned}
+  & \nabla f(\boldsymbol{x}^*) = -\sum_{i \in \mathcal{A}(\boldsymbol{x}^*)} \lambda_i \, \nabla c_i(\boldsymbol{x}^*), & & \lambda_i \geq0
+\end{aligned}
+$$
+
+We can alternatively use the constraint jacobian and ensure the $\lambda_i$ corresponding to inactive constraints are 0:
+
+$$
+\begin{aligned}
+  & \nabla f(\boldsymbol{x}^*) = -\boldsymbol{A}\boldsymbol{\lambda}, & & \boldsymbol{\lambda} \geq 0
+\end{aligned}
+$$
+
+This says that the gradient is a linear combination of the active constraint gradients at $\boldsymbol{x}^*$. To see that such a form is consistent with (2), let us show that an element of $\mathcal{D}(\boldsymbol{x}^*)$ cannot be an element of $\mathcal{F}(\boldsymbol{x}^*)$ and vice versa:
+
+#### I. $\boldsymbol{d} \in \mathcal{F}(\boldsymbol{x}^*) \implies d \notin \mathcal{D}(\boldsymbol{x}^*)$
+
+Let us project $\boldsymbol{d}$ onto the gradient,
+
+$$
+\begin{aligned}
+  \boldsymbol{d}^T\,\nabla f(\boldsymbol{x}^*) &= -\boldsymbol{d}^T  \boldsymbol{A}\boldsymbol{\lambda} \\\ 
+  &= \sum_{i =1}^m -\lambda_i \, \boldsymbol{d}^T \nabla c_i(\boldsymbol{x}^*) \\\ 
+  &\geq 0
+\end{aligned}
+$$
+
+Where the last equality follows since $\lambda_i \geq 0$ and $\boldsymbol{d}^T \nabla c_i(\boldsymbol{x}^*) \leq0$.
+
+#### I. $\boldsymbol{d} \in \mathcal{D}(\boldsymbol{x}^*) \implies d \notin \mathcal{F}(\boldsymbol{x}^*)$
