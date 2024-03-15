@@ -72,21 +72,21 @@ This says that the gradient is a linear combination of the active constraint gra
 
 #### I. $\boldsymbol{d} \in \mathcal{F}(\boldsymbol{x}^{\*}) \implies d \notin \mathcal{D}(\boldsymbol{x}^{\*})$ 
 
-Let us project $\boldsymbol{d}$ onto the gradient,
+Projecting $\boldsymbol{d}$ onto the gradient,
 
 $$
 \begin{aligned}
   \boldsymbol{d}^T\,\nabla f(\boldsymbol{x}^{*}) 
-  &= \sum_{i \in \mathcal{A}(\boldsymbol{x}^{*})}-\lambda_i \, \boldsymbol{d}^T \nabla c_i(\boldsymbol{x}^{*}) \\\ 
+  &= \sum_{i \in \mathcal{A}(\boldsymbol{x}^{*})}-\lambda_i \, \boldsymbol{d}^T \nabla c_i(\boldsymbol{x}^{*})
   &\geq 0
 \end{aligned}
 $$
 
-Where the last equality follows since $\lambda_i \geq 0$ and $\boldsymbol{d}^T \nabla c_i(\boldsymbol{x}^{\*}) \leq0$.
+The last inequality follows since $\lambda_i \geq 0$ and $\boldsymbol{d}^T \nabla c_i(\boldsymbol{x}^{\*}) \leq0$. Since this inner product is non-negative, $\boldsymbol{d} \notin \mathcal{D}(\boldsymbol{x}^{*})$.
 
 #### II. $\boldsymbol{d} \in \mathcal{D}(\boldsymbol{x}^{\*}) \implies d \notin \mathcal{F}(\boldsymbol{x}^{\*})$
 
-Let us consider the projection of $\boldsymbol{d}$ onto the gradient again:
+Projecting $\boldsymbol{d}$ onto the gradient again,
 
 $$
 \begin{aligned}
@@ -99,7 +99,7 @@ $$
 Since $\lambda_i \geq 0$, there exists at least one $j$ such that $\boldsymbol{d}^T \nabla c_j(\boldsymbol{x}^{\*}) > 0$ so that (3) is satisfied. As a result, $ d \notin \mathcal{F}(\boldsymbol{x}^{\*})$.
 
 ## The KKT Conditions
-Note that instead of writing the gradient as a sum over only the active constraint gradients, we can sum over all the constraint gradients and set the $\lambda_j = 0$ for constraints not in $\mathcal{A}(\boldsymbol{x}^{\*})$. These are often referred to as *complementary slackness* conditions. We are now ready to state the KKT conditions.
+Note that instead of writing the gradient as a sum over only the active constraint gradients, we can sum over all the constraint gradients and set $\lambda_j = 0$ for constraints not in $\mathcal{A}(\boldsymbol{x}^{\*})$. To ensure this, we introduce a set of *complementary slackness* conditions which are stated shortly. We are now ready to state the KKT conditions.
 
 <div style="border: 1px solid black; padding: 10px;">
 KKT Theorem <br>
