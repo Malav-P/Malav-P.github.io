@@ -13,6 +13,14 @@ body {
   font-size: 12px;
 }
 
+.footnote::before {
+  content: '[';
+}
+
+.footnote::after {
+  content: ']';
+}
+
 .katex {
   font-size: 1.08em !important;
 }
