@@ -99,16 +99,14 @@ $$
 Since $\lambda_i \geq 0$, there exists at least one $j$ such that $\boldsymbol{d}^T \nabla c_j(\boldsymbol{x}^{\*}) > 0$ so that (3) is satisfied. As a result, $ d \notin \mathcal{F}(\boldsymbol{x}^{\*})$.
 
 ## The KKT Conditions
-Note that instead of writing[^2] the gradient as a sum over only the active constraint gradients, we can sum over all the constraint gradients and set the $\lambda_j = 0$ for constraints not in $\mathcal{A}(\boldsymbol{x}^{\*})$. We are now ready to state the KKT conditions.
-
-[^2]: this is a footnote
+Note that instead of writing the gradient as a sum over only the active constraint gradients, we can sum over all the constraint gradients and set the $\lambda_j = 0$ for constraints not in $\mathcal{A}(\boldsymbol{x}^{\*})$. We are now ready to state the KKT conditions.
 
 <div style="border: 1px solid black; padding: 10px;">
-  KKT Theorem <br>
+KKT Theorem
 
-  Assume $\boldsymbol{x}^{*}$ is a regular point. [^1] <br>
+Assume $\boldsymbol{x}^{*}$ is a regular point.[^1]
 
-  If $\boldsymbol{x}^{*}$ is a local minimizer to (1), then the following conditions hold.
+If $\boldsymbol{x}^{*}$ is a local minimizer to (1), then the following conditions hold.
 
   $$
     \begin{aligned}
@@ -119,5 +117,5 @@ Note that instead of writing[^2] the gradient as a sum over only the active cons
     \end{aligned}
   $$
 
-  [^1]: At a regular point the active constraint gradients must be linearly independent or satisfy some other weaker condition. We omit them here for the sake of brevity.
+[^1]: At a regular point the active constraint gradients must be linearly independent or satisfy some other weaker condition. We omit them here for the sake of brevity.
 </div>

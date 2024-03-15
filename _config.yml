@@ -27,7 +27,7 @@ collections:
 
 # Customise atom feed settings (this is where Jekyll-Feed gets configuration information)
 title:		           'Malav Patel'
-description:	       'personal/professional website'
+description:	       ''
 author:              'Malav Patel'
 
 # RSS 2.0 can be used instead of Atom by uncommenting following two lines
