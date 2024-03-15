@@ -59,11 +59,12 @@ $$
 \mathcal{D}(\boldsymbol{x}^{*})\, \cap\, \mathcal{F}(\boldsymbol{x}^{*}) = \empty 
 \end{aligned} \tag{2}
 $$
+
 From this, we can intuit a form for the gradient of our objective at the optimizer:
 
 $$
 \begin{aligned}
-  & \nabla f(\boldsymbol{x}^{\*}) = -\sum_{i \in \mathcal{A}(\boldsymbol{x}^{\*})} \lambda_i \, \nabla c_i(\boldsymbol{x}^{\*}), & & \lambda_i \geq0
+  & \nabla f(\boldsymbol{x}^{*}) = -\sum_{i \in \mathcal{A}(\boldsymbol{x}^{*})} \lambda_i \, \nabla c_i(\boldsymbol{x}^{*}), & & \lambda_i \geq0
 \end{aligned}
 $$
 
