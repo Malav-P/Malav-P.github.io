@@ -13,6 +13,10 @@ body {
   font-size: 12px;
 }
 
+.footnote {
+  text-decoration: none;
+}
+
 .footnote::before {
   content: '[';
 }
@@ -49,7 +53,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 a {
-  text-decoration: none;
+  text-decoration: underline;
   color: $dark-gray-color;
 }
 
