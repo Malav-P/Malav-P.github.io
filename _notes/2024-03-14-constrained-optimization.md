@@ -104,8 +104,8 @@ Note that instead of writing the gradient as a sum over only the active constrai
 <div style="border: 1px solid black; padding: 10px;">
 KKT Theorem <br>
 
-Assume $\boldsymbol{x}^{*}$ is a <span markdown="1">
-regular[^2]</span> point.<br>
+Assume $\boldsymbol{x}^{*}$ is a <span markdown='1'>
+regular[^1]</span> point.<br>
 
 If $\boldsymbol{x}^{*}$ is a local minimizer to (1), then the following conditions hold.
 $$
