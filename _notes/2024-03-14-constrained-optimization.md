@@ -101,8 +101,8 @@ Since $\lambda_i \geq 0$, there exists at least one $j$ such that $\boldsymbol{d
 ## The KKT Conditions
 Note that instead of writing the gradient as a sum over only the active constraint gradients, we can sum over all the constraint gradients and set the $\lambda_j = 0$ for constraints not in $\mathcal{A}(\boldsymbol{x}^{\*})$. We are now ready to state the KKT conditions.
 
-<!-- <div style="border: 1px solid black; padding: 10px;">
-KKT Theorem <br> -->
+<div style="border: 1px solid black; padding: 10px;">
+KKT Theorem <br>
 
 Assume $\boldsymbol{x}^{*}$ is a regular[^1] point.<br>
 
@@ -116,9 +116,7 @@ $$
   \end{aligned}
 $$
 
-<!-- </div> -->
+</div>
 
 
 [^1]: At a regular point the active constraint gradients must be linearly independent or satisfy some other weaker condition. We omit them here for the sake of brevity.
-
-Continue Text
