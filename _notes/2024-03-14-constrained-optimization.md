@@ -56,8 +56,8 @@ At $\boldsymbol{x}^{\*}$ we must have
 
 $$
 \begin{aligned}
-&\mathcal{D}(\boldsymbol{x}^{*})\, \cap\, \mathcal{F}(\boldsymbol{x}^{*}) = \empty 
-\end{aligned} \tag{2}
+&\mathcal{D}(\boldsymbol{x}^{*})\, \cap\, \mathcal{F}(\boldsymbol{x}^{*}) = \empty \tag{2}
+\end{aligned} 
 $$
 
 From this, we can intuit a form for the gradient of our objective at the optimizer:
@@ -92,8 +92,8 @@ $$
 \begin{aligned}
   \boldsymbol{d}^T\,\nabla f(\boldsymbol{x}^{*}) 
   &= \sum_{i \in \mathcal{A}(\boldsymbol{x}^{*})} -\lambda_i \, \boldsymbol{d}^T \nabla c_i(\boldsymbol{x}^{*})
-  \leq 0
-\end{aligned} \tag{3}
+  \leq 0 \tag{3}
+\end{aligned} 
 $$
 
 Since $\lambda_i \geq 0$, there exists at least one $j$ such that $\boldsymbol{d}^T \nabla c_j(\boldsymbol{x}^{\*}) > 0$ so that (3) is satisfied. As a result, $ d \notin \mathcal{F}(\boldsymbol{x}^{\*})$.
