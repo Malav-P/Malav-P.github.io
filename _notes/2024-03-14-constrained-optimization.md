@@ -87,6 +87,7 @@ Where the last equality follows since $\lambda_i \geq 0$ and $\boldsymbol{d}^T \
 #### II. $\boldsymbol{d} \in \mathcal{D}(\boldsymbol{x}^{\*}) \implies d \notin \mathcal{F}(\boldsymbol{x}^{\*})$
 
 Let us consider the projection of $\boldsymbol{d}$ onto the gradient again:
+
 $$
 \begin{aligned}
   \boldsymbol{d}^T\,\nabla f(\boldsymbol{x}^{*}) 
