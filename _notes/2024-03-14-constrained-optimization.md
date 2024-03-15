@@ -56,7 +56,7 @@ At $\boldsymbol{x}^{\*}$ we must have
 
 $$
 \begin{aligned}
-\mathcal{D}(\boldsymbol{x}^{\*})\, \cap\, \mathcal{F}(\boldsymbol{x}^{\*}) = \empty 
+\mathcal{D}(\boldsymbol{x}^{*})\, \cap\, \mathcal{F}(\boldsymbol{x}^{*}) = \empty 
 \end{aligned} \tag{2}
 $$
 From this, we can intuit a form for the gradient of our objective at the optimizer:
