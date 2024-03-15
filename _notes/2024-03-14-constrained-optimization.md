@@ -47,46 +47,51 @@ $$
 \mathcal{F}(\boldsymbol{x}) = \{\boldsymbol{d}\in \mathbb{R}^n : \boldsymbol{d}^T \, \nabla c_i(\boldsymbol{x}) \leq 0 \, \, \, \,\forall\, i \in \mathcal{A}(\boldsymbol{x}), \quad \lVert \boldsymbol{d}\rVert_2 = 1\}
 $$
 
-Note that if $\boldsymbol{x}^{\*}$ is a local optimal solution of (1), then we must have $\mathcal{D}(\boldsymbol{x}^\*)\, \cap\, \mathcal{F}(\boldsymbol{x}^\*) = \empty$. In other words, there are no directions that we may step from $\boldsymbol{x}^\*$ that simultaneously reduce the value of $f$ and keep the new point feasible. This can be easily proved by contradiction:
+Note that if $\boldsymbol{x}^{\*}$ is a local optimal solution of (1), then we must have $\mathcal{D}(\boldsymbol{x}^{\*})\, \cap\, \mathcal{F}(\boldsymbol{x}^{\*}) = \empty$. In other words, there are no directions that we may step from $\boldsymbol{x}^{\*}$ that simultaneously reduce the value of $f$ and keep the new point feasible. This can be easily proved by contradiction:
 - Proof <br>
-  Suppose that $\mathcal{D}(\boldsymbol{x}^\*)\, \cap\, \mathcal{F}(\boldsymbol{x}^\*) \neq \empty$. Then we can choose a direction $\boldsymbol{d} \in \mathcal{D}(\boldsymbol{x}^\*)\, \cap\, \mathcal{F}(\boldsymbol{x}^\*)$. Let $\bar{\boldsymbol{x}} = \boldsymbol{x}^\* + \alpha\boldsymbol{d}$ for a small value of $\alpha > 0$. Then $\bar{\boldsymbol{x}}$ is feasible and $f(\bar{\boldsymbol{x}}) \leq f(\boldsymbol{x}^\*)$ since $\boldsymbol{d}$ is both a feasible and descent direction. This violates our initial assumption that $\boldsymbol{x}^\*$ was the local minimizer.
+  Suppose that $\mathcal{D}(\boldsymbol{x}^{\*})\, \cap\, \mathcal{F}(\boldsymbol{x}^{\*}) \neq \empty$. Then we can choose a direction $\boldsymbol{d} \in \mathcal{D}(\boldsymbol{x}^{\*})\, \cap\, \mathcal{F}(\boldsymbol{x}^{\*})$. Let $\bar{\boldsymbol{x}} = \boldsymbol{x}^{\*} + \alpha\boldsymbol{d}$ for a small value of $\alpha > 0$. Then $\bar{\boldsymbol{x}}$ is feasible and $f(\bar{\boldsymbol{x}}) \leq f(\boldsymbol{x}^{\*})$ since $\boldsymbol{d}$ is both a feasible and descent direction. This violates our initial assumption that $\boldsymbol{x}^{\*}$ was the local minimizer.
 
 ## Towards the KKT Conditions
-At $\boldsymbol{x}^\*$ we must have
+At $\boldsymbol{x}^{\*}$ we must have
 
 $$
-\mathcal{D}(\boldsymbol{x}^\*)\, \cap\, \mathcal{F}(\boldsymbol{x}^\*) = \empty \tag{2}
+\begin{aligned}
+\mathcal{D}(\boldsymbol{x}^{\*})\, \cap\, \mathcal{F}(\boldsymbol{x}^{\*}) = \empty 
+\end{aligned} \tag{2}
 $$
 From this, we can intuit a form for the gradient of our objective at the optimizer:
 
 $$
 \begin{aligned}
-  & \nabla f(\boldsymbol{x}^\*) = -\sum_{i \in \mathcal{A}(\boldsymbol{x}^\*)} \lambda_i \, \nabla c_i(\boldsymbol{x}^\*), & & \lambda_i \geq0
+  & \nabla f(\boldsymbol{x}^{\*}) = -\sum_{i \in \mathcal{A}(\boldsymbol{x}^{\*})} \lambda_i \, \nabla c_i(\boldsymbol{x}^{\*}), & & \lambda_i \geq0
 \end{aligned}
 $$
 
-We can alternatively use the constraint jacobian and ensure the $\lambda_i$ corresponding to inactive constraints are 0:
+This says that the gradient is a linear combination of the active constraint gradients at $\boldsymbol{x}^{\*}$. To see that such a form is consistent with (2), let us show that an element of $\mathcal{D}(\boldsymbol{x}^{\*})$ cannot be an element of $\mathcal{F}(\boldsymbol{x}^{\*})$ and vice versa:
 
-$$
-\begin{aligned}
-  & \nabla f(\boldsymbol{x}^\*) = -\boldsymbol{A}\boldsymbol{\lambda}, & & \boldsymbol{\lambda} \geq 0
-\end{aligned}
-$$
-
-This says that the gradient is a linear combination of the active constraint gradients at $\boldsymbol{x}^\*$. To see that such a form is consistent with (2), let us show that an element of $\mathcal{D}(\boldsymbol{x}^\*)$ cannot be an element of $\mathcal{F}(\boldsymbol{x}^\*)$ and vice versa:
-
-#### I. $\boldsymbol{d} \in \mathcal{F}(\boldsymbol{x}^\*) \implies d \notin \mathcal{D}(\boldsymbol{x}^\*)$
+#### I. $\boldsymbol{d} \in \mathcal{F}(\boldsymbol{x}^{\*}) \implies d \notin \mathcal{D}(\boldsymbol{x}^{\*})$
 
 Let us project $\boldsymbol{d}$ onto the gradient,
 
 $$
 \begin{aligned}
-  \boldsymbol{d}^T\,\nabla f(\boldsymbol{x}^\*) &= -\boldsymbol{d}^T  \boldsymbol{A}\boldsymbol{\lambda} \\\ 
-  &= \sum_{i =1}^m -\lambda_i \, \boldsymbol{d}^T \nabla c_i(\boldsymbol{x}^\*) \\\ 
+  \boldsymbol{d}^T\,\nabla f(\boldsymbol{x}^{\*}) 
+  &= \sum_{i \in \mathcal{A}(\boldsymbol{x}^{\*})}-\lambda_i \, \boldsymbol{d}^T \nabla c_i(\boldsymbol{x}^{\*}) \\\ 
   &\geq 0
 \end{aligned}
 $$
 
-Where the last equality follows since $\lambda_i \geq 0$ and $\boldsymbol{d}^T \nabla c_i(\boldsymbol{x}^\*) \leq0$.
+Where the last equality follows since $\lambda_i \geq 0$ and $\boldsymbol{d}^T \nabla c_i(\boldsymbol{x}^{\*}) \leq0$.
 
-#### I. $\boldsymbol{d} \in \mathcal{D}(\boldsymbol{x}^\*) \implies d \notin \mathcal{F}(\boldsymbol{x}^\*)$
+#### II. $\boldsymbol{d} \in \mathcal{D}(\boldsymbol{x}^{\*}) \implies d \notin \mathcal{F}(\boldsymbol{x}^{\*})$
+
+Let us consider the projection of $\boldsymbol{d}$ onto the gradient again:
+$$
+\begin{aligned}
+  \boldsymbol{d}^T\,\nabla f(\boldsymbol{x}^{\*}) 
+  &= \sum_{i \in \mathcal{A}(\boldsymbol{x}^{\*})} -\lambda_i \, \boldsymbol{d}^T \nabla c_i(\boldsymbol{x}^{\*})
+  \leq 0
+\end{aligned} \tag{3}
+$$
+
+Since $\lambda_i \geq 0$, there exists at least one $j$ such that $\boldsymbol{d}^T \nabla c_j(\boldsymbol{x}^{\*}) > 0$ so that (3) is satisfied. As a result, $ d \notin \mathcal{F}(\boldsymbol{x}^{\*})$.
