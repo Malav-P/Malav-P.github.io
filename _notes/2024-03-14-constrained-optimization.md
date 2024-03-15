@@ -99,7 +99,7 @@ $$
 Since $\lambda_i \geq 0$, there exists at least one $j$ such that $\boldsymbol{d}^T \nabla c_j(\boldsymbol{x}^{\*}) > 0$ so that (3) is satisfied. As a result, $ d \notin \mathcal{F}(\boldsymbol{x}^{\*})$.
 
 ## The KKT Conditions
-Note that instead of writing the gradient as a sum over only the active constraint gradients, we can sum over all the constraint gradients and set the $\lambda_j = 0$ for constraints not in $\mathcal{A}(\boldsymbol{x}^{\*})$. We are now ready to state the KKT conditions.
+Note that instead of writing the gradient as a sum over only the active constraint gradients, we can sum over all the constraint gradients and set the $\lambda_j = 0$ for constraints not in $\mathcal{A}(\boldsymbol{x}^{\*})$. These are often referred to as *complementary slackness* conditions. We are now ready to state the KKT conditions.
 
 <div style="border: 1px solid black; padding: 10px;">
 KKT Theorem <br>
@@ -112,7 +112,8 @@ $$
     \nabla f(\boldsymbol{x}^{*}) &= -\sum_{i=1}^m \lambda_i \, \nabla c_i(\boldsymbol{x}^{*}) & & \text{stationarity} \\\ 
     \boldsymbol{c}(\boldsymbol{x}^{*}) & \leq 0 & & \text{primal feasibility} \\\ 
     \lambda_i &\geq 0,\quad i = 1, \ldots, m & & \text{dual feasibility} \\\ 
-    \lambda_i\, c_i(\boldsymbol{x}^{*}) &= 0, \quad i = 1, \ldots, m & & \text{complementary slackness}
+    \lambda_i\, c_i(\boldsymbol{x}^{*}) &= 0, \quad i = 1, \ldots, m & & \text{complementary} \\[-1.8mm]
+    & && \text{slackness}
   \end{aligned}
 $$
 
