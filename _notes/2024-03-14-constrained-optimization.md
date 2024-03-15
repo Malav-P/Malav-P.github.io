@@ -125,7 +125,7 @@ $$
 
 
 #### Necessary Conditions
-We assume that $\boldsymbol{x}$ is a regular point. The necessary conditions help us establish a relationship of the form $ \quad \boldsymbol{x}$ optimal $\implies \fbox{?}$
+We assume that $\boldsymbol{x}$ is a regular point. The necessary conditions help us establish a relationship of the form $  \boldsymbol{x}$ optimal $\implies \fbox{?}$ . The necessary conditions are,
 
 $$
 \begin{aligned}
@@ -133,8 +133,10 @@ $$
 \end{aligned}
 $$
 
+The KKT Theorem above precisely states the necessary conditions for local optimality.
+
 #### Sufficient Conditions
-We assume that $\boldsymbol{x}$ is a regular point. The sufficient conditions help us establish a relationship of the form  $\quad \fbox{?} \implies \boldsymbol{x}$ optimal. In addition to $\boldsymbol{x}$ satisfying the KKT conditions, $f$ and $\boldsymbol{c}$ must be convex for $\boldsymbol{x}$ to be a local minimizer.
+We assume that $\boldsymbol{x}$ is a regular point. The sufficient conditions help us establish a relationship of the form  $ \fbox{?} \implies \boldsymbol{x}$ optimal. The sufficient conditions are, 
 
 $$
 \begin{aligned}
@@ -142,3 +144,5 @@ $$
    \boldsymbol{c} \, \, \, \text{convex}
 \end{aligned}
 $$
+
+We see the sufficient conditions are a bit more restrictive. In addition to $\boldsymbol{x}$ satisfying the KKT conditions, $f$ and $\boldsymbol{c}$ must be convex for $\boldsymbol{x}$ to be a local minimizer. 
