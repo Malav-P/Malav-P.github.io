@@ -12,6 +12,8 @@ tags: []
 
 ## Problem
 
+We aim to investigate a constrained optimization problem and derive the optimality conditions. Consider the following problem.
+
 $$
 \begin{aligned}
  \underset{\boldsymbol{x} \in \mathbb{R}^{n}}{\text{minimize}}& \quad f(\boldsymbol{x}) & & \quad f:\mathbb{R}^n \to \mathbb{R} \\\ 
@@ -119,5 +121,24 @@ $$
 
 </div>
 
-
 [^1]: At a regular point the active constraint gradients must be linearly independent or satisfy some other weaker condition. We omit them here for the sake of brevity.
+
+
+#### Necessary Conditions
+We assume that $\boldsymbol{x}$ is a regular point. The necessary conditions help us establish a relationship of the form $ \quad \boldsymbol{x}$ optimal $\implies \fbox{?}$
+
+$$
+\begin{aligned}
+  \boldsymbol{x} \, \, \,  \text{is a local minimizer} &\implies && \boldsymbol{x} \, \, \, \text{satisfies KKT conditions}
+\end{aligned}
+$$
+
+#### Sufficient Conditions
+We assume that $\boldsymbol{x}$ is a regular point. The sufficient conditions help us establish a relationship of the form  $\quad \fbox{?} \implies \boldsymbol{x}$ optimal. In addition to $\boldsymbol{x}$ satisfying the KKT conditions, $f$ and $\boldsymbol{c}$ must be convex for $\boldsymbol{x}$ to be a local minimizer.
+
+$$
+\begin{aligned}
+   \boldsymbol{x} \, \, \,  \text{satisfies KKT conditions} \\\ f \, \, \, \text{convex}&\implies && \boldsymbol{x} \, \, \,  \text{is a local minimizer} \\\ 
+   \boldsymbol{c} \, \, \, \text{convex}
+\end{aligned}
+$$
