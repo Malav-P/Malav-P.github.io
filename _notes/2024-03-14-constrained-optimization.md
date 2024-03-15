@@ -106,8 +106,6 @@ KKT Theorem <br>
 
 Assume $\boldsymbol{x}^{*}$ is a regular point.[^1]<br>
 
-[^1]: At a regular point the active constraint gradients must be linearly independent or satisfy some other weaker condition. We omit them here for the sake of brevity.
-
 If $\boldsymbol{x}^{*}$ is a local minimizer to (1), then the following conditions hold.
 $$
   \begin{aligned}
@@ -117,5 +115,6 @@ $$
     \lambda_i\, c_i(\boldsymbol{x}^{*}) &= 0, \quad i = 1, \ldots, m & & \text{complementary slackness}
   \end{aligned}
 $$
-
 </div>
+
+[^1]: At a regular point the active constraint gradients must be linearly independent or satisfy some other weaker condition. We omit them here for the sake of brevity.
