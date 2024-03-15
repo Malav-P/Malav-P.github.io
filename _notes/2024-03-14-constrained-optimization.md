@@ -107,15 +107,13 @@ KKT Theorem
 Assume $\boldsymbol{x}^{*}$ is a regular point.[^1]
 
 If $\boldsymbol{x}^{*}$ is a local minimizer to (1), then the following conditions hold.
-
-  $$
-    \begin{aligned}
-      \nabla f(\boldsymbol{x}^{*}) &= -\sum_{i=1}^m \lambda_i \, \nabla c_i(\boldsymbol{x}^{*}) & & \text{stationarity} \\\ 
-      \boldsymbol{c}(\boldsymbol{x}^{*}) & \leq 0 & & \text{primal feasibility} \\\ 
-      \lambda_i &\geq 0,\quad i = 1, \ldots, m & & \text{dual feasibility} \\\ 
-      \lambda_i\, c_i(\boldsymbol{x}^{*}) &= 0, \quad i = 1, \ldots, m & & \text{complementary slackness}
-    \end{aligned}
-  $$
-
+$$
+  \begin{aligned}
+    \nabla f(\boldsymbol{x}^{*}) &= -\sum_{i=1}^m \lambda_i \, \nabla c_i(\boldsymbol{x}^{*}) & & \text{stationarity} \\\ 
+    \boldsymbol{c}(\boldsymbol{x}^{*}) & \leq 0 & & \text{primal feasibility} \\\ 
+    \lambda_i &\geq 0,\quad i = 1, \ldots, m & & \text{dual feasibility} \\\ 
+    \lambda_i\, c_i(\boldsymbol{x}^{*}) &= 0, \quad i = 1, \ldots, m & & \text{complementary slackness}
+  \end{aligned}
+$$
 [^1]: At a regular point the active constraint gradients must be linearly independent or satisfy some other weaker condition. We omit them here for the sake of brevity.
 </div>
