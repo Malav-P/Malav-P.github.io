@@ -56,7 +56,7 @@ At $\boldsymbol{x}^{\*}$ we must have
 
 $$
 \begin{aligned}
-\mathcal{D}(\boldsymbol{x}^{*})\, \cap\, \mathcal{F}(\boldsymbol{x}^{*}) = \empty 
+&\mathcal{D}(\boldsymbol{x}^{*})\, \cap\, \mathcal{F}(\boldsymbol{x}^{*}) = \empty 
 \end{aligned} \tag{2}
 $$
 
@@ -64,7 +64,7 @@ From this, we can intuit a form for the gradient of our objective at the optimiz
 
 $$
 \begin{aligned}
-  & \nabla f(\boldsymbol{x}^{*}) = -\sum_{i \in \mathcal{A}(\boldsymbol{x}^{*})} \lambda_i \, \nabla c_i(\boldsymbol{x}^{*}), & & \lambda_i \geq0
+   \nabla f(\boldsymbol{x}^{*}) &= -\sum_{i \in \mathcal{A}(\boldsymbol{x}^{*})} \lambda_i \, \nabla c_i(\boldsymbol{x}^{*}), & & \lambda_i \geq0
 \end{aligned}
 $$
 
@@ -76,8 +76,8 @@ Let us project $\boldsymbol{d}$ onto the gradient,
 
 $$
 \begin{aligned}
-  \boldsymbol{d}^T\,\nabla f(\boldsymbol{x}^{\*}) 
-  &= \sum_{i \in \mathcal{A}(\boldsymbol{x}^{\*})}-\lambda_i \, \boldsymbol{d}^T \nabla c_i(\boldsymbol{x}^{\*}) \\\ 
+  \boldsymbol{d}^T\,\nabla f(\boldsymbol{x}^{*}) 
+  &= \sum_{i \in \mathcal{A}(\boldsymbol{x}^{*})}-\lambda_i \, \boldsymbol{d}^T \nabla c_i(\boldsymbol{x}^{*}) \\\ 
   &\geq 0
 \end{aligned}
 $$
@@ -89,8 +89,8 @@ Where the last equality follows since $\lambda_i \geq 0$ and $\boldsymbol{d}^T \
 Let us consider the projection of $\boldsymbol{d}$ onto the gradient again:
 $$
 \begin{aligned}
-  \boldsymbol{d}^T\,\nabla f(\boldsymbol{x}^{\*}) 
-  &= \sum_{i \in \mathcal{A}(\boldsymbol{x}^{\*})} -\lambda_i \, \boldsymbol{d}^T \nabla c_i(\boldsymbol{x}^{\*})
+  \boldsymbol{d}^T\,\nabla f(\boldsymbol{x}^{*}) 
+  &= \sum_{i \in \mathcal{A}(\boldsymbol{x}^{*})} -\lambda_i \, \boldsymbol{d}^T \nabla c_i(\boldsymbol{x}^{*})
   \leq 0
 \end{aligned} \tag{3}
 $$
