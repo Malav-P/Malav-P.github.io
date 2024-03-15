@@ -65,12 +65,12 @@ From this, we can intuit a form for the gradient of our objective at the optimiz
 $$
 \begin{aligned}
    \nabla f(\boldsymbol{x}^{*}) &= -\sum_{i \in \mathcal{A}(\boldsymbol{x}^{*})} \lambda_i \, \nabla c_i(\boldsymbol{x}^{*}), & & \lambda_i \geq0
-\end{aligned}s
+\end{aligned}
 $$
 
 This says that the gradient is a linear combination of the active constraint gradients at $\boldsymbol{x}^{\*}$. To see that such a form is consistent with (2), let us show that an element of $\mathcal{D}(\boldsymbol{x}^{\*})$ cannot be an element of $\mathcal{F}(\boldsymbol{x}^{\*})$ and vice versa:
 
-#### I. $\boldsymbol{d} \in \mathcal{F}(\boldsymbol{x}^{\*}) \implies d \notin \mathcal{D}(\boldsymbol{x}^{\*})$
+#### I. $\boldsymbol{d} \in \mathcal{F}(\boldsymbol{x}^{*}) \implies d \notin \mathcal{D}(\boldsymbol{x}^{*})$ 
 
 Let us project $\boldsymbol{d}$ onto the gradient,
 
