@@ -70,7 +70,7 @@ $$
 
 This says that the gradient is a linear combination of the active constraint gradients at $\boldsymbol{x}^{\*}$. To see that such a form is consistent with (2), let us show that an element of $\mathcal{D}(\boldsymbol{x}^{\*})$ cannot be an element of $\mathcal{F}(\boldsymbol{x}^{\*})$ and vice versa:
 
-#### I. $\boldsymbol{d} \in \mathcal{F}(\boldsymbol{x}^{*}) \implies d \notin \mathcal{D}(\boldsymbol{x}^{*})$ 
+#### I. $\boldsymbol{d} \in \mathcal{F}(\boldsymbol{x}^{\*}) \implies d \notin \mathcal{D}(\boldsymbol{x}^{\*})$ 
 
 Let us project $\boldsymbol{d}$ onto the gradient,
 
