@@ -101,9 +101,16 @@ The rank-nullility theorem helps us decompose $\mathbb{R}^N$ and $\mathbb{R}^M$.
 
 The rank nullility theorem allows us to decompose $\mathbb{R}^N$ into a union of two disjoint sets: the null space and the row space. As such, we can write any element of $\mathbb{R}^N$ as a sum of an element from the null space and an element from the row space:
 
-$$
-  \boldsymbol{x} = \boldsymbol{x}_{\text{row}} + \boldsymbol{x}_{\text{null}}
-$$
+
+
+<div style="border: 1px solid black; padding: 10px;">
+
+  For any $\boldsymbol{x} \in \mathbb{R}^N$, 
+
+  $$
+    \boldsymbol{x} = \boldsymbol{x}_{\text{row}} + \boldsymbol{x}_{\text{null}}
+  $$
+</div>
 
 The rank nullility theorem also lets us make a statement about $\boldsymbol{A}^T$:
 
@@ -113,10 +120,15 @@ $$
 
 The corresponding decomposition for any element in $\mathbb{R}^M$ is:
 
-$$
-  \boldsymbol{x} = \boldsymbol{x}_{\text{column}} + \boldsymbol{x}_{\text{left\_null}}
-$$
+<div style="border: 1px solid black; padding: 10px;">
+
+  For any $\boldsymbol{x} \in \mathbb{R}^M$, 
+
+  $$
+    \boldsymbol{x} = \boldsymbol{x}_{\text{col}} + \boldsymbol{x}_{\text{left null}}
+  $$
+</div>
 
 
-These types of decompositions are used in finding minimum norm solutions to least squares problems when there are infinitely many solutions.
+These types of decompositions are used in finding minimum norm solutions to least squares problems.
 
