@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Four Fundamental Subspaces"
+title: "Ridge Regression"
 katex: True
 blurb: ""
 img: ""
@@ -24,7 +24,7 @@ $$
 is solved uniquely by
 
 $$
-\hat{\boldsymbol{x}} = (\boldsymbol{A}^T\boldsymbol{A} + \lambda\boldsymbol{I})^{-1}\boldsymbol{A}^T\boldsymbol{y}
+\hat{\boldsymbol{x}}_{\text{ridge}} = (\boldsymbol{A}^T\boldsymbol{A} + \lambda\boldsymbol{I})^{-1}\boldsymbol{A}^T\boldsymbol{y}
 $$
 
 </div>
@@ -62,7 +62,7 @@ Let us look at the ridge regression estimate for $\boldsymbol{y}$:
 
 $$
 \begin{aligned}
-\hat{\boldsymbol{y}} = \boldsymbol{A}\hat{\boldsymbol{x}} &= \boldsymbol{A} (\boldsymbol{A}^T\boldsymbol{A} + \lambda\boldsymbol{I})^{-1}\boldsymbol{A}^T\boldsymbol{y} \\\ 
+\hat{\boldsymbol{y}} = \boldsymbol{A}\hat{\boldsymbol{x}}_{\text{ridge}} &= \boldsymbol{A} (\boldsymbol{A}^T\boldsymbol{A} + \lambda\boldsymbol{I})^{-1}\boldsymbol{A}^T\boldsymbol{y} \\\ 
 
 &= \boldsymbol{U}\boldsymbol{\Sigma}\boldsymbol{V}^T (\boldsymbol{V}\boldsymbol{\Sigma}^T\boldsymbol{\Sigma}\boldsymbol{V}^T + \lambda\boldsymbol{I})^{-1}\boldsymbol{V}\boldsymbol{\Sigma}^T\boldsymbol{U}^T\boldsymbol{y} \\\ 
 
@@ -80,3 +80,29 @@ $$
 $$
 
 We see that the directions with smaller variance (smaller singular values) are shrunk more than those with larger variance.
+
+## Bias-Variance Tradeoff
+Here we will show that the ridge estimator is biased but has a lower variance than the ordinary least squares estimator. We now replace the (deterministic) observation vector with a random vector with zero-mean gaussian noise, $\boldsymbol{y} \to \boldsymbol{Y}$.
+
+$$
+\begin{aligned}
+  &\boldsymbol{Y} = \boldsymbol{Ax} + \boldsymbol{\epsilon}, & & \quad  \boldsymbol{\epsilon} \sim \mathcal{N}(\boldsymbol{0}, \sigma^2\boldsymbol{I})
+\end{aligned}
+$$
+
+### Bias
+Since the observation vector is now random, the ridge estimator (being a function of this observation vector) is also random. We compute its expectation:
+
+$$
+\begin{aligned}
+  \mathbb{E}[\hat{\boldsymbol{x}}_{\text{ridge}}] &= \mathbb{E}[(\boldsymbol{A}^T\boldsymbol{A} + \lambda\boldsymbol{I})^{-1}\boldsymbol{A}^T\boldsymbol{Y}] \\\ 
+  &= \mathbb{E}[(\boldsymbol{A}^T\boldsymbol{A} + \lambda\boldsymbol{I})^{-1}\boldsymbol{A}^T\boldsymbol{Ax}] + \mathbb{E}[(\boldsymbol{A}^T\boldsymbol{A} + \lambda\boldsymbol{I})^{-1}\boldsymbol{A}^T\boldsymbol{\epsilon}] \\\ 
+  &= (\boldsymbol{A}^T\boldsymbol{A} + \lambda\boldsymbol{I})^{-1}\boldsymbol{A}^T\boldsymbol{Ax} + (\boldsymbol{A}^T\boldsymbol{A} + \lambda\boldsymbol{I})^{-1}\boldsymbol{A}^T\,\mathbb{E}[\boldsymbol{\epsilon}] \\\ 
+  &= (\boldsymbol{A}^T\boldsymbol{A} + \lambda\boldsymbol{I})^{-1}\boldsymbol{A}^T\boldsymbol{Ax} \\\ 
+  &\neq \boldsymbol{x}
+\end{aligned}
+$$
+
+We see that the ridge regression estimator is biased when $\lambda \neq 0$.
+
+### Variance
