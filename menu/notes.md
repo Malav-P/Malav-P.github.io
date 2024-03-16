@@ -68,23 +68,11 @@ div.box {margin:  10px auto;}
         <div class="column">    
             <DIV class="box">
                 <h2>Other Stuff</h2>
-                    <ul style="list-style-type:none;">
-                    <li><a href="../assets/Resume_MalavPatel.pdf" >Mathematica apps</a> </li>
-                    <li><a href="../assets/Resume_MalavPatel.pdf" >Simulation notes</a> </li>
-                    <li><a href="../assets/Resume_MalavPatel.pdf">Lorenz, limit cycle, Van der Pol, etc ...</a> </li>
-                    <LI><a href="../assets/Resume_MalavPatel.pdf" >Fourier series animations</a></li>
-                    </ul>
             </DIV>
         </div>
         <div class="column">    
             <DIV class="box">
                 <h2>More Stuff</h2>
-                    <ul style="list-style-type:none;">
-                    <li><a href="../assets/Resume_MalavPatel.pdf" >Mathematica apps</a> </li>
-                    <li><a href="../assets/Resume_MalavPatel.pdf" >Simulation notes</a> </li>
-                    <li><a href="../assets/Resume_MalavPatel.pdf">Lorenz, limit cycle, Van der Pol, etc ...</a> </li>
-                    <LI><a href="../assets/Resume_MalavPatel.pdf" >Fourier series animations</a></li>
-                    </ul>
             </DIV>
         </div>
     </div>
