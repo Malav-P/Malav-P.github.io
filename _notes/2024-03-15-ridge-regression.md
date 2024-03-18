@@ -106,3 +106,17 @@ $$
 We see that the ridge regression estimator is biased when $\lambda \neq 0$.
 
 ### Variance
+To compute the variance we take note of the following assumptions/facts:
+
+- Assumption : The matrix $\boldsymbol{A}^T\boldsymbol{A}$ is invertible and thus, the ordinary least squares (OLS) estimator $\hat{\boldsymbol{\theta}}_{\text{OLS}} = (\boldsymbol{A}^T\boldsymbol{A})^{-1}\boldsymbol{A}^T\boldsymbol{y}$ exists.
+- Fact : if $X$ is a random vector with covariance matrix $\text{cov}(X) = \boldsymbol{\Sigma}$, then the random vector formed via linear transformation $Y = \boldsymbol{C}X$ has covariance matrix $\text{cov}(Y) = \boldsymbol{C}\boldsymbol{\Sigma}\boldsymbol{C}^T$
+- Fact : The inverse of the transpose of a matrix $\boldsymbol{C}$ equals the transpose of its inverse : $(\boldsymbol{C}^T)^{-1} = (\boldsymbol{C}^{-1})^T$
+
+
+$$
+\begin{aligned}
+  \text{Var}[\hat{\boldsymbol{x}}_{\text{ridge}}] &= \text{Var}[(\boldsymbol{A}^T\boldsymbol{A} + \lambda\boldsymbol{I})^{-1}\boldsymbol{A}^T\boldsymbol{Y}] \\\ 
+  &= \text{Var}[(\boldsymbol{A}^T\boldsymbol{A} + \lambda\boldsymbol{I})^{-1}\boldsymbol{A}^T\boldsymbol{A}\underbrace{(\boldsymbol{A}^T\boldsymbol{A})^{-1}\boldsymbol{A}^T\boldsymbol{Y}}_{\hat{\boldsymbol{x}}_{\text{OLS}}}] \\\ 
+  &= (\boldsymbol{A}^T\boldsymbol{A} + \lambda\boldsymbol{I})^{-1}\boldsymbol{A}^T\boldsymbol{A}\text{Var}[\hat{\boldsymbol{x}}_{\text{OLS}}]\boldsymbol{A}^T\boldsymbol{A}(\boldsymbol{A}^T\boldsymbol{A} + \lambda\boldsymbol{I})^{-1}
+\end{aligned}
+$$
