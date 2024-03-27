@@ -117,6 +117,25 @@ $$
 \begin{aligned}
   \text{Var}[\hat{\boldsymbol{x}}_{\text{ridge}}] &= \text{Var}[(\boldsymbol{A}^T\boldsymbol{A} + \lambda\boldsymbol{I})^{-1}\boldsymbol{A}^T\boldsymbol{Y}] \\\ 
   &= \text{Var}[(\boldsymbol{A}^T\boldsymbol{A} + \lambda\boldsymbol{I})^{-1}\boldsymbol{A}^T\boldsymbol{A}\underbrace{(\boldsymbol{A}^T\boldsymbol{A})^{-1}\boldsymbol{A}^T\boldsymbol{Y}}_{\hat{\boldsymbol{x}}_{\text{OLS}}}] \\\ 
-  &= (\boldsymbol{A}^T\boldsymbol{A} + \lambda\boldsymbol{I})^{-1}\boldsymbol{A}^T\boldsymbol{A}\text{Var}[\hat{\boldsymbol{x}}_{\text{OLS}}]\boldsymbol{A}^T\boldsymbol{A}(\boldsymbol{A}^T\boldsymbol{A} + \lambda\boldsymbol{I})^{-1}
+  &= (\boldsymbol{A}^T\boldsymbol{A} + \lambda\boldsymbol{I})^{-1}\boldsymbol{A}^T\boldsymbol{A}\text{Var}[\hat{\boldsymbol{x}}_{\text{OLS}}]\boldsymbol{A}^T\boldsymbol{A}(\boldsymbol{A}^T\boldsymbol{A} + \lambda\boldsymbol{I})^{-1} \\\ 
+  &= \sigma^2(\boldsymbol{A}^T\boldsymbol{A} + \lambda\boldsymbol{I})^{-1}\boldsymbol{A}^T\boldsymbol{A}(\boldsymbol{A}^T\boldsymbol{A} + \lambda\boldsymbol{I})^{-1}
 \end{aligned}
 $$
+
+In the last line, we use the result for the variance of the OLS estimator. To show that the OLS estimator has higher variance than the ridge estimator, we must show that along any direction vector, the variance of the OLS is larger than the variance of the ridge estimator. The variance along any particular direction $\boldsymbol{u}$ is given by $\boldsymbol{u}^T$ the difference matrix $\text{Var}[\hat{\boldsymbol{x}}_{\text{OLS}}] - \text{Var}[\hat{\boldsymbol{x}}_{\text{ridge}}]$ is *positive definite*.
+
+### Variance Along a Particular Direction
+To show that the OLS estimator has higher variance than the ridge estimator, we must take a brief aside to clear define what it means for a random vector $\boldsymbol{X}$ to have higher variance than a random vector $\boldsymbol{Y}$. Consider the 2D-case of a random vector $\boldsymbol{X}$ and its covariance matrix $\Sigma$. 
+
+$$
+\begin{aligned}
+\Sigma = \begin{bmatrix}
+\sigma_1^2 & \sigma_{12} \\\ 
+\sigma_{21} & \sigma_2^2
+
+\end{bmatrix}
+\end{aligned}
+
+$$
+
+In this case, $\sigma_1^2$ captures the variance along the x-axis (i.e. along the vector $\boldsymbol{u} = [1\quad 0]^T$). Similalry $\sigma_2^2$ captures the variance along the y axis (i.e. along the vector $\boldsymbol{u} = [0\quad 1]^T$).
