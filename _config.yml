@@ -24,6 +24,8 @@ plugins:             [jekyll-paginate, jekyll-sitemap, jekyll-feed, jekyll-seo-t
 collections:
   notes:
     output: true
+  coding:
+    output: true
 
 # Customise atom feed settings (this is where Jekyll-Feed gets configuration information)
 title:		           'Malav Patel'
