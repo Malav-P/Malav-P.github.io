@@ -67,7 +67,12 @@ div.box {margin:  10px auto;}
         </div>
         <div class="column">    
             <DIV class="box">
-                <h2>Other Stuff</h2>
+                <h2>Coding</h2>
+                    <ul style="list-style-type:none;">
+                        {% for code in site.coding %}
+                            <li><a href="{{ code.url }}"> {{ code.title }}</a></li>
+                        {% endfor %}
+                    </ul>
             </DIV>
         </div>
         <div class="column">    
