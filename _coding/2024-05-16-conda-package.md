@@ -61,7 +61,7 @@ source:
 # path: ../
 
 build:
-  script: \{\{ PYTHON \}\} -m pip install . -vv
+  script: &#123;&#123; PYTHON &#125;&#125; -m pip install . -vv
 
 requirements:
   build:
