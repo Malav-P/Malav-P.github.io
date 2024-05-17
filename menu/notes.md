@@ -57,7 +57,7 @@ div.box {margin:  10px auto;}
     <div class="row">
         <div class="column">    
             <DIV class="box">
-                <h2>Simulation and Animations</h2>
+                <h2>Math</h2>
                     <ul style="list-style-type:none;">
                         {% for note in site.notes %}
                             <li><a href="{{ note.url }}"> {{ note.title }}</a></li>
