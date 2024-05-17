@@ -4,6 +4,8 @@ title:
 permalink: /publications
 ---
 
+Below are some articles I've published.
+
 ## Journal Articles
 1. [Cislunar Satellite Constellation Design via Integer Linear Programming](https://rdcu.be/dG8ER)
    - **Authors:** Malav Patel, Yuri Shimane, Hang Woon Lee, Koki Ho
