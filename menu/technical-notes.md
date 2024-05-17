@@ -1,7 +1,7 @@
 ---
 layout: page
 title: 
-permalink: /blog
+permalink: /technical-notes
 ---
 
 Here I will present notes from my learning throughout my undergrad and PhD.
