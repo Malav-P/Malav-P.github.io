@@ -61,7 +61,7 @@ source:
 # path: ../
 
 build:
-  script: {% raw %} {{ PYTHON }} {% endraw %} -m pip install . -vv
+  script: {% raw %} {{ <span style="color:#d44950;">PYTHON</span> }} {% endraw %} -m pip install . -vv
 
 requirements:
   build:
