@@ -10,9 +10,10 @@ tags: []
 <!-- image: -->
 ---
 
-Suppose we have a continuous random variable $X$ taking values in a set $\mathcal{X}$ and is distributed according to $p : \mathcal{X} \to [0, 1]$.
+Suppose we have a random variable $X$ taking values in a set $\mathcal{X}$ and is distributed according to $p : \mathcal{X} \to [0, 1]$.
 
-The information of a particular realization of $X$, denoted by $x \in \mathcal{X}$, is defined as
+The information, $I$, of a particular sample of $X$, denoted by $x \in \mathcal{X}$, is defined as
+
 $$
 \begin{aligned}
 I(x) &= \text{log}_2\Big(\frac{1}{p(x)}\Big) \\
