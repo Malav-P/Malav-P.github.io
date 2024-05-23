@@ -50,7 +50,7 @@ If we plot the entropy $H(X)$ as a function of $\lambda$, we get:
 
 <center>
 <figure>
-  <img src="../assets/img/entropy-bernoulli.png" width="65%">
+  <img src="../assets/img/entropy-bernoulli.png" width="100%">
   <figcaption><i>Entropy of Bernoulli Random Variable</i></figcaption>
 </figure>
 </center>
