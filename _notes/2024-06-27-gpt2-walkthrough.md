@@ -1,5 +1,5 @@
 ---
-layout: post_wide
+layout: post
 title: "GPT2 Walkthrough"
 katex: True
 blurb: ""
