@@ -19,6 +19,16 @@
   margin-bottom: 4rem;
 }
 
+.svg-container {
+  max-width: 100%; /* Set the maximum width to fit the screen */
+  overflow: auto; /* If the SVG is larger than the container, enable scrolling */
+}
+
+svg {
+  width: 100%; /* Make the SVG width take the full width of the container */
+  height: auto; /* Preserve the aspect ratio by adjusting the height automatically */
+}
+
 
 
 /*48em*/
