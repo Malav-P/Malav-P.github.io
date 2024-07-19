@@ -102,10 +102,9 @@ The first is a matmul block which applies a simple linear transformation to the 
 #### GeLU $(T, 4C) \to (T, 4C)$
 
 Following this matmul we have a nonlinearity that is applied element-wise to the data. This is necessary because the next block is another linear transformation. Without this nonlinearity in between, the two linear transformations in this FeedForward block would be equivalent to a single composed linear transformation. We use an approximation to the GeLU function for computational speed. The approximation applies the following nonlinear transformation:
+
 $$
-
 \text{GeLU}(x) \approx \frac{1}{2}x\left[1+\tanh\left(\sqrt{\frac{2}{\pi}}\left(x + 0.044715x^{3}\right)\right)\right]
-
 $$
 
 #### Matmul $(T, 4C) \to (T, C)$
