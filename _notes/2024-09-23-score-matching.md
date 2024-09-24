@@ -12,7 +12,7 @@ tags: []
 
 In this note, we describe score matching.
 
-Consider a dataset $\mathcal{D} = \{\mathbf{x}_i\}_{i=1}^n$ where $\mathbf{x} \in \mathbb{R}^d$. Consider an energy based model
+Consider a dataset $\mathcal{D} = \{\mathbf{x}_i\}\_{i=1}^n$ where $\mathbf{x} \in \mathbb{R}^d$. Consider an energy based model
 
 $$
 p(\mathbf{x}) = \frac{e^{-f_{\theta}(x)}}{Z(\theta)}
