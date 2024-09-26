@@ -85,13 +85,16 @@ $$
 $$
 
 Returning to the beginning we have,
+
 $$
 \begin{aligned}
 \nabla_{\mathbf{x}'}\log{p(\mathbf{x}')} &= \mathbb{E}_{\mathbf{x}'|\mathbf{x}}[\nabla_{\mathbf{x}'}\log{p(\mathbf{x}'|\mathbf{x})}] \\ 
 &= \mathbb{E}_{\mathbf{x}|\mathbf{x}'}\bigg[\frac{\sqrt{1-\beta}\mathbf{x} - \mathbf{x}'}{\beta}\bigg]
 \end{aligned}
 $$
+
 Rearranging terms outside the expectation,
+
 $$
 \begin{equation}
 \mathbf{x}' + \beta\nabla_{\mathbf{x}'}\log{p(\mathbf{x}')} = \sqrt{1-\beta}\mathbb{E}_{\mathbf{x}|\mathbf{x}'}[\mathbf{x}]
@@ -99,8 +102,10 @@ $$
 $$
 
 Equation (2) tell us we can find the expected value of $\mathbf{x}$ given $\mathbf{x}'$. However, we cannot calculate the score function for $p(\mathbf{x}')$. Instead, let us use a function approximator to approximate the score function,
+
 $$
 s_{\theta}(\mathbf{x}', \beta) \approx \nabla_{\mathbf{x}'}\log{p(\mathbf{x}')}
+
 $$
 
 Then we can use (2) to define a minimization objective:
@@ -121,6 +126,7 @@ $$
 $$
 
 Note that the second term is independent of $\theta$ so it can be dropped from the loss function as it is a constant. Consider the inner product from the third term.
+
 $$
 \begin{aligned}
 \mathbb{E}_{\mathbf{x},\mathbf{x}'}[\langle \mathbf{x}' + \beta s_{\theta}(\mathbf{x}', \beta) - \sqrt{1-\beta}\mathbf{x}, \sqrt{1-\beta}\mathbf{x} - \sqrt{1-\beta}\mathbb{E}_{\mathbf{x}|\mathbf{x}'}[\mathbf{x}]\rangle] &= \mathbb{E}_{\mathbf{x}'}\mathbb{E}_{\mathbf{x}|\mathbf{x}'}[\langle \mathbf{x}' + \beta s_{\theta}(\mathbf{x}', \beta) - \sqrt{1-\beta}\mathbf{x}, \sqrt{1-\beta}\mathbf{x} - \sqrt{1-\beta}\mathbb{E}_{\mathbf{x}|\mathbf{x}'}[\mathbf{x}]\rangle]\\ 
@@ -135,6 +141,7 @@ $$
 $$
 
 Recall that $\mathbf{x}' - \sqrt{1-\beta}\mathbf{x} = \sqrt{\beta}\mathbf{\epsilon}$ and let us modify the approximator slightly like so: $s_{\theta}(\mathbf{x}', \beta) \approx -\frac{1}{\beta}\nabla_{\mathbf{x}'}\log{p(\mathbf{x}')}$. Then our objective can be written as
+
 $$
 \begin{equation}
 \min_{\theta} \quad \mathbb{E}_{\beta}\mathbb{E}_{\mathbf{x},\mathbf{x}'}[\beta\|s_{\theta}(\mathbf{x}', \beta) - \mathbf{\epsilon}\|^2]
