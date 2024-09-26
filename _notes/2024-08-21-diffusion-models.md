@@ -88,7 +88,7 @@ Returning to the beginning we have,
 
 $$
 \begin{aligned}
-\nabla_{\mathbf{x}'}\log{p(\mathbf{x}')} &= \mathbb{E}_{\mathbf{x}'|\mathbf{x}}[\nabla_{\mathbf{x}'}\log{p(\mathbf{x}'|\mathbf{x})}] \\ 
+\nabla_{\mathbf{x}'}\log{p(\mathbf{x}')} &= \mathbb{E}_{\mathbf{x}|\mathbf{x}'}[\nabla_{\mathbf{x}'}\log{p(\mathbf{x}'|\mathbf{x})}] \\ 
 &= \mathbb{E}_{\mathbf{x}|\mathbf{x}'}\bigg[\frac{\sqrt{1-\beta}\mathbf{x} - \mathbf{x}'}{\beta}\bigg]
 \end{aligned}
 $$
@@ -112,7 +112,7 @@ Then we can use (2) to define a minimization objective:
 
 $$
 \begin{equation}
-\min_\theta \quad \mathbb{E}_{\beta}\mathbb{E}_{\mathbf{x}, \mathbf{x}'}[\|\mathbf{x}' + \beta s_{\theta}(\mathbf{x}', \beta) - \sqrt{1-\beta}\mathbb{E}_{\mathbf{x}'|\mathbf{x}}[\mathbf{x}]\|^2]
+\min_\theta \quad \mathbb{E}_{\beta}\mathbb{E}_{\mathbf{x}, \mathbf{x}'}[\|\mathbf{x}' + \beta s_{\theta}(\mathbf{x}', \beta) - \sqrt{1-\beta}\mathbb{E}_{\mathbf{x}|\mathbf{x}'}[\mathbf{x}]\|^2]
 \end{equation}
 $$
 
