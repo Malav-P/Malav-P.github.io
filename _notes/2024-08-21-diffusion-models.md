@@ -52,3 +52,92 @@ $$
 The collection $\{\beta_t\}_{t=1}^{T}$ defines the $\it{\text{variance schedule}}$ of the diffusion process and is often fixed (not learned via training).
 
 
+
+# Diffusion from A Gradient Matching Perspective
+
+Consider the data distribution $p(\mathbf{x})$. Let us introduce a surrogate model of the form $p(\mathbf{x}' | \mathbf{x}) := \mathcal{N}(\sqrt{1-\beta}\mathbf{x}, \beta \mathbf{I})$. This is equivalent to saying 
+$$
+\mathbf{x}' = \sqrt{1-\beta}\mathbf{x} + \sqrt{\beta}\mathbf{\epsilon} \quad \mathbf{\epsilon} \sim \mathcal{N(0, \mathbf{I})}
+$$
+
+The distribution over $\mathbf{x}'$ can be found with the chain rule of probability,
+$$
+p(\mathbf{x}') = \int p(\mathbf{x}) p(\mathbf{x}' | \mathbf{x}) \ d\mathbf{x}
+$$
+
+Now consider the gradient of the score function for this distribution,
+$$
+\begin{aligned}
+\nabla_{\mathbf{x}'}\log{p(\mathbf{x}')} &= \frac{\nabla_{\mathbf{x}'}\int p(\mathbf{x})p(\mathbf{x}' | \mathbf{x}) \ d\mathbf{x}}{p(\mathbf{x}')} \\ 
+&= \frac{\int p(\mathbf{x}) \nabla_{\mathbf{x}'}p(\mathbf{x}' | \mathbf{x}) \ d\mathbf{x}}{p(\mathbf{x}')} \\ 
+&= \int \frac{p(\mathbf{x})p(\mathbf{x}'|\mathbf{x})}{p(\mathbf{x}')}\nabla_{\mathbf{x}'}\log{p(\mathbf{x}'|\mathbf{x})} \ d\mathbf{x} \\ 
+&= \int p(\mathbf{x} | \mathbf{x}') \nabla_{\mathbf{x}'}\log{p(\mathbf{x}'|\mathbf{x})} \ d\mathbf{x} \\ 
+&= \mathbb{E}_{\mathbf{x}|\mathbf{x}'}[\nabla_{\mathbf{x}'}\log{p(\mathbf{x}'|\mathbf{x})}]
+\end{aligned}
+$$
+
+Let us break down the term inside the expectation.
+$$
+\begin{aligned}
+\nabla_{\mathbf{x}'}\log{p(\mathbf{x}'|\mathbf{x})} &= - \nabla_{\mathbf{x}'}\frac{\|\mathbf{x}' - \sqrt{1-\beta}\mathbf{x} \|^2}{2\beta} \\ 
+&= \frac{\sqrt{1-\beta}\mathbf{x}-\mathbf{x}'}{\beta}
+\end{aligned}
+$$
+
+Returning to the beginning we have,
+$$
+\begin{aligned}
+\nabla_{\mathbf{x}'}\log{p(\mathbf{x}')} &= \mathbb{E}_{\mathbf{x}'|\mathbf{x}}[\nabla_{\mathbf{x}'}\log{p(\mathbf{x}'|\mathbf{x})}] \\ 
+&= \mathbb{E}_{\mathbf{x}|\mathbf{x}'}\bigg[\frac{\sqrt{1-\beta}\mathbf{x} - \mathbf{x}'}{\beta}\bigg]
+\end{aligned}
+$$
+Rearranging terms outside the expectation,
+$$
+\begin{equation}
+\mathbf{x}' + \beta\nabla_{\mathbf{x}'}\log{p(\mathbf{x}')} = \sqrt{1-\beta}\mathbb{E}_{\mathbf{x}|\mathbf{x}'}[\mathbf{x}]
+\end{equation}
+$$
+
+Equation (2) tell us we can find the expected value of $\mathbf{x}$ given $\mathbf{x}'$. However, we cannot calculate the score function for $p(\mathbf{x}')$. Instead, let us use a function approximator to approximate the score function,
+$$
+s_{\theta}(\mathbf{x}', \beta) \approx \nabla_{\mathbf{x}'}\log{p(\mathbf{x}')}
+$$
+
+Then we can use (2) to define a minimization objective:
+
+$$
+\begin{equation}
+\min_\theta \quad \mathbb{E}_{\beta}\mathbb{E}_{\mathbf{x}, \mathbf{x}'}[\|\mathbf{x}' + \beta s_{\theta}(\mathbf{x}', \beta) - \sqrt{1-\beta}\mathbb{E}_{\mathbf{x}'|\mathbf{x}}[\mathbf{x}]\|^2]
+\end{equation}
+$$
+
+The expectation inside of the loss function makes optimization difficult. Let us derive an equivalent objective by considering the expectation over $\mathbf{x}'$ and $\mathbf{x}$:
+
+$$
+\begin{aligned}
+\mathbb{E}_{\mathbf{x}, \mathbf{x}'}[\|\mathbf{x}' + \beta s_{\theta}(\mathbf{x}', \beta) - \sqrt{1-\beta}\mathbb{E}_{\mathbf{x}|\mathbf{x}'}[\mathbf{x}]\|^2] &= \mathbb{E}_{\mathbf{x},\mathbf{x}'}[\|\mathbf{x}' + \beta s_{\theta}(\mathbf{x}', \beta) - \sqrt{1-\beta}\mathbf{x} + \sqrt{1-\beta}\mathbf{x} - \sqrt{1-\beta}\mathbb{E}_{\mathbf{x}|\mathbf{x}'}[\mathbf{x}]\|^2] \\ 
+&= \mathbb{E}_{\mathbf{x},\mathbf{x}'}[\|\mathbf{x}' + \beta s_{\theta}(\mathbf{x}', \beta) - \sqrt{1-\beta}\mathbf{x}\|^2] + \underbrace{(1-\beta)\mathbb{E}_{\mathbf{x},\mathbf{x}'}[\|\mathbf{x} - \mathbb{E}_{\mathbf{x}|\mathbf{x}'}[\mathbf{x}]\|^2]}_{\text{independent of}\ \  \theta} + 2\mathbb{E}_{\mathbf{x},\mathbf{x}'}[\langle \mathbf{x}' + \beta s_{\theta}(\mathbf{x}', \beta) - \sqrt{1-\beta}\mathbf{x}, \sqrt{1-\beta}\mathbf{x} - \sqrt{1-\beta}\mathbb{E}_{\mathbf{x}|\mathbf{x}'}[\mathbf{x}]\rangle]
+\end{aligned}
+$$
+
+Note that the second term is independent of $\theta$ so it can be dropped from the loss function as it is a constant. Consider the inner product from the third term.
+$$
+\begin{aligned}
+\mathbb{E}_{\mathbf{x},\mathbf{x}'}[\langle \mathbf{x}' + \beta s_{\theta}(\mathbf{x}', \beta) - \sqrt{1-\beta}\mathbf{x}, \sqrt{1-\beta}\mathbf{x} - \sqrt{1-\beta}\mathbb{E}_{\mathbf{x}|\mathbf{x}'}[\mathbf{x}]\rangle] &= \mathbb{E}_{\mathbf{x}'}\mathbb{E}_{\mathbf{x}|\mathbf{x}'}[\langle \mathbf{x}' + \beta s_{\theta}(\mathbf{x}', \beta) - \sqrt{1-\beta}\mathbf{x}, \sqrt{1-\beta}\mathbf{x} - \sqrt{1-\beta}\mathbb{E}_{\mathbf{x}|\mathbf{x}'}[\mathbf{x}]\rangle]\\ 
+&= \mathbb{E}_{\mathbf{x}'}\bigg[\bigg\langle \mathbf{x}' + \beta s_{\theta}(\mathbf{x}', \beta) - \sqrt{1-\beta}\mathbb{E}_{\mathbf{x}|\mathbf{x}'}[\mathbf{x}], \underbrace{\sqrt{1-\beta}\mathbb{E}_{\mathbf{x}|\mathbf{x}'}[\mathbf{x}] - \sqrt{1-\beta}\mathbb{E}_{\mathbf{x}|\mathbf{x}'}[\mathbf{x}]}_{=\ 0}\bigg\rangle\bigg] \\ 
+&= 0
+\end{aligned}
+$$
+
+Now we can rewrite our objective as 
+$$
+\min_{\theta} \quad \mathbb{E}_{\beta}\mathbb{E}_{\mathbf{x},\mathbf{x}'}[\|\mathbf{x}' + \beta s_{\theta}(\mathbf{x}', \beta) - \sqrt{1-\beta}\mathbf{x}\|^2]
+$$
+
+Recall that $\mathbf{x}' - \sqrt{1-\beta}\mathbf{x} = \sqrt{\beta}\mathbf{\epsilon}$ and let us modify the approximator slightly like so: $s_{\theta}(\mathbf{x}', \beta) \approx -\frac{1}{\beta}\nabla_{\mathbf{x}'}\log{p(\mathbf{x}')}$. Then our objective can be written as
+$$
+\begin{equation}
+\min_{\theta} \quad \mathbb{E}_{\beta}\mathbb{E}_{\mathbf{x},\mathbf{x}'}[\beta\|s_{\theta}(\mathbf{x}', \beta) - \mathbf{\epsilon}\|^2]
+\end{equation}
+$$
+

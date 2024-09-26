@@ -37,7 +37,7 @@ $$
 \end{aligned}
 $$
 
-This is the essence of constrastive divergence. Suppose we do not wish to work with the intractable $Z(\theta)$. Consider then minimizing the Fisher divergence between our proposed distribution $p$ and the data distribution $\hat{p}$:
+Suppose we do not wish to work with the intractable $Z(\theta)$. Consider then minimizing the Fisher divergence between our proposed distribution $p$ and the data distribution $\hat{p}$:
 
 $$
 \begin{aligned}
