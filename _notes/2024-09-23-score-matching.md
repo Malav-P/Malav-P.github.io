@@ -31,7 +31,6 @@ Taking the gradient,
 
 $$
 \begin{aligned}
-
 \nabla_{\theta}\ l(\theta) &= - \nabla_{\theta}\log Z(\theta) -\frac{1}{n}\sum_{i=1}^{n} \nabla_{\theta}f_{\theta}(\mathbf{x}_i)  \\ 
 &=  \mathbb{E}_{p(\mathbf{x})}[\nabla_{\theta}f_{\theta}(\mathbf{x})]  -\frac{1}{n}\sum_{i=1}^{n} \nabla_{\theta}f_{\theta}(\mathbf{x}_i) 
 \end{aligned}
@@ -50,6 +49,7 @@ D_F(p \ ||\  \hat{p}) :&= \mathbb{E}_{\hat{p}(\mathbf{x})}[ \| \nabla_{\mathbf{x
 $$
 
 The first term is constant with respect to $p$ and can be dropped during optimization. The second term is dependent on $p$ and can be sampled. Looking at the last term:
+
 $$
 \begin{aligned}
 \mathbb{E}_{\hat{p}(\mathbf{x})}[\langle \nabla_{\mathbf{x}}\log \hat{p}(\mathbf{x}), \nabla_{\mathbf{x}
@@ -97,7 +97,7 @@ Now with a model of the score function, we can generate samples from the data di
 For large number of recursive iterations, the samples $\mathbf{x}_t$ will start to converge to samples from the true distribution (under some regularity conditions, which for practical purposes are often ignored). 
 
 # Denoising Score Matching
-Suppose that materializing the jacobian $\nabla_{\mathbf{x}}\mathbf{s}_{\theta}(\mathbf{x})$ becomes difficult. Let us introduce another model $p(\mathbf{x}'|\mathbf{x})$ that perturbs the data with noise. Then $p(\mathbf{x}') = \int p(\mathbf{x})p(\mathbf{x}'|\mathbf{x})\ d\mathbf{x} $. The intuition is that if the noise is small enough, then the score function of the perturbed distribution will be approximately equal to that of the true distribution. Then we can run Langevin dynamics on this perturbed distribution. Our objective is
+Suppose that materializing the jacobian $\nabla\\_{\mathbf{x}}\mathbf{s}_{\theta}(\mathbf{x})$ becomes difficult. Let us introduce another model $p(\mathbf{x}'|\mathbf{x})$ that perturbs the data with noise. Then $p(\mathbf{x}') = \int p(\mathbf{x})p(\mathbf{x}'|\mathbf{x})\ d\mathbf{x} $. The intuition is that if the noise is small enough, then the score function of the perturbed distribution will be approximately equal to that of the true distribution. Then we can run Langevin dynamics on this perturbed distribution. Our objective is
 
 $$
 \begin{aligned}
@@ -139,7 +139,28 @@ $$
 \end{aligned}
 $$
 
-Looking at the two objectives, the first two terms match and the third terms are constant with respect to $\theta$. So we conclude that $\argmin_{\theta} \bar{J}(\theta) = \argmin_{\theta} J(\theta)$.
+Looking at the two objectives, the first two terms match and the third terms are constant with respect to $\theta$. So we conclude that $\argmin_{\theta} \bar{J}(\theta) = \argmin_{\theta} J(\theta)$. For learning, we need the gradient of this objective, 
+
+$$
+\begin{aligned}
+\nabla_{\theta}\bar{J}(\theta)  &= \nabla_{\theta}\mathbb{E}_{\mathbf{x},\mathbf{x}'}[ \| \nabla_{\mathbf{x}'}\log p(\mathbf{x}'|\mathbf{x}) - \mathbf{s}_{\theta}(\mathbf{x}') \|^2] \\ 
+&=  \mathbb{E}_{\mathbf{x},\mathbf{x}'}[ \nabla_{\theta}\| \nabla_{\mathbf{x}'}\log p(\mathbf{x}'|\mathbf{x}) - \mathbf{s}_{\theta}(\mathbf{x}') \|^2] \\ 
+&= 2\mathbb{E}_{\mathbf{x},\mathbf{x}'}\Big[\Big(\nabla_{\theta}\mathbf{s}_{\theta}(\mathbf{x}')\Big)\Big(\mathbf{s}_{\theta}(\mathbf{x}') - \nabla_{\mathbf{x}'}\log p(\mathbf{x}'|\mathbf{x})\Big)\Big]
+\end{aligned}
+$$
+
+Where we assume the score function approximator is differentiable and has jacobian,
+
+$$
+\nabla_{\theta}\mathbf{s}_{\theta}(\mathbf{x}') = \begin{bmatrix}
+    - & \frac{d\mathbf{s}_{\theta}}{d\theta_1}^T & -  \\\ 
+    
+    - & \frac{d\mathbf{s}_{\theta}}{d\theta_2}^T & -  \\\ 
+    - &\vdots & - \\\ 
+    - & \frac{d\mathbf{s}_{\theta}}{d\theta_n}^T & -
+\end{bmatrix}
+$$
+
 
 ### References
 
