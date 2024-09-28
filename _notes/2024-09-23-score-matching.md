@@ -12,7 +12,7 @@ tags: []
 
 In this note, we describe score matching.
 
-Consider a dataset $\mathcal{D} = \{\mathbf{x}_i\}\\_{i=1}^{n}$ where $\mathbf{x} \in \mathbb{R}^d$. Consider an energy based model
+Consider a dataset $\mathcal{D} = \{\mathbf{x}\_i\}\\_{i=1}^{n}$ where $\mathbf{x} \in \mathbb{R}^d$. Consider an energy based model
 
 $$
 p(\mathbf{x}) = \frac{e^{-f_{\theta}(x)}}{Z(\theta)}
@@ -83,7 +83,7 @@ $$
 \end{aligned}
 $$
 
-Instead of searching for the distribution $p$, we can instead search for the score function directly. More formally, we let $\mathbf{s}_{\theta}(\mathbf{x}) = \nabla_{\mathbf{x}}\log{p(\mathbf{x})}$ and optimize over $\theta$ instead:
+Instead of searching for the distribution $p$, we can instead search for the score function directly. More formally, we let $\mathbf{s}\_{\theta}(\mathbf{x}) = \nabla\_{\mathbf{x}}\log{p(\mathbf{x})}$ and optimize over $\theta$ instead:
 
 $$
 \min_{\theta}\quad  \mathbb{E}_{\hat{p}(\mathbf{x})}[\|\mathbf{s}_{\theta}(\mathbf{x})\|^2 + 2\ \text{tr}\big(\nabla_{\mathbf{x}}\mathbf{s}_{\theta}(\mathbf{x}\big))]
@@ -92,7 +92,7 @@ $$
 Now with a model of the score function, we can generate samples from the data distribution using Langevin dynamics:
 
 1. Sample $\mathbf{x}_0 \sim \pi(\mathbf{x})$ from some prior distribution $\pi$.
-2. Recursively compute $\mathbf{x}_t = \mathbf{x}_{t-1} + \frac{\epsilon}{2}\mathbf{s}_{\theta}(\mathbf{x}_{t-1}) + \sqrt{\epsilon}\ \mathbf{z}_t$, where $\mathbf{z}_t \sim \mathcal{N}(0, I)$ and some small $\epsilon > 0$.
+2. Recursively compute $\mathbf{x}\_t = \mathbf{x}\_{t-1} + \frac{\epsilon}{2}\mathbf{s}\_{\theta}(\mathbf{x}\_{t-1}) + \sqrt{\epsilon}\ \mathbf{z}\_t$, where $\mathbf{z}\_t \sim \mathcal{N}(0, I)$ and some small $\epsilon > 0$.
 
 For large number of recursive iterations, the samples $\mathbf{x}_t$ will start to converge to samples from the true distribution (under some regularity conditions, which for practical purposes are often ignored). 
 
