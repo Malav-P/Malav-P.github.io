@@ -10,7 +10,7 @@ tags: []
 <!-- image: -->
 ---
 
-In this note, we describe score matching.
+<!-- In this note, we describe score matching.
 
 Consider a dataset $\mathcal{D} = \{\mathbf{x}\_i\}\\_{i=1}^{n}$ where $\mathbf{x} \in \mathbb{R}^d$. Consider an energy based model
 
@@ -34,14 +34,14 @@ $$
 \nabla_{\theta}\ l(\theta) &= - \nabla_{\theta}\log Z(\theta) -\frac{1}{n}\sum_{i=1}^{n} \nabla_{\theta}f_{\theta}(\mathbf{x}_i)  \\ 
 &=  \mathbb{E}_{p(\mathbf{x})}[\nabla_{\theta}f_{\theta}(\mathbf{x})]  -\frac{1}{n}\sum_{i=1}^{n} \nabla_{\theta}f_{\theta}(\mathbf{x}_i) 
 \end{aligned}
-$$
+$$ -->
 
 ## Score Matching
-Suppose we do not wish to work with the intractable $Z(\theta)$. Consider then the problem of finding a distribution $p$  that minimizes the Fisher divergence between our proposed distribution $p$ and the data distribution $\hat{p}$:
+Suppose we do not wish to work with the intractable $Z(\theta)$ that arises when trying to optimize energy based models. Consider then the problem of finding a distribution $p$  that minimizes the Fisher divergence between our data distribution $\hat{p}$ and the model distribution $p$:
 
 $$
 \begin{aligned}
-D_F(p \ ||\  \hat{p}) :&= \mathbb{E}_{\hat{p}(\mathbf{x})}[ \| \nabla_{\mathbf{x}}\log \hat{p}(\mathbf{x}) - \nabla_{\mathbf{x}
+\min_{p} \quad D_F(p \ ||\  \hat{p}) :&= \mathbb{E}_{\hat{p}(\mathbf{x})}[ \| \nabla_{\mathbf{x}}\log \hat{p}(\mathbf{x}) - \nabla_{\mathbf{x}
 }\log p(\mathbf{x})  \|^2] \\ 
 &= \mathbb{E}_{\hat{p}(\mathbf{x})}[\|\nabla_{\mathbf{x}}\log \hat{p}(\mathbf{x})\|^2] + \mathbb{E}_{\hat{p}(\mathbf{x})}[\|\nabla_{\mathbf{x}}\log p(\mathbf{x})\|^2 ] - 2 \mathbb{E}_{\hat{p}(\mathbf{x})}[\langle \nabla_{\mathbf{x}}\log \hat{p}(\mathbf{x}), \nabla_{\mathbf{x}
 }\log p(\mathbf{x}) \rangle]
@@ -97,12 +97,12 @@ Now with a model of the score function, we can generate samples from the data di
 For large number of recursive iterations, the samples $\mathbf{x}_t$ will start to converge to samples from the true distribution (under some regularity conditions, which for practical purposes are often ignored). 
 
 # Denoising Score Matching
-Suppose that materializing the jacobian $\nabla\\_{\mathbf{x}}\mathbf{s}_{\theta}(\mathbf{x})$ becomes difficult. Let us introduce another model $p(\mathbf{x}'|\mathbf{x})$ that perturbs the data with noise. Then $p(\mathbf{x}') = \int p(\mathbf{x})p(\mathbf{x}'|\mathbf{x})\ d\mathbf{x} $. The intuition is that if the noise is small enough, then the score function of the perturbed distribution will be approximately equal to that of the true distribution. Then we can run Langevin dynamics on this perturbed distribution. Our objective is
+Suppose that materializing the jacobian $\nabla\_{\mathbf{x}}\mathbf{s}\_{\theta}(\mathbf{x})$ becomes difficult. Let us introduce another model $q(\mathbf{x}'|\mathbf{x})$ that perturbs the data with noise. Then $q(\mathbf{x}') = \int p(\mathbf{x})q(\mathbf{x}'|\mathbf{x})\ d\mathbf{x} $. The intuition is that if the noise is small enough, then the score function of the perturbed distribution will be approximately equal to that of the true distribution. Then we can run Langevin dynamics on this perturbed distribution. Our objective is
 
 $$
 \begin{aligned}
-J(\theta) &= \mathbb{E}_{\mathbf{x}'}[ \| \nabla_{\mathbf{x}'}\log p(\mathbf{x}') - \mathbf{s}_{\theta}(\mathbf{x}') \|^2] \\ 
-&= \mathbb{E}_{\mathbf{x}'}[\|\mathbf{s}_{\theta}(\mathbf{x}') \|^2] - 2\mathbb{E}_{\mathbf{x}'}[\langle \nabla_{\mathbf{x}'}\log p(\mathbf{x}'), \mathbf{s}_{\theta}(\mathbf{x}')  \rangle ] + \underbrace{\mathbb{E}_{\mathbf{x}'}[\|\nabla_{\mathbf{x}'}\log p(\mathbf{x}')\|^2]}_{\text{independent of \  $\theta$}}
+J(\theta) &= \mathbb{E}_{\mathbf{x}'}[ \| \nabla_{\mathbf{x}'}\log q(\mathbf{x}') - \mathbf{s}_{\theta}(\mathbf{x}') \|^2] \\ 
+&= \mathbb{E}_{\mathbf{x}'}[\|\mathbf{s}_{\theta}(\mathbf{x}') \|^2] - 2\mathbb{E}_{\mathbf{x}'}[\langle \nabla_{\mathbf{x}'}\log q(\mathbf{x}'), \mathbf{s}_{\theta}(\mathbf{x}')  \rangle ] + \underbrace{\mathbb{E}_{\mathbf{x}'}[\|\nabla_{\mathbf{x}'}\log q(\mathbf{x}')\|^2]}_{\text{independent of \  $\theta$}}
 \end{aligned}
 $$
 
@@ -110,32 +110,32 @@ Now let us take a look at the second term in this sum,
 
 $$
 \begin{aligned}
-\mathbb{E}_{\mathbf{x}'}[\langle \nabla_{\mathbf{x}'}\log p(\mathbf{x}'), \ \mathbf{s}_{\theta}(\mathbf{x}')  \rangle ] &= \int p(\mathbf{x}') \langle \nabla_{\mathbf{x}'}\log p(\mathbf{x}'),\  \mathbf{s}_{\theta}(\mathbf{x}')\rangle\  d\mathbf{x}' \\ &= \int p(\mathbf{x}')\Big\langle \frac{\nabla_{\mathbf{x}'}p(\mathbf{x}')}{p(\mathbf{x}')},\  \mathbf{s}_{\theta}(\mathbf{x}') \Big\rangle\ d\mathbf{x}' \\ 
-&= \int \Big\langle \nabla_{\mathbf{x}'}p(\mathbf{x}'),\  \mathbf{s}_{\theta}(\mathbf{x}') \Big\rangle\ d\mathbf{x}' \\ 
-&= \int \Big\langle \nabla_{\mathbf{x}'}\int p(\mathbf{x})p(\mathbf{x}'|\mathbf{x})\ d\mathbf{x},\  \mathbf{s}_{\theta}(\mathbf{x}') \Big\rangle\ d\mathbf{x}' \\ 
-&= \int \Big\langle \int p(\mathbf{x})\nabla_{\mathbf{x}'}p(\mathbf{x}'|\mathbf{x})\ d\mathbf{x},\  \mathbf{s}_{\theta}(\mathbf{x}') \Big\rangle\ d\mathbf{x}' \\ 
-&= \int \Big\langle \int p(\mathbf{x})p(\mathbf{x}'|\mathbf{x})\nabla_{\mathbf{x}'}\log{p(\mathbf{x}'|\mathbf{x})}\ d\mathbf{x},\  \mathbf{s}_{\theta}(\mathbf{x}') \Big\rangle\ d\mathbf{x}' \\ 
-&= \int \int p(\mathbf{x})p(\mathbf{x}'|\mathbf{x})\Big\langle \nabla_{\mathbf{x}'}\log{p(\mathbf{x}'|\mathbf{x})},\  \mathbf{s}_{\theta}(\mathbf{x}') \Big\rangle\ d\mathbf{x}'d\mathbf{x} \\ 
-&= \mathbb{E}_{\mathbf{x},\mathbf{x}'}\Big[\Big\langle \nabla_{\mathbf{x}'}\log{p(\mathbf{x}'|\mathbf{x})},\  \mathbf{s}_{\theta}(\mathbf{x}') \Big\rangle\Big]
+\mathbb{E}_{\mathbf{x}'}[\langle \nabla_{\mathbf{x}'}\log q(\mathbf{x}'), \ \mathbf{s}_{\theta}(\mathbf{x}')  \rangle ] &= \int q(\mathbf{x}') \langle \nabla_{\mathbf{x}'}\log q(\mathbf{x}'),\  \mathbf{s}_{\theta}(\mathbf{x}')\rangle\  d\mathbf{x}' \\ &= \int q(\mathbf{x}')\Big\langle \frac{\nabla_{\mathbf{x}'}q(\mathbf{x}')}{q(\mathbf{x}')},\  \mathbf{s}_{\theta}(\mathbf{x}') \Big\rangle\ d\mathbf{x}' \\ 
+&= \int \Big\langle \nabla_{\mathbf{x}'}q(\mathbf{x}'),\  \mathbf{s}_{\theta}(\mathbf{x}') \Big\rangle\ d\mathbf{x}' \\ 
+&= \int \Big\langle \nabla_{\mathbf{x}'}\int p(\mathbf{x})q(\mathbf{x}'|\mathbf{x})\ d\mathbf{x},\  \mathbf{s}_{\theta}(\mathbf{x}') \Big\rangle\ d\mathbf{x}' \\ 
+&= \int \Big\langle \int p(\mathbf{x})\nabla_{\mathbf{x}'}q(\mathbf{x}'|\mathbf{x})\ d\mathbf{x},\  \mathbf{s}_{\theta}(\mathbf{x}') \Big\rangle\ d\mathbf{x}' \\ 
+&= \int \Big\langle \int p(\mathbf{x})q(\mathbf{x}'|\mathbf{x})\nabla_{\mathbf{x}'}\log{q(\mathbf{x}'|\mathbf{x})}\ d\mathbf{x},\  \mathbf{s}_{\theta}(\mathbf{x}') \Big\rangle\ d\mathbf{x}' \\ 
+&= \int \int p(\mathbf{x})q(\mathbf{x}'|\mathbf{x})\Big\langle \nabla_{\mathbf{x}'}\log{q(\mathbf{x}'|\mathbf{x})},\  \mathbf{s}_{\theta}(\mathbf{x}') \Big\rangle\ d\mathbf{x}'d\mathbf{x} \\ 
+&= \mathbb{E}_{\mathbf{x},\mathbf{x}'}\Big[\Big\langle \nabla_{\mathbf{x}'}\log{q(\mathbf{x}'|\mathbf{x})},\  \mathbf{s}_{\theta}(\mathbf{x}') \Big\rangle\Big]
 \end{aligned}
 $$
 
 So our score matching objective is 
 $$
 \begin{aligned}
-J(\theta) &= \mathbb{E}_{\mathbf{x}'}[\|\mathbf{s}_{\theta}(\mathbf{x}') \|^2] - 2\mathbb{E}_{\mathbf{x}'}[\langle \nabla_{\mathbf{x}'}\log p(\mathbf{x}'), \mathbf{s}_{\theta}(\mathbf{x}')  \rangle ] + \underbrace{\mathbb{E}_{\mathbf{x}'}[\|\nabla_{\mathbf{x}'}\log p(\mathbf{x}')\|^2]}_{\text{independent of \  $\theta$}} \\ 
-&= \mathbb{E}_{\mathbf{x}'}[\|\mathbf{s}_{\theta}(\mathbf{x}') \|^2] - 2\mathbb{E}_{\mathbf{x},\mathbf{x}'}\Big[\Big\langle \nabla_{\mathbf{x}'}\log{p(\mathbf{x}'|\mathbf{x})},\  \mathbf{s}_{\theta}(\mathbf{x}') \Big\rangle\Big] + \underbrace{\mathbb{E}_{\mathbf{x}'}[\|\nabla_{\mathbf{x}'}\log p(\mathbf{x}')\|^2]}_{\text{independent of \  $\theta$}}
+J(\theta) &= \mathbb{E}_{\mathbf{x}'}[\|\mathbf{s}_{\theta}(\mathbf{x}') \|^2] - 2\mathbb{E}_{\mathbf{x}'}[\langle \nabla_{\mathbf{x}'}\log q(\mathbf{x}'), \mathbf{s}_{\theta}(\mathbf{x}')  \rangle ] + \underbrace{\mathbb{E}_{\mathbf{x}'}[\|\nabla_{\mathbf{x}'}\log q(\mathbf{x}')\|^2]}_{\text{independent of \  $\theta$}} \\ 
+&= \mathbb{E}_{\mathbf{x}'}[\|\mathbf{s}_{\theta}(\mathbf{x}') \|^2] - 2\mathbb{E}_{\mathbf{x},\mathbf{x}'}\Big[\Big\langle \nabla_{\mathbf{x}'}\log{q(\mathbf{x}'|\mathbf{x})},\  \mathbf{s}_{\theta}(\mathbf{x}') \Big\rangle\Big] + \underbrace{\mathbb{E}_{\mathbf{x}'}[\|\nabla_{\mathbf{x}'}\log q(\mathbf{x}')\|^2]}_{\text{independent of \  $\theta$}}
 \end{aligned}
 $$
 
-In practice, we cannot estimate the first term in this objective because the marginal distribution $p(\mathbf{x}')$ is unavailable. We show that another objective is equivalent (the argmin of both objectives is the same). Consider the new objective,
+In practice, we cannot estimate the first term in this objective because the marginal distribution $q(\mathbf{x}')$ is unavailable. We show that another objective is equivalent (the argmin of both objectives is the same). Consider the new objective,
 
 $$
 \begin{aligned}
-\bar{J}(\theta) :&= \mathbb{E}_{\mathbf{x},\mathbf{x}'}[ \| \nabla_{\mathbf{x}'}\log p(\mathbf{x}'|\mathbf{x}) - \mathbf{s}_{\theta}(\mathbf{x}') \|^2] \\ 
-&= \mathbb{E}_{\mathbf{x},\mathbf{x}'}[\|\mathbf{s}_{\theta}(\mathbf{x}') \|^2] - 2\mathbb{E}_{\mathbf{x},\mathbf{x}'}\Big[\Big\langle \nabla_{\mathbf{x}'}\log{p(\mathbf{x}'|\mathbf{x})},\  \mathbf{s}_{\theta}(\mathbf{x}') \Big\rangle\Big] + \underbrace{\mathbb{E}_{\mathbf{x},\mathbf{x}'}[ \| \nabla_{\mathbf{x}'}\log p(\mathbf{x}'|\mathbf{x})\|^2]}_{\text{independent of \ $\theta$}} \\ 
-&= \mathbb{E}_{\mathbf{x}'}\mathbb{E}_{\mathbf{x}|\mathbf{x}'}[\|\mathbf{s}_{\theta}(\mathbf{x}') \|^2] - 2\mathbb{E}_{\mathbf{x},\mathbf{x}'}\Big[\Big\langle \nabla_{\mathbf{x}'}\log{p(\mathbf{x}'|\mathbf{x})},\  \mathbf{s}_{\theta}(\mathbf{x}') \Big\rangle\Big] + \underbrace{\mathbb{E}_{\mathbf{x},\mathbf{x}'}[ \| \nabla_{\mathbf{x}'}\log p(\mathbf{x}'|\mathbf{x})\|^2]}_{\text{independent of \ $\theta$}}\\ 
-&= \mathbb{E}_{\mathbf{x}'}[\|\mathbf{s}_{\theta}(\mathbf{x}') \|^2] - 2\mathbb{E}_{\mathbf{x},\mathbf{x}'}\Big[\Big\langle \nabla_{\mathbf{x}'}\log{p(\mathbf{x}'|\mathbf{x})},\  \mathbf{s}_{\theta}(\mathbf{x}') \Big\rangle\Big] + \underbrace{\mathbb{E}_{\mathbf{x},\mathbf{x}'}[ \| \nabla_{\mathbf{x}'}\log p(\mathbf{x}'|\mathbf{x})\|^2]}_{\text{independent of \ $\theta$}}
+\bar{J}(\theta) :&= \mathbb{E}_{\mathbf{x},\mathbf{x}'}[ \| \nabla_{\mathbf{x}'}\log q(\mathbf{x}'|\mathbf{x}) - \mathbf{s}_{\theta}(\mathbf{x}') \|^2] \\ 
+&= \mathbb{E}_{\mathbf{x},\mathbf{x}'}[\|\mathbf{s}_{\theta}(\mathbf{x}') \|^2] - 2\mathbb{E}_{\mathbf{x},\mathbf{x}'}\Big[\Big\langle \nabla_{\mathbf{x}'}\log{q(\mathbf{x}'|\mathbf{x})},\  \mathbf{s}_{\theta}(\mathbf{x}') \Big\rangle\Big] + \underbrace{\mathbb{E}_{\mathbf{x},\mathbf{x}'}[ \| \nabla_{\mathbf{x}'}\log q(\mathbf{x}'|\mathbf{x})\|^2]}_{\text{independent of \ $\theta$}} \\ 
+&= \mathbb{E}_{\mathbf{x}'}\mathbb{E}_{\mathbf{x}|\mathbf{x}'}[\|\mathbf{s}_{\theta}(\mathbf{x}') \|^2] - 2\mathbb{E}_{\mathbf{x},\mathbf{x}'}\Big[\Big\langle \nabla_{\mathbf{x}'}\log{q(\mathbf{x}'|\mathbf{x})},\  \mathbf{s}_{\theta}(\mathbf{x}') \Big\rangle\Big] + \underbrace{\mathbb{E}_{\mathbf{x},\mathbf{x}'}[ \| \nabla_{\mathbf{x}'}\log q(\mathbf{x}'|\mathbf{x})\|^2]}_{\text{independent of \ $\theta$}}\\ 
+&= \mathbb{E}_{\mathbf{x}'}[\|\mathbf{s}_{\theta}(\mathbf{x}') \|^2] - 2\mathbb{E}_{\mathbf{x},\mathbf{x}'}\Big[\Big\langle \nabla_{\mathbf{x}'}\log{q(\mathbf{x}'|\mathbf{x})},\  \mathbf{s}_{\theta}(\mathbf{x}') \Big\rangle\Big] + \underbrace{\mathbb{E}_{\mathbf{x},\mathbf{x}'}[ \| \nabla_{\mathbf{x}'}\log q(\mathbf{x}'|\mathbf{x})\|^2]}_{\text{independent of \ $\theta$}}
 \end{aligned}
 $$
 
@@ -143,9 +143,9 @@ Looking at the two objectives, the first two terms match and the third terms are
 
 $$
 \begin{aligned}
-\nabla_{\theta}\bar{J}(\theta)  &= \nabla_{\theta}\mathbb{E}_{\mathbf{x},\mathbf{x}'}[ \| \nabla_{\mathbf{x}'}\log p(\mathbf{x}'|\mathbf{x}) - \mathbf{s}_{\theta}(\mathbf{x}') \|^2] \\ 
-&=  \mathbb{E}_{\mathbf{x},\mathbf{x}'}[ \nabla_{\theta}\| \nabla_{\mathbf{x}'}\log p(\mathbf{x}'|\mathbf{x}) - \mathbf{s}_{\theta}(\mathbf{x}') \|^2] \\ 
-&= 2\mathbb{E}_{\mathbf{x},\mathbf{x}'}\Big[\Big(\nabla_{\theta}\mathbf{s}_{\theta}(\mathbf{x}')\Big)\Big(\mathbf{s}_{\theta}(\mathbf{x}') - \nabla_{\mathbf{x}'}\log p(\mathbf{x}'|\mathbf{x})\Big)\Big]
+\nabla_{\theta}\bar{J}(\theta)  &= \nabla_{\theta}\mathbb{E}_{\mathbf{x},\mathbf{x}'}[ \| \nabla_{\mathbf{x}'}\log q(\mathbf{x}'|\mathbf{x}) - \mathbf{s}_{\theta}(\mathbf{x}') \|^2] \\ 
+&=  \mathbb{E}_{\mathbf{x},\mathbf{x}'}[ \nabla_{\theta}\| \nabla_{\mathbf{x}'}\log q(\mathbf{x}'|\mathbf{x}) - \mathbf{s}_{\theta}(\mathbf{x}') \|^2] \\ 
+&= 2\mathbb{E}_{\mathbf{x},\mathbf{x}'}\Big[\Big(\nabla_{\theta}\mathbf{s}_{\theta}(\mathbf{x}')\Big)\Big(\mathbf{s}_{\theta}(\mathbf{x}') - \nabla_{\mathbf{x}'}\log q(\mathbf{x}'|\mathbf{x})\Big)\Big]
 \end{aligned}
 $$
 
@@ -161,6 +161,40 @@ $$
 \end{bmatrix}
 $$
 
+## Review
+
+So, when it comes to score matching here is progression of objectives we have derived and their reasoning. 
+
+#### 1. Score Matching
+
+The canonical score matching objective is,
+
+$$
+\min_\theta \quad J_{1}(\theta) := \mathbb{E}_{\hat{p}(\mathbf{x})}[ \| \nabla_{\mathbf{x}}\log \hat{p}(\mathbf{x}) - \mathbf{s}_{\theta}(\mathbf{x})  \|^2]
+$$
+
+This is difficult in practice because we do not have access to the target score function $\nabla_{\mathbf{x}}\log{\hat{p}(\mathbf{x})}$. To overcome this difficulty, we have implicit score matching. 
+
+$$
+\min_{\theta}\quad J_{2}(\theta) := \mathbb{E}_{\hat{p}(\mathbf{x})}[\|\mathbf{s}_{\theta}(\mathbf{x})\|^2 + 2\ \text{tr}\big(\nabla_{\mathbf{x}}\mathbf{s}_{\theta}(\mathbf{x}\big))]
+$$
+
+We showed that $\argmin_{\theta} J_{ISM}(\theta) = \argmin_{\theta} J_{ESM}(\theta)$, so we can use the implicit score matching objective minimize the original explicit score matching objective. The difficulty here is that for high-dimensional data, materializing the jacobian $\nabla_{\mathbf{x}}\mathbf{s}_{\theta}(\mathbf{x})$ is not efficient. For example, when the dimension of the data is $d = 1000$, we would require $d$ backward passes to materialize each derivative required to compute the trace.
+
+#### 2. Denoising Score Matching
+To overcome this difficulty, we perturb our data distribution with some noise to obtain a slightly noisy distribution over our data, $q(\mathbf{x}') = \int p(\mathbf{x}) q(\mathbf{x}' | \mathbf{x}) \ d\mathbf{x}$. The idea is that when the noise is small we can say that the score functions of the perturbed and true data distributions will be approximately the same. Starting with the canonical score matching objective for the perturbed distribution,
+
+$$
+\min_{\theta} \quad J(\theta) := \mathbb{E}_{\mathbf{x}'}[ \| \nabla_{\mathbf{x}'}\log q(\mathbf{x}') - \mathbf{s}_{\theta}(\mathbf{x}') \|^2]
+$$
+
+In practice this is difficult to optimize because we do not have access to the score function of the perturbed distribution, $\nabla_{\mathbf{x}'}\log q(\mathbf{x}')$. However, we can optimize another objective $\bar{J}(\theta)$ and showed that 
+$\argmin_{\theta} J(\theta) = \argmin_{\theta} \bar{J}(\theta)$.
+
+$$
+\min_{\theta} \quad \bar{J}(\theta) := \mathbb{E}_{\mathbf{x},\mathbf{x}'}[ \| \nabla_{\mathbf{x}'}\log q(\mathbf{x}'|\mathbf{x}) - \mathbf{s}_{\theta}(\mathbf{x}') \|^2]
+
+$$
 
 ### References
 
