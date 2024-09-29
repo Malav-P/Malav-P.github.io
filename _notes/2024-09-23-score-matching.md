@@ -193,8 +193,20 @@ $\argmin_{\theta} J(\theta) = \argmin_{\theta} \bar{J}(\theta)$.
 
 $$
 \min_{\theta} \quad \bar{J}(\theta) := \mathbb{E}_{\mathbf{x},\mathbf{x}'}[ \| \nabla_{\mathbf{x}'}\log q(\mathbf{x}'|\mathbf{x}) - \mathbf{s}_{\theta}(\mathbf{x}') \|^2]
+$$
+
+# Noise Conditional Score Networks
+Suppose we have data that follows a probability distribution $ \mathbf{x} \sim p(\mathbf{x})$. We know that we can perturb the data with small noise to get a perturbed distribution $\mathbf{x}' \sim q(\mathbf{x}') = \int p(\mathbf{x}) q(\mathbf{x}' | \mathbf{x})\ d\mathbf{x}$ and then train a score function $\mathbf{s}\_{\theta}(\mathbf{x}')$ so that is approximates the score of the noisy distribution well, $ \mathbf{s}\_{\theta}(\mathbf{x}') \approx \nabla\_{\mathbf{x}'}\log{q}(\mathbf{x}')$. We can do this by minimizing the following objective: 
 
 $$
+\min_{\theta} \quad \bar{J}(\theta) := \mathbb{E}_{\mathbf{x},\mathbf{x}'}[ \| \nabla_{\mathbf{x}'}\log q(\mathbf{x}'|\mathbf{x}) - \mathbf{s}_{\theta}(\mathbf{x}') \|^2]
+$$
+
+There are two main problems that are addressed by this approach:
+
+1. The density $p(\mathbf{x})$ is likely to be close to zero for large volumes in $\mathbb{R}^d$. In other words, most of the density will be concentrated in pockets of $\mathbb{R}^d$. As a result, there will not be a strong enough score signal to train our score network in low density regions, and its estimate in those regions will often be inaccurate. This can lead to problems with langevin dynamics if we begin with a sample from a low density region. By adding large amounts of noise to the data distribution, we are filling the regions of low density with a signal that we can then train on.
+
+2. Manifold hypothesis. This states that most of the data tends to concentrate on low dimensional manifolds in high dimensional space. Since the score function is a gradient taken on the whole space, it is undefined if $\mathbf{x}$ resides on a low dimensional manifold. By adding noise to the data, the support of the perturbed distribution is all of $\mathbb{R}^d$, (i.e. the perturbed data is not confined to a low dimensional manifold).
 
 ### References
 
