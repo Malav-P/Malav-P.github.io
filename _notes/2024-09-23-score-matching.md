@@ -36,6 +36,36 @@ $$
 \end{aligned}
 $$ -->
 
+## Learning Energy Based Models
+In generative modeling, we often have i.i.d samples of data from a random variable $\mathbf{x} \sim \hat{p}(\mathbf{x})$. However, we do not have the form of $\hat{p}(\mathbf{x})$ and so cannot generate more samples. So, we create a model of the distribution parameterized by $\theta$ of the form:
+
+$$
+p(\mathbf{x}) := \frac{e^{-f_{\theta}(\mathbf{x})}}{Z(\theta)}
+$$
+
+where $f_{\theta}(\mathbf{x})$ is a function differentiable in $\theta$, often a neural network, and $Z(\theta) := \int e^{-f_{\theta}(\mathbf{x})}\ d\mathbf{x}$ is the normalizing constant. Given a dataset $\mathcal{D} = \{\mathbf{x}_i \}_{i=1}^{n}$, we choose $\theta$ by maximizing the usual log-likelihood,
+
+$$
+\max_{\theta} \quad l(\theta) := - \log{Z(\theta)} - \frac{1}{n}\sum_i f_{\theta}(\mathbf{x}_i) 
+$$
+
+Taking the gradient, 
+
+$$
+\begin{aligned}
+\nabla_{\theta}\ l(\theta) &= -\nabla_{\theta}\log{Z(\theta)} - \frac{1}{n}\sum_i \nabla_{\theta}f_{\theta}(\mathbf{x}_i) \\ 
+&= \mathbb{E}_{p(\mathbf{x})}[\nabla_{\theta}f_{\theta}(\mathbf{x})] - \frac{1}{n}\sum_i \nabla_{\theta}f_{\theta}(\mathbf{x}_i)
+\end{aligned}
+$$
+
+In theory, we can use Markov-Chain Monte Carlo (MCMC) methods estimate the expectation with an average over many samples. 
+There are two main problems with this approach. 
+
+1. MCMC is usually very slow as it takes many steps to run the chain until equilibrium and begin generating samples from $p(\mathbf{x})$. 
+2. Calculating $Z(\theta)$ is usually intractable as its an integral over all space. As a result, we cannot calculate $p(\mathbf{x})$ for a given $\mathbf{x}$.
+
+Score matching attempts to remedy problem (1) by doing away with the often intractable $Z(\theta)$.
+
 ## Score Matching
 Suppose we do not wish to work with the intractable $Z(\theta)$ that arises when trying to optimize energy based models. Consider then the problem of finding a distribution $p$  that minimizes the Fisher divergence between our data distribution $\hat{p}$ and the model distribution $p$:
 
@@ -97,7 +127,7 @@ Now with a model of the score function, we can generate samples from the data di
 For large number of recursive iterations, the samples $\mathbf{x}_t$ will start to converge to samples from the true distribution (under some regularity conditions, which for practical purposes are often ignored). 
 
 # Denoising Score Matching
-Suppose that materializing the jacobian $\nabla\_{\mathbf{x}}\mathbf{s}\_{\theta}(\mathbf{x})$ becomes difficult. Let us introduce another model $q(\mathbf{x}'|\mathbf{x})$ that perturbs the data with noise. Then $q(\mathbf{x}') = \int p(\mathbf{x})q(\mathbf{x}'|\mathbf{x})\ d\mathbf{x} $. The intuition is that if the noise is small enough, then the score function of the perturbed distribution will be approximately equal to that of the true distribution. Then we can run Langevin dynamics on this perturbed distribution. Our objective is
+One problem with implicit score matching is that materializing the jacobian $\nabla\_{\mathbf{x}}\mathbf{s}\_{\theta}(\mathbf{x})$ becomes difficult. For example, when the dimension of the data is $d = 1000$, we would require $d$ backward passes to materialize each derivative required to compute the trace. To overcome this let us introduce another model $q(\mathbf{x}'|\mathbf{x})$ that perturbs the data with noise. Then $q(\mathbf{x}') = \int p(\mathbf{x})q(\mathbf{x}'|\mathbf{x})\ d\mathbf{x} $. The intuition is that if the noise is small enough, then the score function of the perturbed distribution will be approximately equal to that of the true distribution. Then we can run Langevin dynamics on this perturbed distribution. Our objective is
 
 $$
 \begin{aligned}
@@ -179,16 +209,16 @@ $$
 \min_{\theta}\quad J_{2}(\theta) := \mathbb{E}_{\hat{p}(\mathbf{x})}[\|\mathbf{s}_{\theta}(\mathbf{x})\|^2 + 2\ \text{tr}\big(\nabla_{\mathbf{x}}\mathbf{s}_{\theta}(\mathbf{x}\big))]
 $$
 
-We showed that $\argmin_{\theta} J_{ISM}(\theta) = \argmin_{\theta} J_{ESM}(\theta)$, so we can use the implicit score matching objective minimize the original explicit score matching objective. The difficulty here is that for high-dimensional data, materializing the jacobian $\nabla_{\mathbf{x}}\mathbf{s}_{\theta}(\mathbf{x})$ is not efficient. For example, when the dimension of the data is $d = 1000$, we would require $d$ backward passes to materialize each derivative required to compute the trace.
+We showed that $\argmin_{\theta} J_{1}(\theta) = \argmin_{\theta} J_{2}(\theta)$, so we can use the implicit score matching objective minimize the original explicit score matching objective. The difficulty here is that for high-dimensional data, materializing the jacobian $\nabla_{\mathbf{x}}\mathbf{s}_{\theta}(\mathbf{x})$ is not efficient. 
 
 #### 2. Denoising Score Matching
-To overcome this difficulty, we perturb our data distribution with some noise to obtain a slightly noisy distribution over our data, $q(\mathbf{x}') = \int p(\mathbf{x}) q(\mathbf{x}' | \mathbf{x}) \ d\mathbf{x}$. The idea is that when the noise is small we can say that the score functions of the perturbed and true data distributions will be approximately the same. Starting with the canonical score matching objective for the perturbed distribution,
+To overcome this difficulty, we perturb our data distribution with some noise to obtain a slightly noisy distribution over our data, $q(\mathbf{x}') = \int p(\mathbf{x}) q(\mathbf{x}' | \mathbf{x}) \ d\mathbf{x}$. The idea is that when the noise is small we can say that the score functions of the perturbed and true data distributions will be approximately the same. Starting with the implicit score matching objective for the perturbed distribution,
 
 $$
-\min_{\theta} \quad J(\theta) := \mathbb{E}_{\mathbf{x}'}[ \| \nabla_{\mathbf{x}'}\log q(\mathbf{x}') - \mathbf{s}_{\theta}(\mathbf{x}') \|^2]
+\min_{\theta}\quad J(\theta) := \mathbb{E}_{\mathbf{x}'}[\|\mathbf{s}_{\theta}(\mathbf{x}')\|^2 + 2\ \text{tr}\big(\nabla_{\mathbf{x}}\mathbf{s}_{\theta}(\mathbf{x}')\big)]
 $$
 
-In practice this is difficult to optimize because we do not have access to the score function of the perturbed distribution, $\nabla_{\mathbf{x}'}\log q(\mathbf{x}')$. However, we can optimize another objective $\bar{J}(\theta)$ and showed that 
+In practice this is difficult to optimize because we cannot sample $\mathbf{x}' \sim q(\mathbf{x}')$. However, we can optimize another objective $\bar{J}(\theta)$ and showed that 
 $\argmin_{\theta} J(\theta) = \argmin_{\theta} \bar{J}(\theta)$.
 
 $$
@@ -208,6 +238,13 @@ There are two main problems that are addressed by this approach:
 
 2. Manifold hypothesis. This states that most of the data tends to concentrate on low dimensional manifolds in high dimensional space. Since the score function is a gradient taken on the whole space, it is undefined if $\mathbf{x}$ resides on a low dimensional manifold. By adding noise to the data, the support of the perturbed distribution is all of $\mathbb{R}^d$, (i.e. the perturbed data is not confined to a low dimensional manifold).
 
+There are still 2 problems with denoising score matching. 
+
+1. There is a tradeoff between adding noise to fill low density regions and corrupting the original data distribution. Too much noise added and the score function is no longer a good approximator of the score function of the data distribution. 
+2. If there are two modes of $p(\mathbf{x})$ connected by low density regions, langevin dynamics will struggle to capture the relative weights of the two modes. We may need very small step sizes and a large number of steps to get accurate samples. Furthermore, if we start near one mode, it may take a large number of steps for langevin dynamics to begin sampling from the second mode.
+
 ### References
 
-Vincent, Pascal. "A connection between score matching and denoising autoencoders." Neural computation 23.7 (2011): 1661-1674.
+1. Vincent, Pascal. "A connection between score matching and denoising autoencoders." Neural computation 23.7 (2011): 1661-1674.
+
+2. Song, Yang, and Stefano Ermon. "Generative modeling by estimating gradients of the data distribution." Advances in neural information processing systems 32 (2019).
