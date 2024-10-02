@@ -243,6 +243,49 @@ There are still 2 problems with denoising score matching.
 1. There is a tradeoff between adding noise to fill low density regions and corrupting the original data distribution. Too much noise added and the score function is no longer a good approximator of the score function of the data distribution. 
 2. If there are two modes of $p(\mathbf{x})$ connected by low density regions, langevin dynamics will struggle to capture the relative weights of the two modes. We may need very small step sizes and a large number of steps to get accurate samples. Furthermore, if we start near one mode, it may take a large number of steps for langevin dynamics to begin sampling from the second mode.
 
+To solve the first problem, what if we progressively add noise to the data distribution with a noise schedule $\sigma_1 > \sigma_2 > \ldots > \sigma_L$ and then train a score network on all the noise scales, i.e. $\mathbf{s}_{\theta}(\mathbf{x}, \sigma)$?. Then, when sampling, we use initially use scores corresponding to large noise and gradually turn the noise down as we reach areas of larger density. This method optimally leverages the tradeoff described in problem 1. This is the essence of Noise Conditional Score Networks.
+
+### Learning NCSNs
+We follow the the work of [2] in outlining NCSN's. Define a set of noise scales $\{\sigma\_i\}\_{i=1}^{L}$ that follows a geometric sequence: $\frac{\sigma_1}{\sigma_2} = \cdots = \frac{\sigma_{L-1}}{\sigma_L} > 1 $. Define the noisy distribution and the conditional distribution:
+
+$$
+\begin{aligned}
+q_{\sigma}(\mathbf{x}') :&= \int p(\mathbf{x}) \ \underbrace{\mathcal{N}(\mathbf{x}, \sigma^2\mathbf{I})}_{q(\mathbf{x}' | \mathbf{x})}\ d\mathbf{x} \\ 
+\end{aligned}
+$$
+
+We train the score network such that $\mathbf{s}_{\theta}(\mathbf{x}', \sigma) \approx \nabla_{\mathbf{x}'}\log{q_{\sigma}(\mathbf{x}')}$.
+
+The objective for a particular value of $\sigma$ follows exactly from denoising score matching:
+
+$$
+\begin{aligned}
+\min_{\theta} \quad l(\theta, \sigma) :&= \mathbb{E}_{\mathbf{x},\mathbf{x}'}[ \| \nabla_{\mathbf{x}'}\log q(\mathbf{x}'|\mathbf{x}) - \mathbf{s}_{\theta}(\mathbf{x}', \sigma) \|^2] \\ 
+&= \mathbb{E}_{\mathbf{x},\mathbf{x}'}[ \| \frac{\mathbf{x}' - \mathbf{x}}{\sigma^2} + \mathbf{s}_{\theta}(\mathbf{x}', \sigma) \|^2]
+\end{aligned}
+$$
+
+Define the total loss objective over all values of sigma as 
+
+$$
+\min_{\theta} \quad l(\theta) := \sum_i \lambda(\sigma)\ l(\theta, \sigma)
+$$
+
+where $\lambda(\sigma)$ is a weighting constant that ensures each term is approximately the same order of magnitude. This ensures that no particular value of $\sigma$ is overemphasizes in the minimization objective. The authors of [2] find that empirically, $\lambda(\sigma) = \sigma^2$ is a good choice.
+
+### Inference with NCSNs
+The intuition around sampling is as follows. 
+
+1. Suppose we sample an intial point $\mathbf{x}_0 \sim \pi(\mathbf{x}_0)$. It is likely to be in a low density region of the data distribution $p(\mathbf{x})$.
+2. To get a good score signal, we use the score network with the largest value of $\sigma$ and begin sampling via langevin dynamics. Sample for some number of iterations.
+
+3. By this point, we have likely begun to move closer to regions of high density. So, we reduce the noise $\sigma$ and begin to take smaller step sizes as we sample with langevin dynamics.
+
+4. Repeat step 3 until we have reached sufficiently small $\sigma$ such that samples now are $\sim p(\mathbf{x})$.
+
+
+The authors of [2] present the algorithm, called annealed langevin dynamics.
+
 ### References
 
 1. Vincent, Pascal. "A connection between score matching and denoising autoencoders." Neural computation 23.7 (2011): 1661-1674.
