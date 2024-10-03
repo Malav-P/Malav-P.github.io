@@ -15,11 +15,13 @@ tags: []
 Define a joint distribution $q(\mathbf{x}_0, \ldots,\mathbf{x}_T)$ over our data variable $\mathbf{x}_0$ and latent variables $\{\mathbf{x}_i \}_{i=1}^T$. We can decompose this joint distribution into a product of conditional distribution that represent a diffusion process of $\mathbf{x}_0$ into Gaussian noise. This is called the forward process
 
 #### Forward Process 
+
 $$
 q(\mathbf{x}_0, \ldots,\mathbf{x}_T) := q(\mathbf{x}_0)\prod_{t=1}^T q(\mathbf{x}_t | \mathbf{x}_{t-1}) \quad \quad q(\mathbf{x}_t | \mathbf{x}_{t-1}) := \mathcal{N}(\mathbf{f}_{\mathbf{\mu}}(\mathbf{x}_{t-1}),\  \mathbf{f}_{\mathbf{\Sigma}}(\mathbf{x}_{t-1}))
 $$
 
 In the DDPM paper [1], the authors choose a set of scalars $\{\beta_t\}_{t=1}^T$ and set the mean and variance of the conditional distributions as
+
 $$
 \begin{aligned}
 \mathbf{f}_{\mathbf{\mu}}(\mathbf{x}_{t-1}) &:= \sqrt{1-\beta_t}\ \mathbf{x}_{t-1} \\ 
@@ -36,13 +38,13 @@ $$
 q(\mathbf{x}_0, \ldots,\mathbf{x}_T) := q(\mathbf{x}_T)\prod_{t=1}^T q(\mathbf{x}_{t-1} | \mathbf{x}_{t})
 $$
 
-We know that $q(\mathbf {x}_T) \approx \mathcal{N}(0, \mathbf{I})$. Futhermore a remarkable result [2] shows that $q(\mathbf{x}_{t-1} | \mathbf{x}_{t})$ is also normally distributed but we do not know its mean and variance. Let us create a model for this posterior that estimates the mean and variance as functions of learnable parameters $\theta$:
+We know that $q(\mathbf{x}\_T) \approx \mathcal{N}(0, \mathbf{I})$. Futhermore a remarkable result [2] shows that $q(\mathbf{x}\_{t-1} | \mathbf{x}\_{t})$ is also normally distributed but we do not know its mean and variance. Let us create a model for this posterior that estimates the mean and variance as functions of learnable parameters $\theta$:
 
 $$
 p_{\theta}(\mathbf{x}_{t-1} | \mathbf{x}_t) := \mathcal{N}(\boldsymbol{\mu}_{\theta}(\mathbf{x}_t, t), \boldsymbol{\Sigma}_{\theta}(\mathbf{x}_t, t))
 $$
 
-And since $q(\mathbf {x}_T) \approx \mathcal{N}(0, \mathbf{I})$, set $p(\mathbf{x}_T) := \mathcal{N}(0, \mathbf{I})$. Then our model for the joint distribution is 
+And since $q(\mathbf{x}\_T) \approx \mathcal{N}(0, \mathbf{I})$, set $p(\mathbf{x}\_T) := \mathcal{N}(0, \mathbf{I})$. Then our model for the joint distribution is 
 
 $$
 p_{\theta}(\mathbf{x}_0, \ldots,\mathbf{x}_T) := p(\mathbf{x}_T)\prod_{t=1}^T p_{\theta}(\mathbf{x}_{t-1} | \mathbf{x}_{t})
@@ -82,6 +84,8 @@ $$
 &= \mathbb{E}_{q(\mathbf{x}_0)}\mathbb{E}_{q(\mathbf{x}_1, \ldots, \mathbf{x}_T | \mathbf{x}_0)}\Bigg[\log{p(\mathbf{x}_T)} + \sum_{t=1}^{T} \log{\frac{p_{\theta}(\mathbf{x}_{t-1} | \mathbf{x}_{t})}{q(\mathbf{x}_t | \mathbf{x}_{t-1})}}\Bigg] \\ 
 &= \mathbb{E}_{q(\mathbf{x}_0)}\mathbb{E}_{q(\mathbf{x}_1, \ldots, \mathbf{x}_T | \mathbf{x}_0)}\Bigg[\log{p(\mathbf{x}_T)} + \log{\frac{p_{\theta}(\mathbf{x}_{0} | \mathbf{x}_{1})}{q(\mathbf{x}_1 | \mathbf{x}_{0})}} +\sum_{t=2}^{T} \log{\frac{p_{\theta}(\mathbf{x}_{t-1} | \mathbf{x}_{t})}{q(\mathbf{x}_t | \mathbf{x}_{t-1}, \mathbf{x}_0)}}\Bigg] \quad \quad (\text{Markov property implies}\ \  q(\mathbf{x}_t | \mathbf{x}_{t-1}) = q(\mathbf{x}_t | \mathbf{x}_{t-1}, \mathbf{x}_0)) \\ 
 &= \mathbb{E}_{q(\mathbf{x}_0)}\mathbb{E}_{q(\mathbf{x}_1, \ldots, \mathbf{x}_T | \mathbf{x}_0)}\Bigg[\log{p(\mathbf{x}_T)} + \log{\frac{p_{\theta}(\mathbf{x}_{0} | \mathbf{x}_{1})}{q(\mathbf{x}_1 | \mathbf{x}_{0})}} +\sum_{t=2}^{T} \log{\frac{p_{\theta}(\mathbf{x}_{t-1} | \mathbf{x}_{t})}{q(\mathbf{x}_{t-1} | \mathbf{x}_{t}, \mathbf{x}_0)}\cdot\frac{q(\mathbf{x}_{t-1}|\mathbf{x}_0)}{q(\mathbf{x}_t | \mathbf{x}_0)}}\Bigg] \quad \quad (\text{Bayes Rule}) \\ 
-&= \mathbb{E}_{q(\mathbf{x}_0)}\mathbb{E}_{q(\mathbf{x}_1, \ldots, \mathbf{x}_T | \mathbf{x}_0)}\Bigg[\log{\frac{p(\mathbf{x}_T)}{q(\mathbf{x}_T | \mathbf{x}_0)}} + \log{p_{\theta}(\mathbf{x}_{0} | \mathbf{x}_{1})} +\sum_{t=2}^{T} \log{\frac{p_{\theta}(\mathbf{x}_{t-1} | \mathbf{x}_{t})}{q(\mathbf{x}_{t-1} | \mathbf{x}_{t}, \mathbf{x}_0)}}\Bigg] \quad \quad \\ 
+&= \mathbb{E}_{q(\mathbf{x}_0)}\mathbb{E}_{q(\mathbf{x}_1, \ldots, \mathbf{x}_T | \mathbf{x}_0)}\Bigg[\log{\frac{p(\mathbf{x}_T)}{q(\mathbf{x}_T | \mathbf{x}_0)}} + \log{p_{\theta}(\mathbf{x}_{0} | \mathbf{x}_{1})} +\sum_{t=2}^{T} \log{\frac{p_{\theta}(\mathbf{x}_{t-1} | \mathbf{x}_{t})}{q(\mathbf{x}_{t-1} | \mathbf{x}_{t}, \mathbf{x}_0)}}\Bigg]\\ 
+&=\mathbb{E}_{q(\mathbf{x}_0)}\Bigg[\mathbb{E}_{q(\mathbf{x}_1, \ldots, \mathbf{x}_T | \mathbf{x}_0)}\bigg[\log{\frac{p(\mathbf{x}_T)}{q(\mathbf{x}_T | \mathbf{x}_0)}}\bigg] + \mathbb{E}_{q(\mathbf{x}_1, \ldots, \mathbf{x}_T | \mathbf{x}_0)}\Big[\log{p_{\theta}(\mathbf{x}_{0} | \mathbf{x}_{1})}\Big] +\sum_{t=2}^{T} \mathbb{E}_{q(\mathbf{x}_1, \ldots, \mathbf{x}_T | \mathbf{x}_0)}\bigg[\log{\frac{p_{\theta}(\mathbf{x}_{t-1} | \mathbf{x}_{t})}{q(\mathbf{x}_{t-1} | \mathbf{x}_{t}, \mathbf{x}_0)}}\bigg]\Bigg] \\ 
+&=\mathbb{E}_{q(\mathbf{x}_0)}\Bigg[\mathbb{E}_{q( \mathbf{x}_T | \mathbf{x}_0)}\bigg[\log{\frac{p(\mathbf{x}_T)}{q(\mathbf{x}_T | \mathbf{x}_0)}}\bigg] + \mathbb{E}_{q(\mathbf{x}_1 | \mathbf{x}_0)}\Big[\log{p_{\theta}(\mathbf{x}_{0} | \mathbf{x}_{1})}\Big] +\sum_{t=2}^{T} \mathbb{E}_{q(\mathbf{x}_{t-1},\mathbf{x}_t | \mathbf{x}_0)}\bigg[\log{\frac{p_{\theta}(\mathbf{x}_{t-1} | \mathbf{x}_{t})}{q(\mathbf{x}_{t-1} | \mathbf{x}_{t}, \mathbf{x}_0)}}\bigg]\Bigg] \quad \quad \text{Marginalize}\ \ q \\ 
 \end{aligned}
 $$
