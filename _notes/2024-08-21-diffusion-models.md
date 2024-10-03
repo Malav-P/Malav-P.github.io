@@ -92,11 +92,11 @@ $$
 \end{aligned}
 $$
 
-In the last line, we have two distributions that we know the form of: $q(\mathbf{x}_t | \mathbf{x}_0)$ and $q(\mathbf{x}_{t-1}, | \mathbf{x}_t, \mathbf{x}_0)$. We show below that they are Gaussian distributions!
+In the last line, we have two distributions that we know the form of: $q(\mathbf{x}\_t \| \mathbf{x}\_0)$ and $q(\mathbf{x}\_{t-1}, \| \mathbf{x}\_t, \mathbf{x}\_0)$. We show below that they are Gaussian distributions!
 
 #### Forward process posterior $q(\mathbf{x}_t | \mathbf{x}_0)$
 
-We use the reparameterization trick. It is well known that an affine transformation of a gaussian random variable is another gaussian random variable. Define $\alpha_t := 1-\beta_t $ Since $q(\mathbf{x}_t | \mathbf{x}_{t-1}) := \mathcal{N}(\sqrt{1-\beta_t}\mathbf{x}_{t-1}, \beta_t\mathbf{I})$, we can write $\mathbf{x}_t$ as,
+We use the reparameterization trick. It is well known that an affine transformation of a gaussian random variable is another gaussian random variable. Define $\alpha\_t := 1-\beta\_t $ Since $q(\mathbf{x}\_t \| \mathbf{x}\_{t-1}) := \mathcal{N}(\sqrt{1-\beta\_t}\mathbf{x}\_{t-1}, \beta\_t\mathbf{I})$, we can write $\mathbf{x}\_t$ as,
 
 $$
 \begin{aligned}
@@ -121,4 +121,4 @@ $$
 \end{aligned}
 $$
 
-So we may write $ \mathbf{z} = \sqrt{1-\bar{\alpha}\_t}\boldsymbol{\epsilon}$ with $\boldsymbol{\epsilon} \sim \mathcal{N}(0, \mathbf{I}) $. Therefore, $q(\mathbf{x}\_t|\mathbf{x}\_0) = \mathcal{N}(\sqrt{\bar{\alpha\_t}}\mathbf{x}\_0, (1-\bar{\alpha\_t})\mathbf{I})$. 
+So we may write $ \mathbf{z} = \sqrt{1-\bar{\alpha}\_t}\boldsymbol{\epsilon}$ with $\boldsymbol{\epsilon} \sim \mathcal{N}(0, \mathbf{I}) $. Therefore, $q(\mathbf{x}\_t \|\mathbf{x}\_0) = \mathcal{N}(\sqrt{\bar{\alpha\_t}}\mathbf{x}\_0, (1-\bar{\alpha\_t})\mathbf{I})$. 
