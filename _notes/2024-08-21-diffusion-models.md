@@ -122,3 +122,68 @@ $$
 $$
 
 So we may write $ \mathbf{z} = \sqrt{1-\bar{\alpha}\_t}\boldsymbol{\epsilon}$ with $\boldsymbol{\epsilon} \sim \mathcal{N}(0, \mathbf{I}) $. Therefore, $q(\mathbf{x}\_t \|\mathbf{x}\_0) = \mathcal{N}(\sqrt{\bar{\alpha\_t}}\mathbf{x}\_0, (1-\bar{\alpha\_t})\mathbf{I})$. 
+
+#### Reverse process posterior $q(\mathbf{x}_{t-1}|\mathbf{x}_t, \mathbf{x}_0)$
+
+We claim that the reverse process posterior is tractable and is actually a gaussian when conditioned on $\mathbf{x}\_0$. To see this we apply Bayes rule:
+
+$$
+\begin{aligned}
+q(\mathbf{x}_{t-1}|\mathbf{x}_t, \mathbf{x}_0) &= q(\mathbf{x}_t |\mathbf{x}_{t-1}, \mathbf{x}_0)\frac{q(\mathbf{x}_{t-1}|\mathbf{x}_0)}{q(\mathbf{x}_t|\mathbf{x}_0)} \\
+&\propto \exp{\Bigg(-\frac{\|\mathbf{x}_t - \sqrt{\alpha_t}\mathbf{x}_{t-1} \|^2}{2\beta_t}\Bigg)}\frac{\exp\Bigg(-\frac{\|\mathbf{x}_{t-1} - \sqrt{\bar{\alpha}_{t-1}}\mathbf{x}_{0} \|^2}{2(1-\bar{\alpha}_{t-1})}\Bigg)}{\exp\Bigg(-\frac{\|\mathbf{x}_t - \sqrt{\bar{\alpha}_t}\mathbf{x}_{0} \|^2}{2(1-\bar{\alpha}_t)}\Bigg)} \\ 
+&= \exp\Bigg(-\frac{1}{2}\Bigg[ \frac{\|\mathbf{x}_t - \sqrt{\alpha_t}\mathbf{x}_{t-1} \|^2}{\beta_t} + \frac{\|\mathbf{x}_{t-1} - \sqrt{\bar{\alpha}_{t-1}}\mathbf{x}_{0} \|^2}{1-\bar{\alpha}_{t-1}} -  \frac{\|\mathbf{x}_t - \sqrt{\bar{\alpha}_t}\mathbf{x}_{0} \|^2}{1-\bar{\alpha}_t}\Bigg]\Bigg) \\ 
+&= \exp \Bigg(-\frac{1}{2} \Bigg[ \frac{1}{\beta_t}\|\mathbf{x}_t\|^2 + \bigg(\frac{1}{1-\bar{\alpha}_{t-1}}+\frac{\alpha_t}{\beta_t}\bigg)\|\mathbf{x}_{t-1}\|^2 -2\frac{\sqrt{\alpha_t}}{\beta_t} \langle \mathbf{x}_{t-1}, \mathbf{x}_t \rangle -\frac{2\sqrt{\bar{\alpha}_{t-1}}}{1-\bar{\alpha}_{t-1}}\langle \mathbf{x}_{t-1}, \mathbf{x}_0 \rangle -  \frac{\|\mathbf{x}_t - \sqrt{\bar{\alpha}_t}\mathbf{x}_{0} \|^2}{1-\bar{\alpha}_t} \Bigg] \Bigg) \\ 
+&= \exp \Bigg(-\frac{1}{2} \Bigg[  \bigg(\frac{1}{1-\bar{\alpha}_{t-1}}+\frac{\alpha_t}{\beta_t}\bigg)\|\mathbf{x}_{t-1}\|^2 -2\bigg\langle\frac{\sqrt{\alpha_t}}{\beta_t}  \mathbf{x}_t  +\frac{\sqrt{\bar{\alpha}_{t-1}}}{1-\bar{\alpha}_{t-1}}\mathbf{x}_0,\  \mathbf{x}_{t-1} \bigg\rangle + C(\mathbf{x}_t, \mathbf{x}_0) \Bigg] \Bigg) \\ 
+\end{aligned}
+$$
+
+At this point, notice that we have a quadratic expression in the argument to the exponential. We employ a trick called "completing the square": For an invertible square matrix $\mathbf{A}$ and vector $\mathbf{b}$, we have 
+
+$$
+\mathbf{x}^T\mathbf{A}\mathbf{x} + \mathbf{b}^T\mathbf{x} = (\mathbf{x} + \frac{1}{2}\mathbf{A}^{-1}\mathbf{b})^T\ \mathbf{A}\ (\mathbf{x} + \frac{1}{2}\mathbf{A}^{-1}\mathbf{b}) - \frac{1}{4}\mathbf{b}^T\mathbf{A}^{-1}\mathbf{b}
+$$
+
+We can match terms in the last line of our equation for the reverse process posterior. In particular, define
+
+$$
+\begin{aligned}
+  \mathbf{A} &:= \Big(\frac{1}{1-\bar{\alpha}_{t-1}} + \frac{\alpha_t}{\beta_t} \Big)\mathbf{I}\\ 
+  \mathbf{b} &:= -2\bigg(\frac{\sqrt{\alpha_t}}{\beta_t}  \mathbf{x}_t  +\frac{\sqrt{\bar{\alpha}_{t-1}}}{1-\bar{\alpha}_{t-1}}\mathbf{x}_0\bigg)
+\end{aligned}
+$$
+
+Then returning to our equation for the reverse process posterior,
+
+$$
+\begin{aligned}
+q(\mathbf{x}_{t-1}|\mathbf{x}_t, \mathbf{x}_0) &\propto \exp \Bigg(-\frac{1}{2} \Bigg[  (\mathbf{x}_{t-1} + \frac{1}{2}\mathbf{A}^{-1}\mathbf{b})^T\ \mathbf{A}\ (\mathbf{x}_{t-1} + \frac{1}{2}\mathbf{A}^{-1}\mathbf{b}) \Bigg] \Bigg)\underbrace{\exp\Bigg(-\frac{1}{2}\Bigg[C(\mathbf{x}_t, \mathbf{x}_0) - \frac{1}{4}\mathbf{b}^T\mathbf{A}^{-1}\mathbf{b} \Bigg]\Bigg)}_{\text{independent of }\mathbf{x}_{t-1}} \\ 
+&\propto \exp \Bigg(-\frac{1}{2} \Bigg[  (\mathbf{x}_{t-1} + \frac{1}{2}\mathbf{A}^{-1}\mathbf{b})^T\ \mathbf{A}\ (\mathbf{x}_{t-1} + \frac{1}{2}\mathbf{A}^{-1}\mathbf{b}) \Bigg] \Bigg)
+\end{aligned}
+$$
+
+From this expression it is easy to see that the reverse process posterior is a gaussian distribution. We can extract the covariance,
+
+$$
+\begin{aligned}
+ \boldsymbol{\Sigma}(\mathbf{x}_t, \mathbf{x}_0) &= \mathbf{A}^{-1} \\ 
+ &= \frac{1}{\frac{1}{1-\bar{\alpha}_{t-1}} + \frac{\alpha_t}{\beta_t}}\mathbf{I} \\ 
+ &= \frac{1-\bar{\alpha}_{t-1}}{1-\bar{\alpha}_{t}}\beta_t\mathbf{I}
+\end{aligned}
+$$
+
+and the mean,
+
+$$
+\begin{aligned}
+ \boldsymbol{\mu}(\mathbf{x}_t, \mathbf{x}_0) &= -\frac{1}{2}\mathbf{A}^{-1}\mathbf{b} \\ 
+ &= \bigg(\frac{\sqrt{\alpha_t}}{\beta_t}  \mathbf{x}_t  +\frac{\sqrt{\bar{\alpha}_{t-1}}}{1-\bar{\alpha}_{t-1}}\mathbf{x}_0\bigg)\frac{1-\bar{\alpha}_{t-1}}{1-\bar{\alpha}_{t}}\beta_t \\ 
+&= \frac{\sqrt{\alpha_t}(1-\bar{\alpha}_{t-1})}{1-\bar{\alpha_t}}  \mathbf{x}_t  +\frac{\sqrt{\bar{\alpha}_{t-1}}\beta_t}{1-\bar{\alpha}_t}\mathbf{x}_0
+\end{aligned}
+$$
+
+To summarize, we have shown that
+
+$$
+q(\mathbf{x}_{t-1}|\mathbf{x}_t, \mathbf{x}_0) = \mathcal{N}\bigg(\frac{\sqrt{\alpha_t}(1-\bar{\alpha}_{t-1})}{1-\bar{\alpha_t}}  \mathbf{x}_t  +\frac{\sqrt{\bar{\alpha}_{t-1}}\beta_t}{1-\bar{\alpha}_t}\mathbf{x}_0, \frac{1-\bar{\alpha}_{t-1}}{1-\bar{\alpha}_{t}}\beta_t\mathbf{I} \bigg)
+$$
+
