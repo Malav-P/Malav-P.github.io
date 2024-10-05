@@ -12,7 +12,7 @@ tags: []
 
 ## Diffusion Models
 
-Define a joint distribution $q(\mathbf{x}\_0, \ldots,\mathbf{x}\_T)$ over our data variable $\mathbf{x}\_0$ and latent variables $\{\mathbf{x}\_i\}\_{i=1}^T$. We can decompose this joint distribution into a product of conditional distribution that represent a diffusion process of $\mathbf{x}\_0$ into Gaussian noise. This is called the forward process
+Define a joint distribution $q(\mathbf{x}\_0, \ldots,\mathbf{x}\_T)$ over our data variable $\mathbf{x}\_0 \in \mathbb{R}^k$ and latent variables $\{\mathbf{x}\_i\}\_{i=1}^T$ of the same dimension. We can decompose this joint distribution into a product of conditional distribution that represent a diffusion process of $\mathbf{x}\_0$ into Gaussian noise. This is called the forward process
 
 #### Forward Process 
 
@@ -73,7 +73,7 @@ $$
 
 This is an expectation over forward trajectories conditioned on $\mathbf{x}_0$, so we can estimate the model probability by rapidly averaging over many forward trajectories.
 
-### Learning the Model
+## Learning the Model
 To learn the model we maximize its log-likelihood over the data distribution:
 
 $$
@@ -88,7 +88,7 @@ $$
 &=\mathbb{E}_{q(\mathbf{x}_0)}\Bigg[\mathbb{E}_{q(\mathbf{x}_1, \ldots, \mathbf{x}_T | \mathbf{x}_0)}\bigg[\log{\frac{p(\mathbf{x}_T)}{q(\mathbf{x}_T | \mathbf{x}_0)}}\bigg] + \mathbb{E}_{q(\mathbf{x}_1, \ldots, \mathbf{x}_T | \mathbf{x}_0)}\Big[\log{p_{\theta}(\mathbf{x}_{0} | \mathbf{x}_{1})}\Big] +\sum_{t=2}^{T} \mathbb{E}_{q(\mathbf{x}_1, \ldots, \mathbf{x}_T | \mathbf{x}_0)}\bigg[\log{\frac{p_{\theta}(\mathbf{x}_{t-1} | \mathbf{x}_{t})}{q(\mathbf{x}_{t-1} | \mathbf{x}_{t}, \mathbf{x}_0)}}\bigg]\Bigg] \\ 
 &=\mathbb{E}_{q(\mathbf{x}_0)}\Bigg[\mathbb{E}_{q( \mathbf{x}_T | \mathbf{x}_0)}\bigg[\log{\frac{p(\mathbf{x}_T)}{q(\mathbf{x}_T | \mathbf{x}_0)}}\bigg] + \mathbb{E}_{q(\mathbf{x}_1 | \mathbf{x}_0)}\Big[\log{p_{\theta}(\mathbf{x}_{0} | \mathbf{x}_{1})}\Big] +\sum_{t=2}^{T} \mathbb{E}_{q(\mathbf{x}_{t-1},\mathbf{x}_t | \mathbf{x}_0)}\bigg[\log{\frac{p_{\theta}(\mathbf{x}_{t-1} | \mathbf{x}_{t})}{q(\mathbf{x}_{t-1} | \mathbf{x}_{t}, \mathbf{x}_0)}}\bigg]\Bigg] \quad \quad \text{Marginalize}\ \ q \\ 
 &=\mathbb{E}_{q(\mathbf{x}_0)}\Bigg[-\text{D}_{\text{KL}}\Big(q(\mathbf{x}_T|\mathbf{x}_0)\  \| \ p(\mathbf{x}_T) \Big) + \mathbb{E}_{q(\mathbf{x}_1 | \mathbf{x}_0)}\Big[\log{p_{\theta}(\mathbf{x}_{0} | \mathbf{x}_{1})}\Big] +\sum_{t=2}^{T} \mathbb{E}_{q(\mathbf{x}_t | \mathbf{x}_0)} \mathbb{E}_{q(\mathbf{x}_{t-1}|\mathbf{x}_t, \mathbf{x}_0)}\bigg[\log{\frac{p_{\theta}(\mathbf{x}_{t-1} | \mathbf{x}_{t})}{q(\mathbf{x}_{t-1} | \mathbf{x}_{t}, \mathbf{x}_0)}}\bigg]\Bigg] \\ 
-&=\mathbb{E}_{q(\mathbf{x}_0)}\Bigg[-\text{D}_{\text{KL}}\Big(q(\mathbf{x}_T|\mathbf{x}_0)\  \| \ p(\mathbf{x}_T) \Big) + \mathbb{E}_{q(\mathbf{x}_1 | \mathbf{x}_0)}\Big[\log{p_{\theta}(\mathbf{x}_{0} | \mathbf{x}_{1})}\Big] - \sum_{t=2}^{T} \mathbb{E}_{q(\mathbf{x}_t | \mathbf{x}_0)}\Big[ \text{D}_{\text{KL}}\Big( q(\mathbf{x}_{t-1} | \mathbf{x}_{t}, \mathbf{x}_0) \ \| \ p_{\theta}(\mathbf{x}_{t-1} | \mathbf{x}_{t})\Big)\Big] \Bigg]
+&=\underbrace{-\mathbb{E}_{q(\mathbf{x}_0)}\Bigg[\text{D}_{\text{KL}}\Big(q(\mathbf{x}_T|\mathbf{x}_0)\  \| \ p(\mathbf{x}_T) \Big)\Bigg]}_{L_T} + \underbrace{\mathbb{E}_{q(\mathbf{x}_0)}\mathbb{E}_{q(\mathbf{x}_1 | \mathbf{x}_0)}\Big[\log{p_{\theta}(\mathbf{x}_{0} | \mathbf{x}_{1})}\Big]}_{L_0} - \sum_{t=2}^{T} \underbrace{\mathbb{E}_{q(\mathbf{x}_0)}\mathbb{E}_{q(\mathbf{x}_t | \mathbf{x}_0)}\Big[ \text{D}_{\text{KL}}\Big( q(\mathbf{x}_{t-1} | \mathbf{x}_{t}, \mathbf{x}_0) \ \| \ p_{\theta}(\mathbf{x}_{t-1} | \mathbf{x}_{t})\Big)\Big] }_{L_{t-1}}\Bigg]
 \end{aligned}
 $$
 
@@ -187,3 +187,77 @@ $$
 q(\mathbf{x}_{t-1}|\mathbf{x}_t, \mathbf{x}_0) = \mathcal{N}\bigg(\frac{\sqrt{\alpha_t}(1-\bar{\alpha}_{t-1})}{1-\bar{\alpha_t}}  \mathbf{x}_t  +\frac{\sqrt{\bar{\alpha}_{t-1}}\beta_t}{1-\bar{\alpha}_t}\mathbf{x}_0, \frac{1-\bar{\alpha}_{t-1}}{1-\bar{\alpha}_{t}}\beta_t\mathbf{I} \bigg)
 $$
 
+### Computing $L_{t-1}$
+
+Note that the authors of [1] make a choice to fix reverse process posterior covariances to time dependent constants $\boldsymbol{\Sigma}\_{\theta}(\mathbf{x}\_t, t) = \sigma\_t^2\mathbf{I}$. 
+So our model is of the form
+
+$$
+p_{\theta}(\mathbf{x}_{t-1}|\mathbf{x}_t) = \mathcal{N}(\boldsymbol{\mu}_{\theta}(\mathbf{x}_t, t), \sigma_t^2\mathbf{I})
+$$
+
+Now that we have an expression for $q(\mathbf{x}\_{t-1} \| \mathbf{x}\_t, \mathbf{x}\_0)$, we can proceed with calculating the $L\_{t-1}$ term in the objective. The two 
+aforementioned distributions are gaussians, and we knonw the KL divergence of two $k$ dimensional gaussian distributions $p$ and $q$ can be computed analytically:
+
+$$
+D_{KL}(p \ \|\ q) = \frac{1}{2}\left[\log\frac{|\Sigma_q|}{|\Sigma_p|} - k + (\boldsymbol{\mu_p}-\boldsymbol{\mu_q})^T\Sigma_q^{-1}(\boldsymbol{\mu_p}-\boldsymbol{\mu_q}) + \text{tr}(\Sigma_q^{-1}\Sigma_p)\right]
+$$
+
+Using this we can write,
+
+$$
+\begin{aligned}
+\text{D}_{\text{KL}}(q(\mathbf{x}_{t-1}|\mathbf{x}_t, \mathbf{x}_0) \ \|\ p_{\theta}(\mathbf{x}_{t-1} | \mathbf{x}_t )) &=  \frac{1}{2\sigma_t^2}\|\boldsymbol{\mu}_{\theta}(\mathbf{x}_t, t) - \boldsymbol{\mu}(\mathbf{x}_t, \mathbf{x}_0)\|^2 + \underbrace{ \frac{1}{2}\bigg[ \log \frac{\sigma_t^2(1-\bar{\alpha}_{t})}{\beta_t(1-\bar{\alpha}_{t-1})} - k + \frac{k\beta_t}{\sigma_t^2}\frac{1-\bar{\alpha}_{t-1}}{1-\bar{\alpha}_{t}} \bigg] }_{\text{independent of } \theta}
+\end{aligned}
+$$
+
+So we can write,
+
+$$
+\begin{aligned}
+L_{t-1} &= \mathbb{E}_{q(\mathbf{x}_0)}\mathbb{E}_{q(\mathbf{x}_t | \mathbf{x}_0)}\Big[ \text{D}_{\text{KL}}\Big( q(\mathbf{x}_{t-1} | \mathbf{x}_{t}, \mathbf{x}_0) \ \| \ p_{\theta}(\mathbf{x}_{t-1} | \mathbf{x}_{t})\Big)\Big] \\ 
+&= \mathbb{E}_{q(\mathbf{x}_0)}\mathbb{E}_{q(\mathbf{x}_t | \mathbf{x}_0)}\Bigg[\frac{1}{2\sigma_t^2}\|\boldsymbol{\mu}_{\theta}(\mathbf{x}_t, t) - \boldsymbol{\mu}(\mathbf{x}_t, \mathbf{x}_0)\|^2\Bigg] + C
+\end{aligned}
+$$
+
+Where $C$ contains all the terms independent of $\theta$. This shows that the model attempts to match the reverse process posterior mean at each step $t$. We can massage this objective further by
+considering the fact that $\mathbf{x}\_t(\mathbf{x}\_0, \boldsymbol{\epsilon}) = \sqrt{\bar{\alpha}\_t}\mathbf{x}\_0 + \sqrt{1-\bar{\alpha\_t}}\boldsymbol{\epsilon}$, and plugging it into our reverse process posterior mean:
+
+$$
+\begin{aligned}
+\boldsymbol{\mu}(\mathbf{x}_t, \mathbf{x}_0) &= \frac{\sqrt{\alpha_t}(1-\bar{\alpha}_{t-1})}{1-\bar{\alpha_t}}  \mathbf{x}_t  +\frac{\sqrt{\bar{\alpha}_{t-1}}\beta_t}{1-\bar{\alpha}_t}\mathbf{x}_0\\ 
+&= \frac{\sqrt{\alpha_t}(1-\bar{\alpha}_{t-1})}{1-\bar{\alpha_t}}  \mathbf{x}_t + \frac{\sqrt{\bar{\alpha}_{t-1}}\beta_t}{1-\bar{\alpha}_t}\bigg(\frac{1}{\sqrt{\bar{\alpha}_t}}( \mathbf{x}_t - \sqrt{1-\bar{\alpha}_t}\boldsymbol{\epsilon})\bigg) \\ 
+&= \bigg(\frac{\sqrt{\bar{\alpha}_t}\sqrt{\alpha_t}(1-\bar{\alpha}_{t-1}) + \sqrt{\bar{\alpha}_{t-1}}\beta_t}{\sqrt{\bar{\alpha}_t}(1-\bar{\alpha}_t)}\bigg)\mathbf{x}_{t} - \frac{\sqrt{\bar{\alpha}_{t-1}}\beta_t}{\sqrt{\bar{\alpha}_t}\sqrt{1-\bar{\alpha}_t}}\boldsymbol{\epsilon} \\ 
+&= \bigg(\frac{\sqrt{\bar{\alpha}_{t-1}}\alpha_t(1-\bar{\alpha}_{t-1}) + \sqrt{\bar{\alpha}_{t-1}}\beta_t}{\sqrt{\bar{\alpha}_t}(1-\bar{\alpha}_t)}\bigg)\mathbf{x}_{t} - \frac{\beta_t}{\sqrt{\alpha_t}\sqrt{1-\bar{\alpha}_t}}\boldsymbol{\epsilon} \\ 
+&= \bigg(\frac{(\alpha_t-\bar{\alpha}_{t}) + \beta_t}{\sqrt{\alpha_t}(1-\bar{\alpha}_t)}\bigg)\mathbf{x}_{t} - \frac{\beta_t}{\sqrt{\alpha_t}\sqrt{1-\bar{\alpha}_t}}\boldsymbol{\epsilon} \\ 
+&= \frac{1}{\sqrt{\alpha_t}}\mathbf{x}_{t} - \frac{\beta_t}{\sqrt{\alpha_t}\sqrt{1-\bar{\alpha}_t}}\boldsymbol{\epsilon} \\ 
+
+\end{aligned} 
+$$
+
+And so our loss term becomes,
+
+$$
+\begin{aligned}
+L_{t-1} &= \mathbb{E}_{q(\mathbf{x}_0)}\mathbb{E}_{q(\mathbf{x}_t | \mathbf{x}_0)}\Bigg[\frac{1}{2\sigma_t^2}\|\boldsymbol{\mu}_{\theta}(\mathbf{x}_t, t) - \boldsymbol{\mu}(\mathbf{x}_t, \mathbf{x}_0)\|^2\Bigg] + C \\ 
+&= \mathbb{E}_{q(\mathbf{x}_0)}\mathbb{E}_{\boldsymbol{\epsilon} \sim \mathcal{N}(0,\ \mathbf{I})}\Bigg[\frac{1}{2\sigma_t^2} \| \boldsymbol{\mu}_{\theta}\big(\mathbf{x}_t(\mathbf{x}_0, \boldsymbol{\epsilon}),t\big) - \frac{1}{\sqrt{\alpha_t}}\bigg(\mathbf{x}_{t}(\mathbf{x}_0, \boldsymbol{\epsilon}) - \frac{\beta_t}{\sqrt{1-\bar{\alpha}_t}}\boldsymbol{\epsilon} \bigg) \|^2\Bigg] + C
+\end{aligned}
+$$
+
+Note that in order to get monte carlo samples for this expectation, we sample $\mathbf{x} \sim q(\mathbf{x}\_0)$
+and $\boldsymbol{\epsilon} \sim \mathcal{N}(0,\mathbf{I})$. Then we compute $\mathbf{x}\_t = \sqrt{\bar{\alpha}\_t}\mathbf{x}\_0 + \sqrt{1- \bar{\alpha}\_t}\boldsymbol{\epsilon} $ and plug everything in.
+
+Returning to $L_{t-1}$, the above line suggests that we parameterize our mean estimator as 
+
+$$
+\boldsymbol{\mu}_{\theta}(\mathbf{x}_t, t) = \frac{1}{\sqrt{\alpha_t}}\bigg(\mathbf{x}_{t} - \frac{\beta_t}{\sqrt{1-\bar{\alpha}_t}}\boldsymbol{\epsilon}_{\theta}(\mathbf{x}_t, t) \bigg)
+$$
+
+So that we can write $L\_{t-1}$ as
+
+$$
+\begin{aligned}
+L_{t-1} &= \mathbb{E}_{q(\mathbf{x}_0)}\mathbb{E}_{\boldsymbol{\epsilon} \sim \mathcal{N}(0,\ \mathbf{I})}\Bigg[\frac{1}{2\sigma_t^2} \| \boldsymbol{\mu}_{\theta}\big(\mathbf{x}_t(\mathbf{x}_0, \boldsymbol{\epsilon}),t\big) - \frac{1}{\sqrt{\alpha_t}}\bigg(\mathbf{x}_{t}(\mathbf{x}_0, \boldsymbol{\epsilon}) - \frac{\beta_t}{\sqrt{1-\bar{\alpha}_t}}\boldsymbol{\epsilon} \bigg) \|^2\Bigg] + C \\ 
+&= \mathbb{E}_{q(\mathbf{x}_0)}\mathbb{E}_{\boldsymbol{\epsilon} \sim \mathcal{N}(0,\ \mathbf{I})}\Bigg[ \frac{\beta_t^2}{2\sigma_t^2(1-\bar{\alpha}_t)} \|\boldsymbol{\epsilon} - \boldsymbol{\epsilon}_{\theta}\big(\mathbf{x}_t(\mathbf{x}_0, \boldsymbol{\epsilon}), t\big)\|^2 \Bigg]
+\end{aligned}
+$$
