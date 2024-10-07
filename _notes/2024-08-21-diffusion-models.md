@@ -189,7 +189,7 @@ $$
 
 ### Computing $L_{t-1}$
 
-Note that the authors of [1] make a choice to fix reverse process posterior covariances to time dependent constants $\boldsymbol{\Sigma}\_{\theta}(\mathbf{x}\_t, t) = \sigma\_t^2\mathbf{I}$. 
+Note that for $ 1 < t \leq T$, the authors of [1] make a choice to fix reverse process posterior covariances to time dependent constants $\boldsymbol{\Sigma}\_{\theta}(\mathbf{x}\_t, t) = \sigma\_t^2\mathbf{I}$. 
 So our model is of the form
 
 $$
@@ -197,10 +197,10 @@ p_{\theta}(\mathbf{x}_{t-1}|\mathbf{x}_t) = \mathcal{N}(\boldsymbol{\mu}_{\theta
 $$
 
 Now that we have an expression for $q(\mathbf{x}\_{t-1} \| \mathbf{x}\_t, \mathbf{x}\_0)$, we can proceed with calculating the $L\_{t-1}$ term in the objective. The two 
-aforementioned distributions are gaussians, and we knonw the KL divergence of two $k$ dimensional gaussian distributions $p$ and $q$ can be computed analytically:
+aforementioned distributions are gaussians, and we know the KL divergence of two $k$ dimensional gaussian distributions $p$ and $q$ can be computed analytically:
 
 $$
-D_{KL}(p \ \|\ q) = \frac{1}{2}\left[\log\frac{|\Sigma_q|}{|\Sigma_p|} - k + (\boldsymbol{\mu_p}-\boldsymbol{\mu_q})^T\Sigma_q^{-1}(\boldsymbol{\mu_p}-\boldsymbol{\mu_q}) + \text{tr}(\Sigma_q^{-1}\Sigma_p)\right]
+D_{KL}(p \ \|\ q) = \frac{1}{2}\left[\log\frac{|\boldsymbol{\Sigma}_q|}{|\boldsymbol{\Sigma}_p|} - k + (\boldsymbol{\mu}_p-\boldsymbol{\mu}_q)^T\boldsymbol{\Sigma}_q^{-1}(\boldsymbol{\mu}_p-\boldsymbol{\mu}_q) + \text{tr}(\boldsymbol{\Sigma}_q^{-1}\boldsymbol{\Sigma}_p)\right]
 $$
 
 Using this we can write,
@@ -258,6 +258,58 @@ So that we can write $L\_{t-1}$ as
 $$
 \begin{aligned}
 L_{t-1} &= \mathbb{E}_{q(\mathbf{x}_0)}\mathbb{E}_{\boldsymbol{\epsilon} \sim \mathcal{N}(0,\ \mathbf{I})}\Bigg[\frac{1}{2\sigma_t^2} \| \boldsymbol{\mu}_{\theta}\big(\mathbf{x}_t(\mathbf{x}_0, \boldsymbol{\epsilon}),t\big) - \frac{1}{\sqrt{\alpha_t}}\bigg(\mathbf{x}_{t}(\mathbf{x}_0, \boldsymbol{\epsilon}) - \frac{\beta_t}{\sqrt{1-\bar{\alpha}_t}}\boldsymbol{\epsilon} \bigg) \|^2\Bigg] + C \\ 
-&= \mathbb{E}_{q(\mathbf{x}_0)}\mathbb{E}_{\boldsymbol{\epsilon} \sim \mathcal{N}(0,\ \mathbf{I})}\Bigg[ \frac{\beta_t^2}{2\sigma_t^2(1-\bar{\alpha}_t)} \|\boldsymbol{\epsilon} - \boldsymbol{\epsilon}_{\theta}\big(\mathbf{x}_t(\mathbf{x}_0, \boldsymbol{\epsilon}), t\big)\|^2 \Bigg]
+&= \mathbb{E}_{q(\mathbf{x}_0)}\mathbb{E}_{\boldsymbol{\epsilon} \sim \mathcal{N}(0,\ \mathbf{I})}\Bigg[ \frac{\beta_t^2}{2\sigma_t^2\alpha_t(1-\bar{\alpha}_t)} \|\boldsymbol{\epsilon} - \boldsymbol{\epsilon}_{\theta}\big(\mathbf{x}_t(\mathbf{x}_0, \boldsymbol{\epsilon}), t\big)\|^2 \Bigg]
 \end{aligned}
 $$
+
+### Reverse Process Decoder and Computing $L_0$
+We know image data is scaled linearly from pixel values in  $\{0, 1, \ldots 255\}$ to the interval $[-1, 1]$. Thus image data is discrete, and as a result we should have a discrete distribution as the final step of the reverse process. However, the distribution at the final step of the reverse process, $\mathcal{N}(\boldsymbol{\mu}\_{\theta}(\mathbf{x}\_1, 1), \sigma\_1^2\mathbf{I})$ is over a continuous variable. So how do we get a discrete distribution? We follow the steps outlined in [2] and [3]:
+
+1. For each pixel, generate a continuous distribution representing the intensity. In our case, for the $i$-th pixel, this is $\mathcal{N}(\boldsymbol{\mu}_{\theta}(\mathbf{x}_1, 1)[i], \sigma_1^2) $. Denote the cumulative distribution function of this normal distribution as $\text{CDF}(\cdot)$.
+
+2. Next, "round" each pixel to a discretized distribution over $[-1,1]$ by integrating over the appropriate width along the real line. Since we scaled our pixels into $[-1, 1]$, one pixel has width $\frac{2}{255}$ in this scaled space. Note that for the edges (-1 and 1), we simply integrate from/to $\infty$.
+
+$$
+p_{\theta}(\mathbf{x}_0[i] | \mathbf{x}_1) = \begin{cases} 
+      \text{CDF}(x) & \text{if} \ x = -1 \\ 
+     \text{CDF}( x + \frac{1}{255} ) - \text{CDF}(x - \frac{1}{255}) & \text{if}\ -1 < x < 1 \\ 
+      1 - \text{CDF}(x) &  \text{if}\ x = 1 
+   \end{cases}
+$$
+
+The authors of [1] do exactly this. They form the joint distribution of the image as the product of the distributions over each pixel.
+
+$$
+p(\mathbf{x}_0 | \mathbf{x}_1) = \prod_{i=1}^k \underbrace{\int_{\delta_{-}(\mathbf{x}_0[i])}^{\delta_{+}(\mathbf{x}_0[i])}\mathcal{N}(x ; \boldsymbol{\mu}_{\theta}(\mathbf{x}_1, 1)[i], \sigma_1^2) \ dx}_{p_{\theta}(\mathbf{x}_0[i] | \mathbf{x}_1)}
+$$
+
+Where 
+
+$$
+\begin{aligned}
+ \delta_{-}(x) &= \begin{cases} 
+      -\infty & \text{if} \ x = -1 \\
+      x - \frac{1}{255} &  \text{if}\ x > -1 
+   \end{cases}
+
+   &&\quad\quad \delta_{+}(x) = \begin{cases} 
+      \infty & \text{if} \ x = 1 \\
+      x + \frac{1}{255} &  \text{if}\ x <1 
+   \end{cases}
+\end{aligned}
+$$
+
+
+### Simplified Objective
+The authors of [1] use a simplified objective instead to train $\boldsymbol{\epsilon}\_{\theta}(\mathbf{x}\_t, t) $.
+
+$$
+\max_{\theta} \quad L_{\text{simple}}(\theta) :=  \mathbb{E}_{q(\mathbf{x}_0)}\mathbb{E}_{\boldsymbol{\epsilon} \sim \mathcal{N}(0,\ \mathbf{I})}\Big[\|\boldsymbol{\epsilon} - \boldsymbol{\epsilon}_{\theta}(\mathbf{x}_t, t) \|^2\Big]
+$$
+
+## References
+[1] Ho, J., Jain, A., & Abbeel, P. (2020). Denoising diffusion probabilistic models. Advances in neural information processing systems, 33, 6840-6851.
+
+[2] Keng, B. (2019, July 22). Pixelcnn. Bounded Rationality. https://bjlkeng.io/posts/pixelcnn/ 
+
+[3] Salimans, T., Karpathy, A., Chen, X., & Kingma, D. P. (2017). Pixelcnn++: Improving the pixelcnn with discretized logistic mixture likelihood and other modifications. arXiv preprint arXiv:1701.05517.
