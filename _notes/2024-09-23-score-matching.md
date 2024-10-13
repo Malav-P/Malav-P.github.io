@@ -43,7 +43,7 @@ $$
 p(\mathbf{x}) := \frac{e^{-f_{\theta}(\mathbf{x})}}{Z(\theta)}
 $$
 
-where $f_{\theta}(\mathbf{x})$ is a function differentiable in $\theta$, often a neural network, and $Z(\theta) := \int e^{-f_{\theta}(\mathbf{x})}\ d\mathbf{x}$ is the normalizing constant. Given a dataset $\mathcal{D} = \{\mathbf{x}_i \}_{i=1}^{n}$, we choose $\theta$ by maximizing the usual log-likelihood,
+where $f_{\theta}(\mathbf{x})$ is a function differentiable in $\theta$, often a neural network, and $Z(\theta) := \int e^{-f_{\theta}(\mathbf{x})}\ d\mathbf{x}$ is the normalizing constant. Given a dataset $\mathcal{D} = \{\mathbf{x}\_i \}\_{i=1}^{n}$, we choose $\theta$ by maximizing the usual log-likelihood,
 
 $$
 \max_{\theta} \quad l(\theta) := - \log{Z(\theta)} - \frac{1}{n}\sum_i f_{\theta}(\mathbf{x}_i) 
@@ -254,7 +254,7 @@ q_{\sigma}(\mathbf{x}') :&= \int p(\mathbf{x}) \ \underbrace{\mathcal{N}(\mathbf
 \end{aligned}
 $$
 
-We train the score network such that $\mathbf{s}_{\theta}(\mathbf{x}', \sigma) \approx \nabla_{\mathbf{x}'}\log{q_{\sigma}(\mathbf{x}')}$.
+We train the score network such that $\mathbf{s}\_{\theta}(\mathbf{x}', \sigma) \approx \nabla\_{\mathbf{x}'}\log{q\_{\sigma}(\mathbf{x}')}$.
 
 The objective for a particular value of $\sigma$ follows exactly from denoising score matching:
 
@@ -265,10 +265,10 @@ $$
 \end{aligned}
 $$
 
-Define the total loss objective over all values of sigma as 
+Define the total loss objective over all values $\sigma_i$ as 
 
 $$
-\min_{\theta} \quad l(\theta) := \sum_i \lambda(\sigma)\ l(\theta, \sigma)
+\min_{\theta} \quad l(\theta) := \sum_i \lambda(\sigma_i)\ l(\theta, \sigma_i)
 $$
 
 where $\lambda(\sigma)$ is a weighting constant that ensures each term is approximately the same order of magnitude. This ensures that no particular value of $\sigma$ is overemphasizes in the minimization objective. The authors of [2] find that empirically, $\lambda(\sigma) = \sigma^2$ is a good choice.
@@ -285,6 +285,50 @@ The intuition around sampling is as follows.
 
 
 The authors of [2] present the algorithm, called annealed langevin dynamics.
+
+## Toward Stochastic Differential Equations
+
+Let $\mathbf{x} \sim p(\mathbf{x})$ denote data sampled from the data distribution. Let $q_{\sigma}(\mathbf{x}' | \mathbf{x}):= \mathcal{N}(\mathbf{x}, \sigma^2\mathbf{I})$ be a perturbation kernel at $q_{\sigma}(\mathbf{x}') := \int p(\mathbf{x})\  q_{\sigma}(\mathbf{x}' | \mathbf{x})\ d\mathbf{x}$ be the associated perturbed distribution. Noise conditional score networks introduce a set of variances $\{ \sigma_i\}_{i=1}^{L}$  with $\sigma_1 < \sigma_2 < \cdots < \sigma_L$ and train a score network $\mathbf{s}_{\theta}(\mathbf{x}', \sigma)$ such that $\mathbf{s}_{\theta}(\mathbf{x}', \sigma) \approx \nabla_{\mathbf{x}}\log q_{\sigma}(\mathbf{x}')$ for all $\sigma \in \{ \sigma_i\}_{i=1}^{L}$. Then we use langevin dynamics with this score network. In regions of low density we use larger values of sigma for a stronger score signal and tune it down as we move towards regions of high density. Now let $\mathbf{x}_i$  be the random variable that is sampled from the perturbed distribution with parameter $\sigma_i$, i.e. $\mathbf{x}_i \sim q_{\sigma_i}(\mathbf{x}_i)$. Note that these random variables follow a Markov chain:
+
+$$
+\mathbf{x}_{i} = \mathbf{x}_{i-1} + \sqrt{\sigma_{i}^2 - \sigma_{i-1}^2}\mathbf{z}_{i-1}, \quad \quad \mathbf{z}_{i-1} \sim \mathcal{N}(0, \mathbf{I})
+$$
+
+To see this, simply apply the formula recursively by replacing  $\mathbf{x}_{i-1}$ above to arrive at
+
+$$
+\begin{aligned}
+\mathbf{x}_i &= \mathbf{x}_0 + \sqrt{\sum_{j=1}^{i} \sigma_j^2 - \sigma_{j-1}^2}\  \mathbf{z}, \quad \quad \mathbf{z} \sim \mathcal{N}(0, \mathbf{I}) \\ 
+&= \mathbf{x}_0 + \sigma_i \mathbf{z}
+\end{aligned}
+$$
+
+which is consistent with the fact that $\mathbf{x}_i | \mathbf{x}_0 \sim \mathcal{N}(\mathbf{x}_0, \sigma_i^2\mathbf{I})$. Note that above we use a slight change of notation $\mathbf{x}_0 \sim p(\mathbf{x}_0)$ which corresponds to the true data distribution and $\sigma_0 = 0$.
+
+Now consider the limit $L \to \infty$. The set $\{\sigma_i \}_{i = 1}^{L}$ becomes $\sigma(t)$ for a continuous index $t \in [0, 1]$ rather than a discrete index $i \in \{1, 2, \ldots L\}$. Let $\mathbf{x}\big(\frac{i}{L}\big)  = \mathbf{x}_i$ be a new way to write $\mathbf{x}_i$,  $\sigma(\frac{i}{L}) = \sigma_i$ be the new way to write $\sigma_i$, and $\mathbf{z}(\frac{i}{L}) = \mathbf{z}_i$ be the new way to write $\mathbf{z}_i$ using the continuous index $t$. Let $\Delta t = \frac{1}{L}$. Then returning to the Markov chain we can write
+
+$$
+\begin{aligned}
+\mathbf{x}(t + \Delta t) &= \mathbf{x}(t) + \sqrt{\sigma^2(t + \Delta t) - \sigma(t)}\ \mathbf{z}(t) \\ 
+&\approx \mathbf{x}(t) + \sqrt{\frac{\text{d}[\sigma^2(t)]}{\text{d}t}\Delta t}\ \mathbf{z}(t), \quad \quad \text{for } \Delta t \ll 1
+\end{aligned}
+$$
+
+Rewriting this, 
+
+$$
+\mathbf{x}(t + \Delta t) - \mathbf{x}(t) = \sqrt{\frac{\text{d}[\sigma^2(t)]}{\text{d}t}}\underbrace{\sqrt{\Delta t}\ \mathbf{z}(t)}_{\mathbf{w}(t + \Delta t) - \mathbf{w}(t)}
+$$
+
+Where $\mathbf{w}(t)$ is a Wiener process. To see this recall that a wiener process $\mathbf{w}(t)$ has Gaussian increments, i.e. $\mathbf{w}(t + u) - \mathbf{w}(t) \sim \mathcal{N}(0, u\mathbf{I})$. Now in the limit $\Delta t \to 0$, the above equation becomes a stochastic differential equation:
+
+$$
+\text{d}\mathbf{x} = \sqrt{\frac{\text{d}[\sigma^2(t)]}{\text{d}t}}\ \text{d}\mathbf{w}
+$$
+
+The above stochastic differential equation transforms the initial random variable $\mathbf{x}(0)$ with distribution $p$ at $t = 0$ to another random variable $\mathbf{x}(1)$ with distribution $q$ at $t=1$. This equation represents the forward diffusion process. In our case $p$ is the data distribution and $q$ is essentially a Gaussian distribution. This is because (TODO DERIVE sigma(t))
+
+<!-- For notational convenience let $\mathbf{x}_0 \sim p(\mathbf{x}_0) $ refer to the true data distribution and $q_{\sigma}(\mathbf{x}) := \int p(\mathbf{x}_0)\ \mathcal{N}(\mathbf{x}_0, \sigma^2\mathbf{I})\ d\mathbf{x}_0$ be a perturbed distribution. Noise conditional score networks introduce a set of variances $\{\sigma_i \}_{i=1}^{L}$ and a perturbation kernel $q(\mathbf{x}_i | \mathbf{x}_0) := \mathcal{N}(\mathbf{x}_0, \sigma_i^2\mathbf{I})$ such that $\mathbf{x}_i \sim q(\mathbf{x}_i) = \int p(\mathbf{x}_0) q(\mathbf{x}_i | \mathbf{x}_0) \ d\mathbf{x}_0 $. Then we proceed to learn a score network $\mathbf{s}_{\theta}(\mathbf{x}, \sigma)$ from these perturbed distributions such that $\mathbf{s}_{\theta}(\mathbf{x}, \sigma) \approx \nabla_{\mathbf{x}}\log q_{\sigma}(\mathbf{x})$ -->
 
 ### References
 

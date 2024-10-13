@@ -137,7 +137,7 @@ q(\mathbf{x}_{t-1}|\mathbf{x}_t, \mathbf{x}_0) &= q(\mathbf{x}_t |\mathbf{x}_{t-
 \end{aligned}
 $$
 
-At this point, notice that we have a quadratic expression in the argument to the exponential. We employ a trick called "completing the square": For an invertible square matrix $\mathbf{A}$ and vector $\mathbf{b}$, we have 
+At this point, notice that we have a quadratic expression in the argument to the exponential. We employ a trick called "completing the square": For an invertible symmetric square matrix $\mathbf{A}$ and vector $\mathbf{b}$, we have 
 
 $$
 \mathbf{x}^T\mathbf{A}\mathbf{x} + \mathbf{b}^T\mathbf{x} = (\mathbf{x} + \frac{1}{2}\mathbf{A}^{-1}\mathbf{b})^T\ \mathbf{A}\ (\mathbf{x} + \frac{1}{2}\mathbf{A}^{-1}\mathbf{b}) - \frac{1}{4}\mathbf{b}^T\mathbf{A}^{-1}\mathbf{b}
