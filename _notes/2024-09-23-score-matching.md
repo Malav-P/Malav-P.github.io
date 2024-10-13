@@ -288,13 +288,13 @@ The authors of [2] present the algorithm, called annealed langevin dynamics.
 
 ## Toward Stochastic Differential Equations
 
-Let $\mathbf{x} \sim p(\mathbf{x})$ denote data sampled from the data distribution. Let $q_{\sigma}(\mathbf{x}' | \mathbf{x}):= \mathcal{N}(\mathbf{x}, \sigma^2\mathbf{I})$ be a perturbation kernel at $q_{\sigma}(\mathbf{x}') := \int p(\mathbf{x})\  q_{\sigma}(\mathbf{x}' | \mathbf{x})\ d\mathbf{x}$ be the associated perturbed distribution. Noise conditional score networks introduce a set of variances $\{ \sigma_i\}_{i=1}^{L}$  with $\sigma_1 < \sigma_2 < \cdots < \sigma_L$ and train a score network $\mathbf{s}_{\theta}(\mathbf{x}', \sigma)$ such that $\mathbf{s}_{\theta}(\mathbf{x}', \sigma) \approx \nabla_{\mathbf{x}}\log q_{\sigma}(\mathbf{x}')$ for all $\sigma \in \{ \sigma_i\}_{i=1}^{L}$. Then we use langevin dynamics with this score network. In regions of low density we use larger values of sigma for a stronger score signal and tune it down as we move towards regions of high density. Now let $\mathbf{x}_i$  be the random variable that is sampled from the perturbed distribution with parameter $\sigma_i$, i.e. $\mathbf{x}_i \sim q_{\sigma_i}(\mathbf{x}_i)$. Note that these random variables follow a Markov chain:
+Let $\mathbf{x} \sim p(\mathbf{x})$ denote data sampled from the data distribution. Let $q\_{\sigma}(\mathbf{x}' \| \mathbf{x}):= \mathcal{N}(\mathbf{x}, \sigma^2\mathbf{I})$ be a perturbation kernel at $q\_{\sigma}(\mathbf{x}') := \int p(\mathbf{x})\  q\_{\sigma}(\mathbf{x}' | \mathbf{x})\ d\mathbf{x}$ be the associated perturbed distribution. Noise conditional score networks introduce a set of variances $\{ \sigma\_i\}_{i=1}^{L}$  with $\sigma_1 < \sigma_2 < \cdots < \sigma\_L$ and train a score network $\mathbf{s}\_{\theta}(\mathbf{x}', \sigma)$ such that $\mathbf{s}\_{\theta}(\mathbf{x}', \sigma) \approx \nabla\_{\mathbf{x}}\log q\_{\sigma}(\mathbf{x}')$ for all $\sigma \in \{ \sigma\_i\}_{i=1}^{L}$. Then we use langevin dynamics with this score network. In regions of low density we use larger values of sigma for a stronger score signal and tune it down as we move towards regions of high density. Now let $\mathbf{x}\_i$  be the random variable that is sampled from the perturbed distribution with parameter $\sigma\_i$, i.e. $\mathbf{x}\_i \sim q\_{\sigma\_i}(\mathbf{x}\_i)$. Note that these random variables follow a Markov chain:
 
 $$
 \mathbf{x}_{i} = \mathbf{x}_{i-1} + \sqrt{\sigma_{i}^2 - \sigma_{i-1}^2}\mathbf{z}_{i-1}, \quad \quad \mathbf{z}_{i-1} \sim \mathcal{N}(0, \mathbf{I})
 $$
 
-To see this, simply apply the formula recursively by replacing  $\mathbf{x}_{i-1}$ above to arrive at
+To see this, simply apply the formula recursively by replacing  $\mathbf{x}\_{i-1}$ above to arrive at
 
 $$
 \begin{aligned}
@@ -303,9 +303,9 @@ $$
 \end{aligned}
 $$
 
-which is consistent with the fact that $\mathbf{x}_i | \mathbf{x}_0 \sim \mathcal{N}(\mathbf{x}_0, \sigma_i^2\mathbf{I})$. Note that above we use a slight change of notation $\mathbf{x}_0 \sim p(\mathbf{x}_0)$ which corresponds to the true data distribution and $\sigma_0 = 0$.
+which is consistent with the fact that $\mathbf{x}\_i \| \mathbf{x}\_0 \sim \mathcal{N}(\mathbf{x}\_0, \sigma_i^2\mathbf{I})$. Note that above we use a slight change of notation $\mathbf{x}\_0 \sim p(\mathbf{x}\_0)$ which corresponds to the true data distribution and $\sigma\_0 = 0$.
 
-Now consider the limit $L \to \infty$. The set $\{\sigma_i \}_{i = 1}^{L}$ becomes $\sigma(t)$ for a continuous index $t \in [0, 1]$ rather than a discrete index $i \in \{1, 2, \ldots L\}$. Let $\mathbf{x}\big(\frac{i}{L}\big)  = \mathbf{x}_i$ be a new way to write $\mathbf{x}_i$,  $\sigma(\frac{i}{L}) = \sigma_i$ be the new way to write $\sigma_i$, and $\mathbf{z}(\frac{i}{L}) = \mathbf{z}_i$ be the new way to write $\mathbf{z}_i$ using the continuous index $t$. Let $\Delta t = \frac{1}{L}$. Then returning to the Markov chain we can write
+Now consider the limit $L \to \infty$. The set $\{\sigma\_i \}\_{i = 1}^{L}$ becomes $\sigma(t)$ for a continuous index $t \in [0, 1]$ rather than a discrete index $i \in \{1, 2, \ldots L\}$. Let $\mathbf{x}\big(\frac{i}{L}\big)  = \mathbf{x}\_i$ be a new way to write $\mathbf{x}\_i$,  $\sigma(\frac{i}{L}) = \sigma\_i$ be the new way to write $\sigma\_i$, and $\mathbf{z}(\frac{i}{L}) = \mathbf{z}\_i$ be the new way to write $\mathbf{z}\_i$ using the continuous index $t$. Let $\Delta t = \frac{1}{L}$. Then returning to the Markov chain we can write
 
 $$
 \begin{aligned}
