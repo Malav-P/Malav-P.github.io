@@ -20,14 +20,15 @@ The idea is to use Breadth-First-Search. It works because BFS will sweep all the
 def bfs_maze(m, n, walls, start_point, escape_point):
     q = create_empty_queue()
     visited = create_empty_set()
-    q.put((start_point, 0)) # add (start_point, level in bfs tree)
+
+    q.enqueue((start_point, 0)) # add (start_point, level in bfs tree)
+    visited.add(start_point)
 
     directions = ((1, 0), (-1, 0), (0, 1), (0, -1))
 
-    while not q.empty():
-        pos, level = queue.get_item()
-        visited.add(pos)
-
+    while q not empty:
+        pos, level = q.dequeue()
+        
         if pos == escape_point:
             return level
         
@@ -35,7 +36,8 @@ def bfs_maze(m, n, walls, start_point, escape_point):
             neighbor = pos + direction
 
             if (neighbor not a wall) and (neighbor not visited) and (neighbor in bounds):
-                q.add( (neighbor, level + 1) )
+                q.enqueue( (neighbor, level + 1) )
+                visited.add(neighbor)
     
     return -1 # return -1 if no valid path found
 ```
@@ -43,18 +45,18 @@ def bfs_maze(m, n, walls, start_point, escape_point):
 ### Python
 ```python
 
-def bfs_maze(m, n, walls, escape_point):
-    q = queue.Queue() # create an empty queue to store to-be-visited positions in the grid
-    visited = set() # create an empty set to hold already visited positions in the grid
+def bfs_maze(rows, cols, walls, escape_point):
+    q = queue.Queue() # create empty queue to store to-be-processed nodes
+    visited = set() # create empty set to store already-touched nodes
 
-    start = ((0, 0), 0) # set start point of maze at (0, 0) and level 0 of bfs tree
-    q.put(start) # place start point and level into queue
+    start = ((0, 0), 0) # maze runner begins at position (0, 0) and at the root of the bfs tree (level 0)
+    q.put(start) # place the first node in the queue
+    visited.add(start[0]) # mark the node as touched
 
-    directions = [(1, 0), (-1, 0), (0, 1), (0, -1)] # possible movement directions
+    directions = [(1, 0), (-1, 0), (0, 1), (0, -1)] # directions to move along are right left up down
 
     while not q.empty():
         pos, level = q.get()
-        visited.add(pos)
 
         if pos == escape_point:
             return level
@@ -62,8 +64,10 @@ def bfs_maze(m, n, walls, escape_point):
         for dir in directions:
             neighbor = (pos[0] + dir[0], pos[1]+ dir[1])
 
-            if (neighbor not in walls) and (neighbor not in visited) and valid_point(neighbor, m, n):
+            if (neighbor not in walls) and (neighbor not in visited) and valid_point(neighbor, rows, cols):
                 q.put((neighbor, level + 1))
+                visited.add(neighbor)
+        
 
     return -1
 
