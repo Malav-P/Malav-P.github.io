@@ -59,7 +59,7 @@ $$
 \end{aligned}
 $$
 
-In the GPR case, we analogously update the mean function and covariance kernel. Let us take our dataset $\mathcal{D} = \{\mathbf{x}_i, y_i\}$ and create the vectors $\mathbf{y}_1:=[y_1, y_2, \ldots y_n]^\top$ and $\boldsymbol{\mu}_1 := [\mu(x_1), \mu(x_2), \ldots \mu(x_n)]^\top$. Note that in our case, we assume in our prior that $\mu(x) = 0$, which implies that $\boldsymbol{\mu}_1 = 0$. We continue with the more general case. The posterior mean and covariance kernel are now written as
+In the GPR case, we analogously update the mean function and covariance kernel. Let us take our dataset $\mathcal{D} = \{\mathbf{x}_i, y_i\}$ and create the vectors $\mathbf{y}_1:=[y_1, y_2, \ldots y_n]^\top$ and $\boldsymbol{\mu}_1 := [\mu(\mathbf{x}_1), \mu(\mathbf{x}_2), \ldots \mu(\mathbf{x}_n)]^\top$. Note that in our case, we assume in our prior that $\mu(\mathbf{x}) = 0$, which implies that $\boldsymbol{\mu}_1 = 0$. We continue with the more general case. The posterior mean and covariance kernel are now written as
 
 $$
 \begin{aligned}
