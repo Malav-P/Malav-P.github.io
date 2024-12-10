@@ -110,6 +110,11 @@ bfs_maze(rows, cols, walls, escape_point)
 8 # output
 ```
 
-
-
-
+The order of traversal is shown below:
+```bash
+ 1   2   3   4   6
+██  ██   5  ██  ██
+13   9   7   8  11
+18  14  10  12  16
+21  19  15  17  20
+```
