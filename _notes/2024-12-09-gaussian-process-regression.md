@@ -25,7 +25,9 @@ Here are some possible forms we believe $y(\mathbf{x})$ can take prior to observ
 <center>
 <figure>
   <img src="../assets/img/prior.png" width="85%">
+  <figcaption><i>Five samples of the Gaussian process with mean function zero and sigma (length scale) equal to 0.5</i></figcaption>
 </figure>
+
 </center>
 
 ## Posterior
