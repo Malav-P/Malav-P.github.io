@@ -49,7 +49,7 @@ $$
 
 $$
 
-The conditional distribution $\mathbf{y}_2 | \mathbf{y}_1$ is also normal and is given by
+The conditional distribution $\mathbf{y}_2 \| \mathbf{y}_1$ is also normal and is given by
 
 $$
 \begin{aligned}
@@ -68,7 +68,7 @@ k(\mathbf{x}, \mathbf{x}') | \mathcal{D} &= k(\mathbf{x}, \mathbf{x}') - \Sigma_
 \end{aligned}
 $$
 
-Where $\Sigma_{21}  = [k(\mathbf{x}, \mathbf{x}_1),\  k(\mathbf{x}, \mathbf{x}_2),\  \ldots, k(\mathbf{x}, \mathbf{x}_n)] = \Sigma_{12}^\top$ and $\Sigma_{11}[i, j] = k(\mathbf{x}_i, \mathbf{x}_j)$.
+Where $\Sigma_{21}  = [k(\mathbf{x}, \mathbf{x}\_1),\  k(\mathbf{x}, \mathbf{x}\_2),\  \ldots, k(\mathbf{x}, \mathbf{x}\_n)] = \Sigma_{12}^\top$ and $\Sigma_{11}[i, j] = k(\mathbf{x}\_i, \mathbf{x}\_j)$.
 
 See below for an example of a posterior after we observe some data points.
 
