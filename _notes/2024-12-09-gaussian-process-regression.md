@@ -9,7 +9,7 @@ tags: []
 <!-- image: -->
 ---
 
-Goal is to find a regressor $y(\mathbf{x}):\mathbb{R}^d \to \mathbb{R}$ that fits observed data $\mathcal{D} = \{\mathbf{x}_i, y_i\}$. 
+Goal is to find a regressor $y(\mathbf{x}):\mathbb{R}^d \to \mathbb{R}$ that fits observed data $\mathcal{D} = \{\mathbf{x}_i, y_i\}$. We take the function space view, see section 2.2 from [this text](https://gaussianprocess.org/gpml/chapters/RW.pdf).
 ## Prior
 Prior to observing the data, we have no idea what $y(\mathbf{x})$ can be. To reflect this, our prior over $y(\mathbf{x})$ will be a gaussian process:
 
