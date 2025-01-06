@@ -69,13 +69,27 @@ A faster way to arrive at the answer it to consider costs for every roll. Define
 2. $S_1$: The intermediate state. We have rolled our first 6.
 3. $S_2$: The goal state. We have rolled two sixes in a row.
 
-Let $C_i$ denote the "expected cost", or the expected number of rolls to get two sixes in a row when we start in state $i$. Note that this implies $C_2 = 0$, since we do not need to roll any more if we start in the goal state. Then, we can draw the following diagram (essentially a markov chain).
+Let $C_i$ denote the "expected cost", or the expected number of rolls to get two sixes in a row when we start in state $i$. Note that this implies $C_2 = 0$, since we do not need to roll any more if we start in the goal state.
 
 
-The expected cost can then be written as:
+The expected cost from $S_0$ can then be written as:
 $$
-C_0 = \underbrace{\frac{1}{6}}_{\substack{\text{prob of rolling 6} \\ \text{(transition from $S_0$ to $S_1$})}}\cdot(\underbrace{1}_{\text{cost of current roll}} + \underbrace{C_1}_{\text{expected cost from $S_1$}}) + \underbrace{\frac{5}{6}}_{\substack{\text{prob of not rolling 6} \\ \text{(transition from $S_0$ to $S_0$})}}\cdot(\underbrace{1}_{\text{cost of current roll}} + \underbrace{C_0}_{\text{expected cost from $S_0$}})
+C_0 = \underbrace{\frac{1}{6}}_{\substack{\text{prob of rolling 6} \\ \text{(transition from $S_0$ to $S_1$})}}\cdot(\underbrace{1}_{\text{cost of roll}} + \underbrace{C_1}_{\text{expected cost from $S_1$}}) + \underbrace{\frac{5}{6}}_{\substack{\text{prob of not rolling 6} \\ \text{(transition from $S_0$ to $S_0$)}}}\cdot(\underbrace{1}_{\text{cost of roll}} + \underbrace{C_0}_{\text{expected cost from $S_0$}})
 $$
+
+We can break down the expected cost from $S_1$ similarly:
+
+$$
+C_1 = \underbrace{\frac{1}{6}}_{\substack{\text{prob of rolling 6} \\ \text{(transition from $S_1$ to $S_2$)}}}\cdot (\underbrace{1}_{\text{cost of roll}} + \underbrace{C_2}_{\text{expected cost from $S_2$}}) + \underbrace{\frac{5}{6}}_{\substack{\text{prob of not rolling a 6} \\ \text{(transition from $S_1$ to $S_0$)}}} \cdot (\underbrace{1}_{\text{cost of roll}} + \underbrace{C_0}_{\text{expected cost from $S_0$}})
+$$
+
+We can plug this cost $C_1$ into the expression for $C_0$ to obtain:
+
+$$
+C_0 = \frac{1}{6}\cdot \bigg[1 + \underbrace{\frac{1}{6} + \frac{5}{6}\cdot (1 + C_0)}_{C_1}\bigg] + \frac{5}{6}\cdot (1 + C_0)
+$$
+
+This equation can be solved by rearranging, yielding $C_0 = 42$. Thus, the expected number of rolls needed to yield two 6's in a row is 42. 
 
 ### 6 Followed by 5
 
