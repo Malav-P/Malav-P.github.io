@@ -24,7 +24,7 @@ We can use the law of total expectation to write:
 
 $$
 \begin{aligned}
-\mathbb{E}[X] = P(\text{A})\cdot\mathbb{E}[X \| \text{A}] + P(\text{B})\cdot\mathbb{E}[X \| B]
+\mathbb{E}[X] = P(\text{A})\cdot\mathbb{E}[X | \text{A}] + P(\text{B})\cdot\mathbb{E}[X | B]
 \end{aligned}
 $$
 
@@ -37,7 +37,7 @@ We can use the law of total expectation again to write
 
 $$
 \begin{aligned}
-\mathbb{E}[X \| A] &= P(\text{C})\cdot\mathbb{E}[X \|C, A] + P(D)\cdot\mathbb{E}[X \| D,A] \\ 
+\mathbb{E}[X | A] &= P(\text{C})\cdot\mathbb{E}[X |C, A] + P(D)\cdot\mathbb{E}[X | D,A] \\ 
 &= \frac{1}{6}\cdot (2) + \frac{5}{6}\cdot (2 + \mathbb{E}[X])
 \end{aligned}
 $$
@@ -47,7 +47,7 @@ Now we turn to $\mathbb{E}[X \| B]$, the average number of rolls needed to get t
 
 $$
 \begin{aligned}
-\mathbb{E}[X \| B] &= 1 + \mathbb{E}[X]
+\mathbb{E}[X | B] &= 1 + \mathbb{E}[X]
 \end{aligned}
 $$
 
@@ -55,7 +55,7 @@ Plugging all of this back into the original equation, we have:
 
 $$
 \begin{aligned}
-\mathbb{E}[X] &= P(A)\cdot\mathbb{E}[X \| A] + P(\text{B})\cdot\mathbb{E}[X \| B] \\ 
+\mathbb{E}[X] &= P(A)\cdot\mathbb{E}[X | A] + P(\text{B})\cdot\mathbb{E}[X | B] \\ 
 &= \frac{1}{6} \cdot \bigg[\frac{1}{6}\cdot(2) + \frac{5}{6}\cdot(2 + \mathbb{E}[X])\bigg] + \frac{5}{6}\cdot \bigg[1 + \mathbb{E}[X]\bigg]
 \end{aligned}
 $$
@@ -104,8 +104,8 @@ Using the law of total expectation again, we have:
 
 $$
 \begin{aligned}
-\mathbb{E}[X \| A] &= P(\text{C})\cdot\mathbb{E}[X \|C, A] + P(D)\cdot\mathbb{E}[X \| D,A] + P(E) \cdot \mathbb{E}[X \| E, A] \\ 
-&= \frac{1}{6}\cdot (2) + \frac{1}{6}\cdot(1 + \mathbb{E}[X \|A]) + \frac{4}{6}\cdot (2 + \mathbb{E}[X])
+\mathbb{E}[X | A] &= P(\text{C})\cdot\mathbb{E}[X |C, A] + P(D)\cdot\mathbb{E}[X | D,A] + P(E) \cdot \mathbb{E}[X | E, A] \\ 
+&= \frac{1}{6}\cdot (2) + \frac{1}{6}\cdot(1 + \mathbb{E}[X |A]) + \frac{4}{6}\cdot (2 + \mathbb{E}[X])
 \end{aligned}
 $$
 
@@ -113,7 +113,7 @@ Rearranging, we find
 
 $$
 \begin{aligned}
-\mathbb{E}[X \| A] 
+\mathbb{E}[X | A] 
 &= \frac{3}{5} + \frac{4}{5}\cdot (2 + \mathbb{E}[X])
 \end{aligned}
 $$
@@ -124,7 +124,7 @@ Returning to our expression for $\mathbb{E}[X]$ and plugging everything in:
 
 $$
 \begin{aligned}
-\mathbb{E}[X] &= P(A)\cdot\mathbb{E}[X \| A] + P(\text{B})\cdot\mathbb{E}[X \| B] \\ 
+\mathbb{E}[X] &= P(A)\cdot\mathbb{E}[X | A] + P(\text{B})\cdot\mathbb{E}[X | B] \\ 
 &= \frac{1}{6} \cdot \bigg[\frac{3}{5} + \frac{4}{5}\cdot (2 + \mathbb{E}[X])\bigg] + \frac{5}{6}\cdot \bigg[1 + \mathbb{E}[X]\bigg]
 \end{aligned}
 $$
