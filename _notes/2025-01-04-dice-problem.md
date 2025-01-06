@@ -24,30 +24,30 @@ We can use the law of total expectation to write:
 
 $$
 \begin{aligned}
-\mathbb{E}[X] = P(\text{A})\cdot\mathbb{E}[X | \text{A}] + P(\text{B})\cdot\mathbb{E}[X | B]
+\mathbb{E}[X] = P(\text{A})\cdot\mathbb{E}[X \| \text{A}] + P(\text{B})\cdot\mathbb{E}[X \| B]
 \end{aligned}
 $$
 
-Let us now continue to work on this equation. Since the die is fair, we have $P(\text{A}) = \frac{1}{6}$ and $P(B)=\frac{5}{6}$. Now consider $\mathbb{E}[X | A]$, which describes the average number of rolls needed to get two 6's given that the previous roll was a 6. We have 2 possibilities in this scenario:
+Let us now continue to work on this equation. Since the die is fair, we have $P(\text{A}) = \frac{1}{6}$ and $P(B)=\frac{5}{6}$. Now consider $\mathbb{E}[X \| A]$, which describes the average number of rolls needed to get two 6's given that the previous roll was a 6. We have 2 possibilities in this scenario:
 
-- Event $C$: our next roll is a 6 and the game ends. This happens with probability $\frac{1}{6}$. So we have $P(C) = \frac{1}{6}$. Our cost is 1 roll for event $C$ and 1 roll for event $A$, so we have $\mathbb{E}[X | C, A] = 2$.
-- Event $D$: our next roll is not a 6 we are back to square one. This happens with probability $\frac{5}{6}$. Since we used one roll and ended up back at square 1, we have wasted 1 roll in event $D$ and used 1 roll in event $A$, so $\mathbb{E}[X | D, A] = 2 + \mathbb{E}[X]$. 
+- Event $C$: our next roll is a 6 and the game ends. This happens with probability $\frac{1}{6}$. So we have $P(C) = \frac{1}{6}$. Our cost is 1 roll for event $C$ and 1 roll for event $A$, so we have $\mathbb{E}[X \| C, A] = 2$.
+- Event $D$: our next roll is not a 6 we are back to square one. This happens with probability $\frac{5}{6}$. Since we used one roll and ended up back at square 1, we have wasted 1 roll in event $D$ and used 1 roll in event $A$, so $\mathbb{E}[X \| D, A] = 2 + \mathbb{E}[X]$. 
 
 We can use the law of total expectation again to write
 
 $$
 \begin{aligned}
-\mathbb{E}[X | A] &= P(\text{C})\cdot\mathbb{E}[X |C, A] + P(D)\cdot\mathbb{E}[X | D,A] \\ 
+\mathbb{E}[X \| A] &= P(\text{C})\cdot\mathbb{E}[X \|C, A] + P(D)\cdot\mathbb{E}[X \| D,A] \\ 
 &= \frac{1}{6}\cdot (2) + \frac{5}{6}\cdot (2 + \mathbb{E}[X])
 \end{aligned}
 $$
 
 
-Now we turn to $\mathbb{E}[X | B]$, the average number of rolls needed to get two 6's in a row given the first roll was not a 6. In this case, we are back at square 1, having wasted one roll. So we can write 
+Now we turn to $\mathbb{E}[X \| B]$, the average number of rolls needed to get two 6's in a row given the first roll was not a 6. In this case, we are back at square 1, having wasted one roll. So we can write 
 
 $$
 \begin{aligned}
-\mathbb{E}[X | B] &= 1 + \mathbb{E}[X]
+\mathbb{E}[X \| B] &= 1 + \mathbb{E}[X]
 \end{aligned}
 $$
 
@@ -55,7 +55,7 @@ Plugging all of this back into the original equation, we have:
 
 $$
 \begin{aligned}
-\mathbb{E}[X] &= P(A)\cdot\mathbb{E}[X | A] + P(\text{B})\cdot\mathbb{E}[X | B] \\ 
+\mathbb{E}[X] &= P(A)\cdot\mathbb{E}[X \| A] + P(\text{B})\cdot\mathbb{E}[X \| B] \\ 
 &= \frac{1}{6} \cdot \bigg[\frac{1}{6}\cdot(2) + \frac{5}{6}\cdot(2 + \mathbb{E}[X])\bigg] + \frac{5}{6}\cdot \bigg[1 + \mathbb{E}[X]\bigg]
 \end{aligned}
 $$
@@ -73,6 +73,7 @@ Let $C_i$ denote the "expected cost", or the expected number of rolls to get two
 
 
 The expected cost from $S_0$ can then be written as:
+
 $$
 C_0 = \underbrace{\frac{1}{6}}_{\substack{\text{prob of rolling 6} \\ \text{(transition from $S_0$ to $S_1$})}}\cdot(\underbrace{1}_{\text{cost of roll}} + \underbrace{C_1}_{\text{expected cost from $S_1$}}) + \underbrace{\frac{5}{6}}_{\substack{\text{prob of not rolling 6} \\ \text{(transition from $S_0$ to $S_0$)}}}\cdot(\underbrace{1}_{\text{cost of roll}} + \underbrace{C_0}_{\text{expected cost from $S_0$}})
 $$
@@ -93,18 +94,18 @@ This equation can be solved by rearranging, yielding $C_0 = 42$. Thus, the expec
 
 ### 6 Followed by 5
 
-We break down the problem similarly. Note that in this case, $\mathbb{E}[X|B]$ is the same as before since if we don't roll a 6 on the first roll, we are back at square 1 having wasted 1 roll. However, $\mathbb{E}[X|A]$ $\textit{does}$ change. To see this, consider the possibilities for the second roll given the fact that the previous roll was a 6:
+We break down the problem similarly. Note that in this case, $\mathbb{E}[X \|B]$ is the same as before since if we don't roll a 6 on the first roll, we are back at square 1 having wasted 1 roll. However, $\mathbb{E}[X \|A]$ $\textit{does}$ change. To see this, consider the possibilities for the second roll given the fact that the previous roll was a 6:
 
-- Event $C$: the next roll is a 5 and the game ends. This happens with probability $\frac{1}{6}$ and we use 1 roll for each event. Thus, we have $P(C) = \frac{1}{6}$ and $\mathbb{E}[X|C, A] = 2$.
-- Event $D$: the next roll is a 6. We are in the "halfway" state again, having wasted 1 roll on this event. We have not been reset to the beginning but we also haven't won. This happens with  probability $\frac{1}{6}$. Thus, we have $P(D) = \frac{1}{6}$ and $\mathbb{E}[X | D, A] = 1 + \mathbb{E}[X | A]$.
-- Event $E$: the next roll is one of 1 through 4, and we get reset back to square 1 having wasted 1 roll on this event and 1 roll on event $A$. This happens with probability $\frac{4}{6}$. Thus we have $P(E) = \frac{4}{6}$ and $\mathbb{E}[X|E, A] = 2 + \mathbb{E}[X]$.
+- Event $C$: the next roll is a 5 and the game ends. This happens with probability $\frac{1}{6}$ and we use 1 roll for each event. Thus, we have $P(C) = \frac{1}{6}$ and $\mathbb{E}[X \|C, A] = 2$.
+- Event $D$: the next roll is a 6. We are in the "halfway" state again, having wasted 1 roll on this event. We have not been reset to the beginning but we also haven't won. This happens with  probability $\frac{1}{6}$. Thus, we have $P(D) = \frac{1}{6}$ and $\mathbb{E}[X \| D, A] = 1 + \mathbb{E}[X \| A]$.
+- Event $E$: the next roll is one of 1 through 4, and we get reset back to square 1 having wasted 1 roll on this event and 1 roll on event $A$. This happens with probability $\frac{4}{6}$. Thus we have $P(E) = \frac{4}{6}$ and $\mathbb{E}[X \|E, A] = 2 + \mathbb{E}[X]$.
 
 Using the law of total expectation again, we have:
 
 $$
 \begin{aligned}
-\mathbb{E}[X | A] &= P(\text{C})\cdot\mathbb{E}[X |C, A] + P(D)\cdot\mathbb{E}[X | D,A] + P(E) \cdot \mathbb{E}[X | E, A] \\ 
-&= \frac{1}{6}\cdot (2) + \frac{1}{6}\cdot(1 + \mathbb{E}[X|A]) + \frac{4}{6}\cdot (2 + \mathbb{E}[X])
+\mathbb{E}[X \| A] &= P(\text{C})\cdot\mathbb{E}[X \|C, A] + P(D)\cdot\mathbb{E}[X \| D,A] + P(E) \cdot \mathbb{E}[X \| E, A] \\ 
+&= \frac{1}{6}\cdot (2) + \frac{1}{6}\cdot(1 + \mathbb{E}[X \|A]) + \frac{4}{6}\cdot (2 + \mathbb{E}[X])
 \end{aligned}
 $$
 
@@ -112,7 +113,7 @@ Rearranging, we find
 
 $$
 \begin{aligned}
-\mathbb{E}[X | A] 
+\mathbb{E}[X \| A] 
 &= \frac{3}{5} + \frac{4}{5}\cdot (2 + \mathbb{E}[X])
 \end{aligned}
 $$
@@ -123,7 +124,7 @@ Returning to our expression for $\mathbb{E}[X]$ and plugging everything in:
 
 $$
 \begin{aligned}
-\mathbb{E}[X] &= P(A)\cdot\mathbb{E}[X | A] + P(\text{B})\cdot\mathbb{E}[X | B] \\ 
+\mathbb{E}[X] &= P(A)\cdot\mathbb{E}[X \| A] + P(\text{B})\cdot\mathbb{E}[X \| B] \\ 
 &= \frac{1}{6} \cdot \bigg[\frac{3}{5} + \frac{4}{5}\cdot (2 + \mathbb{E}[X])\bigg] + \frac{5}{6}\cdot \bigg[1 + \mathbb{E}[X]\bigg]
 \end{aligned}
 $$
