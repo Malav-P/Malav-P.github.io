@@ -15,6 +15,8 @@ tags: []
     position: relative;
     left: calc(-50vw + 50%);
     line-height: normal; /* This overrides the line-height attribute in the .content-container style for the default layout. This should fix issue where diagrams have text that looks shifted up. */
+    display: flex;
+    justify-content: center;
 }
 </style>
 
