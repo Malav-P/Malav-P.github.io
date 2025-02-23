@@ -138,11 +138,3 @@ We can solve this equation easily to find that $\mathbb{E}[X] = 36$. So, on aver
 
 
 ### 6 Followed by 5
-
-<center>
-<figure>
-  <img src="../assets/img/prior.png" width="85%">
-  <figcaption><i>Five samples of the Gaussian process with mean function zero and sigma (length scale) equal to 0.5</i></figcaption>
-</figure>
-
-</center>
