@@ -1,4 +1,5 @@
 ---
+layout: default
 title: "Transformer Architecture"
 blurb: "An in depth diagram of the transformer architecture"
 img: ""
