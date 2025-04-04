@@ -28,7 +28,7 @@ $$
 
 where $Z$ is a normalizing constant. What we have shown is that the distribution that we want to sample from, $p_{\theta, \phi}(x_t | x_{t+1}, y)$, can be factored into a product between the unconditional diffusion model we already have and a classifier trained on noisy images $x_t$.
 
-<details>
+<!-- <details>
   <summary>Derivation of this factorization</summary>
 
   This is the hidden text that appears when you click the summary line.  
@@ -37,6 +37,6 @@ where $Z$ is a normalizing constant. What we have shown is that the distribution
   - Bullet points
   - Code blocks
   - Images
-</details>
+</details> -->
 
 
