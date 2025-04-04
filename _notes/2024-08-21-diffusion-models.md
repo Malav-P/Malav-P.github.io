@@ -265,7 +265,7 @@ $$
 ### Reverse Process Decoder and Computing $L_0$
 We know image data is scaled linearly from pixel values in  $\{0, 1, \ldots 255\}$ to the interval $[-1, 1]$. Thus image data is discrete, and as a result we should have a discrete distribution as the final step of the reverse process. However, the distribution at the final step of the reverse process, $\mathcal{N}(\boldsymbol{\mu}\_{\theta}(\mathbf{x}\_1, 1), \sigma\_1^2\mathbf{I})$ is over a continuous variable. So how do we get a discrete distribution? We follow the steps outlined in [2] and [3]:
 
-1. For each pixel, generate a continuous distribution representing the intensity. In our case, for the $i$-th pixel, this is $p_{\theta}(\mathbf{x}_0[i] \| \mathbf{x}_1) = \mathcal{N}(\boldsymbol{\mu}_{\theta}(\mathbf{x}_1, 1)[i], \sigma_1^2) $. Denote the cumulative distribution function of this normal distribution as $\text{CDF}(\cdot)$.
+1. For each pixel, generate a continuous distribution representing the intensity. In our case, for the $i$-th pixel, this is $p_{\theta}(\mathbf{x}\_0[i] \| \mathbf{x}\_1) = \mathcal{N}(\boldsymbol{\mu}\_{\theta}(\mathbf{x}\_1, 1)[i], \sigma\_1^2) $. Denote the cumulative distribution function of this normal distribution as $\text{CDF}(\cdot)$.
 
 2. Next, "round" each pixel to a discretized distribution over $[-1,1]$ by integrating over the appropriate width along the real line. Since we scaled our pixels into $[-1, 1]$, one pixel has width $\frac{2}{255}$ in this scaled space. Note that for the edges (-1 and 1), we simply integrate from/to $\infty$.
 
