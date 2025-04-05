@@ -121,7 +121,7 @@ Finally, we are ready to derive the reverse conditional process:
 $$
 \begin{aligned}
 \hat{q}(x_t \mid x_{t+1}, y) &= \frac{\hat{q}(x_t, x_{t+1}, y)}{\hat{q}(x_{t+1}, y)}\\
-&= \frac{{\color{blue}\hat{q}(y \mid x_t, x_{t+1})} \hat{q}(x_t\mid x_{t+1})\sout{\hat{q}(x_{t+1})}}{\hat{q}(y\mid x_{t+1})\sout{\hat{q}(x_{t+1})}} \\ 
+&= \frac{ {\color{blue}\hat{q}(y \mid x_t, x_{t+1})} \hat{q}(x_t\mid x_{t+1})\sout{\hat{q}(x_{t+1})}}{\hat{q}(y\mid x_{t+1})\sout{\hat{q}(x_{t+1})}} \\ 
 &= \frac{\hat{q}(x_t\mid x_{t+1})\hat{q}(y\mid x_t)}{\hat{q}(y\mid x_{t+1})} \\ 
 &= \frac{q(x_t\mid x_{t+1})\hat{q}(y\mid x_t)}{\hat{q}(y\mid x_{t+1})}
 
@@ -135,7 +135,7 @@ p_{\theta, \phi}(x_t \mid x_{t+1}, y) = Zp_{\theta}(x_t \mid x_{t+1})p_{\phi}(y 
 $$
 </details>
 
-Typically, is is intractable to sample from $p_{\theta, \phi}(x_t \mid x_{t+1}, y)$. To get around this, let us recall our model:
+Typically, it is intractable to sample from $p_{\theta, \phi}(x_t \mid x_{t+1}, y)$. To get around this, let us recall our model:
 
 $$
 \log p_{\theta}(x_t \mid x_{t+1}) = -\frac{1}{2}(x_t - \mu)^\top \Sigma^{-1}(x_t-\mu) + C
