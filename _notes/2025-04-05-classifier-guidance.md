@@ -63,7 +63,7 @@ First we show that the defined noising process $\hat{q}$ when not conditioned on
 $$
 \begin{aligned}
 \hat{q}(x_{t+1}\mid x_t) &= \int_y \hat{q}(x_{t+1}, y \mid x_t) \ dy \\ 
-&= \int_y \color{red}\hat{q}(x_{t+1} \mid y, x_t)\color{black} \hat{q}(y\mid x_t)\ dy \\ 
+&= \int_y {\color{red}\hat{q}(x_{t+1} \mid y, x_t)} \hat{q}(y\mid x_t)\ dy \\ 
 &= \int_y q(x_{t+1}\mid x_t)\hat{q}(y\mid x_t)\ dy \\ 
 &= q(x_{t+1}\mid x_t) \underbrace{\int_y \hat{q}(y\mid x_t)\ dy}_{=1} \\ 
 &= q(x_{t+1}\mid x_t) \\ 
@@ -77,7 +77,7 @@ Next, we do something similar for the joint distribution $\hat{q}(x_{1:T} \mid x
 $$
 \begin{aligned}
 \hat{q}(x_{1:T}\mid x_0) &= \int_y \hat{q}(x_{1:T}, y\mid x_0) \ dy \\ 
-&= \int_y  \color{brown}\hat{q}(x_{1:T}\mid y, x_0) \color{black} \hat{q}(y\mid x_0) \ dy \\ 
+&= \int_y  {\color{brown}\hat{q}(x_{1:T}\mid y, x_0)} \hat{q}(y\mid x_0) \ dy \\ 
 &= \int_y \hat{q}(y \mid x_0) \prod_{t=0}^{T-1}q(x_{t+1}\mid x_t) \ dy \\ 
 &= \prod_{t=0}^{T-1}q(x_{t+1}\mid x_t) \underbrace{\int_y \hat{q}(y \mid x_0) \ dy}_{=1} \\ 
 &= q(x_{1:T} \mid x_0)
@@ -121,7 +121,7 @@ Finally, we are ready to derive the reverse conditional process:
 $$
 \begin{aligned}
 \hat{q}(x_t \mid x_{t+1}, y) &= \frac{\hat{q}(x_t, x_{t+1}, y)}{\hat{q}(x_{t+1}, y)}\\
-&= \frac{\color{blue}\hat{q}(y \mid x_t, x_{t+1})\color{black} \hat{q}(x_t\mid x_{t+1})\sout{\hat{q}(x_{t+1})}}{\hat{q}(y\mid x_{t+1})\sout{\hat{q}(x_{t+1})}} \\ 
+&= \frac{{\color{blue}\hat{q}(y \mid x_t, x_{t+1})} \hat{q}(x_t\mid x_{t+1})\sout{\hat{q}(x_{t+1})}}{\hat{q}(y\mid x_{t+1})\sout{\hat{q}(x_{t+1})}} \\ 
 &= \frac{\hat{q}(x_t\mid x_{t+1})\hat{q}(y\mid x_t)}{\hat{q}(y\mid x_{t+1})} \\ 
 &= \frac{q(x_t\mid x_{t+1})\hat{q}(y\mid x_t)}{\hat{q}(y\mid x_{t+1})}
 
