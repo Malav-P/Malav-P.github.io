@@ -31,13 +31,13 @@ where $Z$ is a normalizing constant. What we have shown is that the distribution
 <details>
   <summary>Derivation of this factorization</summary>
 
- **Goal**: Show that $p_{\theta, \phi}(x_t \mid x_{t+1}, y) = Z p_{\theta}(x_t \mid x_{t+1})p_{\phi}(y \mid x_t)$.
+ Goal: Show that $p_{\theta, \phi}(x_t \mid x_{t+1}, y) = Z p_{\theta}(x_t \mid x_{t+1})p_{\phi}(y \mid x_t)$.
 
  Begin by defining the conditional joint distribution $\hat{q}$: 
 
 $$
 \begin{aligned}
-\underbrace{\hat{q}(x_{t+1} \mid x_t, y)}_{\substack{\text{conditional forward} \\ \text{process is...}}}
+\underbrace{\color{red}\hat{q}(x_{t+1} \mid x_t, y)}_{\substack{\text{conditional forward} \\ \text{process is...}}}
 &:=
 \underbrace{q(x_{t+1} \mid x_t)}_{\substack{\text{... the same as our} \\ \text{original process}}} \\ 
 
@@ -45,7 +45,7 @@ $$
 
 \hat{q}(y \mid x_0) &:= \text{known} \\ 
 
-\hat{q}(x_{1:T} \mid x_0, y) &:= \prod_{t=0}^{T-1} \hat{q}(x_{t+1} \mid x_t, y)
+\color{brown}\hat{q}(x_{1:T} \mid x_0, y) &:= \prod_{t=0}^{T-1} \hat{q}(x_{t+1} \mid x_t, y)
 
 \end{aligned}
 $$
@@ -63,9 +63,9 @@ First we show that the defined noising process $\hat{q}$ when not conditioned on
 $$
 \begin{aligned}
 \hat{q}(x_{t+1}\mid x_t) &= \int_y \hat{q}(x_{t+1}, y \mid x_t) \ dy \\ 
-&= \int_y \hat{q}(x_{t+1} \mid y, x_t) \hat{q}(y\mid x_t)\ dy \\ 
+&= \int_y \color{red}\hat{q}(x_{t+1} \mid y, x_t)\color{black} \hat{q}(y\mid x_t)\ dy \\ 
 &= \int_y q(x_{t+1}\mid x_t)\hat{q}(y\mid x_t)\ dy \\ 
-&= q(x_{t+1}\mid x_t) \int_y \hat{q}(y\mid x_t)\ dy \\ 
+&= q(x_{t+1}\mid x_t) \underbrace{\int_y \hat{q}(y\mid x_t)\ dy}_{=1} \\ 
 &= q(x_{t+1}\mid x_t) \\ 
 &= \hat{q}(x_{t+1} \mid x_t, y)
 
@@ -77,9 +77,9 @@ Next, we do something similar for the joint distribution $\hat{q}(x_{1:T} \mid x
 $$
 \begin{aligned}
 \hat{q}(x_{1:T}\mid x_0) &= \int_y \hat{q}(x_{1:T}, y\mid x_0) \ dy \\ 
-&= \int_y  \hat{q}(x_{1:T}\mid y, x_0) \hat{q}(y\mid x_0) \ dy \\ 
+&= \int_y  \color{brown}\hat{q}(x_{1:T}\mid y, x_0) \color{black} \hat{q}(y\mid x_0) \ dy \\ 
 &= \int_y \hat{q}(y \mid x_0) \prod_{t=0}^{T-1}q(x_{t+1}\mid x_t) \ dy \\ 
-&= \prod_{t=0}^{T-1}q(x_{t+1}\mid x_t) \int_y \hat{q}(y \mid x_0) \ dy \\ 
+&= \prod_{t=0}^{T-1}q(x_{t+1}\mid x_t) \underbrace{\int_y \hat{q}(y \mid x_0) \ dy}_{=1} \\ 
 &= q(x_{1:T} \mid x_0)
 \end{aligned}
 $$
@@ -110,8 +110,8 @@ Now, we show that the classifier $\hat{q}(y\mid x_t, x_{t+1})$ is actually not d
 
 $$
 \begin{aligned}
-\hat{q}(y\mid x_t, x_{t+1}) &= \hat{q}(x_{t+1}\mid y, x_t)\frac{\hat{q}(y \mid x_t)}{\hat{q}(x_{t+1} \mid x_t)} \\ 
-&= \hat{q}(x_{t+1} \mid x_t)\frac{\hat{q}(y \mid x_t)}{\hat{q}(x_{t+1} \mid x_t)}\\ 
+\color{blue}\hat{q}(y\mid x_t, x_{t+1}) &= \hat{q}(x_{t+1}\mid y, x_t)\frac{\hat{q}(y \mid x_t)}{\hat{q}(x_{t+1} \mid x_t)} \\ 
+&= \sout{\hat{q}(x_{t+1} \mid x_t)}\frac{\hat{q}(y \mid x_t)}{\sout{\hat{q}(x_{t+1} \mid x_t)}}\\ 
 &= \hat{q}(y\mid x_t)
 \end{aligned}
 $$
@@ -121,7 +121,7 @@ Finally, we are ready to derive the reverse conditional process:
 $$
 \begin{aligned}
 \hat{q}(x_t \mid x_{t+1}, y) &= \frac{\hat{q}(x_t, x_{t+1}, y)}{\hat{q}(x_{t+1}, y)}\\
-&= \frac{\hat{q}(y \mid x_t, x_{t+1}) \hat{q}(x_t\mid x_{t+1})\hat{q}(x_{t+1})}{\hat{q}(y\mid x_{t+1})\hat{q}(x_{t+1})} \\ 
+&= \frac{\color{blue}\hat{q}(y \mid x_t, x_{t+1})\color{black} \hat{q}(x_t\mid x_{t+1})\sout{\hat{q}(x_{t+1})}}{\hat{q}(y\mid x_{t+1})\sout{\hat{q}(x_{t+1})}} \\ 
 &= \frac{\hat{q}(x_t\mid x_{t+1})\hat{q}(y\mid x_t)}{\hat{q}(y\mid x_{t+1})} \\ 
 &= \frac{q(x_t\mid x_{t+1})\hat{q}(y\mid x_t)}{\hat{q}(y\mid x_{t+1})}
 
