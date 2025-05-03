@@ -30,11 +30,36 @@ title : Home
   </div>
 </div>
 
+<!-- Image and text container -->
 <div style="display: flex; align-items: center; margin-bottom: 2em;">
-  <img src="/assets/img/yap.gif" alt="Project 2 GIF" style="width: 200px; margin-right: 20px;" />
+  <img 
+    src="/assets/img/yap.gif" 
+    alt="Project 2 GIF" 
+    style="width: 200px; margin-right: 20px; cursor: pointer;" 
+    onclick="toggleModal()"
+  />
   <div>
     <h3><a href="https://github.com/Malav-P/staticgrad" style="color: #2c98f0;">On Device LLM Inference</a></h3>
-    <p>Built a library from scratch in C++ for constructing the GPT2 language model. KV Caching and cache friendly access patterns accelerate tokens/sec. </p>
+    <p>Built a library from scratch in C++ for constructing the GPT2 language model. KV Caching and cache friendly access patterns accelerate tokens/sec.</p>
   </div>
 </div>
+
+<!-- Hidden modal for enlarged image -->
+<div id="imageModal" style="display:none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background-color: rgba(0,0,0,0.8); z-index: 1000; justify-content: center; align-items: center;">
+  <img 
+    src="/assets/img/yap.gif" 
+    alt="Enlarged Project GIF" 
+    style="max-width: 90vw; max-height: 90vh; box-shadow: 0 0 15px #fff;" 
+    onclick="toggleModal()" 
+  />
+</div>
+
+<!-- JavaScript -->
+<script>
+  function toggleModal() {
+    const modal = document.getElementById('imageModal');
+    modal.style.display = modal.style.display === 'flex' ? 'none' : 'flex';
+  }
+</script>
+
 
