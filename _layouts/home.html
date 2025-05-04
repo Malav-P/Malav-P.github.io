@@ -69,6 +69,31 @@ title : Home
   />
 </div>
 
+
+<!-- Image and text container -->
+<div style="display: flex; align-items: center; margin-bottom: 2em;">
+  <img 
+    src="/assets/img/cnn.gif" 
+    alt="CNN GIF" 
+    style="width: 200px; margin-right: 20px; cursor: pointer;" 
+    onclick="toggleModal('cnngif')"
+  />
+  <div>
+    <h3><a href="https://github.com/Malav-P/CNN" style="color: #2c98f0;">On Device Character Recognition</a></h3>
+    <p>Built a library from scratch in C++ for constructing convolutional neural networks. Trained on MNIST dataset. Again, real time inference on an M1 chip.</p>
+  </div>
+</div>
+
+<!-- Hidden modal for enlarged image -->
+<div id="cnngif" style="display:none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background-color: rgba(0,0,0,0.8); z-index: 1000; justify-content: center; align-items: center;">
+  <img 
+    src="/assets/img/cnn.gif" 
+    alt="Enlarged Project GIF" 
+    style="max-width: 90vw; max-height: 90vh; box-shadow: 0 0 15px #fff;" 
+    onclick="toggleModal('cnngif')" 
+  />
+</div>
+
 <!-- JavaScript -->
 <script>
   function toggleModal(id) {
