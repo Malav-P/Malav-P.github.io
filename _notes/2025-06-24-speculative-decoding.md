@@ -11,7 +11,7 @@ tags: []
 ---
 
 ## Overview
-Speculative decoding is a method to speed up inference from large language models like GPT. At its core, we have a strong parent model like GPT3 and a weaker child model like GPT2. We use the weaker model to propose new tokens and the stronger parent model to verify and accept them.
+Speculative decoding is a method to speed up inference from large language models like GPT. At its core, we have a strong parent model like GPT3 and a weaker child model like GPT2. We use the weaker model to propose new tokens and the stronger parent model to verify and accept them. This leads to faster inference (i.e. a greater number of tokens generated per second).
 
 To generate a new token, models like GPT generate a probability distribution $p(x)$ over the model's vocabulary. We then sample a token $x \sim p(x)$ and append it to our sequence of tokens. This appended sequence is then sent through the model to generate another probability distribution to sample yet another token. This process continues, which is where these models get their autoregressive generation capabilities from.
 
