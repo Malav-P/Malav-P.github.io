@@ -1,12 +1,12 @@
 ---
 layout: post
-title: "The Least Squares Problem"
-katex: True
-blurb: "Deriving and solving the least squares problem in the context of linear regression"
+title: "Least Squares"
+blurb: "Deriving the Least Squares Problem"
 img: ""
 author: "Malav Patel"
 categories: journal
 tags: []
+<!-- image: -->
 ---
 
 
