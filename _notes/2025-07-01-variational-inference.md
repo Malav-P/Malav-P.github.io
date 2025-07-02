@@ -33,7 +33,7 @@ $$
 \log p_{\theta}(x) - \text{KL}[q_{\phi}(z|x)\|p_{\theta}(z|x)] = \underbrace{ \mathbb{E}_{q_{\phi}(z|x)}[\log p_{\theta}(x|z)] - \text{KL}[q_{\phi}(z|x) \| p(z)]}_{\text{ELBO}}
 $$
 
-This is a tractable objective because we can estimate it by sampling from $q_{\phi}(z|x)$. Note that maximizing the ELBO does two things:
+This is a tractable objective because we can estimate it by sampling from $q_{\phi}(z\|x)$. Note that maximizing the ELBO does two things:
 
 1. Increases the log probability of observed samples (i.e. we are learning a good latent variable model that represents the data well)
 2. Reduces the "distance" between the variational distribution and the true posterior (i.e. we are learning a good approximate posterior distribution)
