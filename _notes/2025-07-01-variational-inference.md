@@ -30,7 +30,7 @@ But the integral is usually intractable.
 Use the ELBO
 
 $$
-\log p_{\theta}(x) - \text{KL}[q_{\phi}(z|x)\|p_{\theta}(z|x)] = \underbrace{ \mathbb{E}_{q_{\phi}(z|x)}[p_{\theta}(x|z)] - \text{KL}[q_{\phi}(z|x) \| p(z)]}_{\text{ELBO}}
+\log p_{\theta}(x) - \text{KL}[q_{\phi}(z|x)\|p_{\theta}(z|x)] = \underbrace{ \mathbb{E}_{q_{\phi}(z|x)}[\log p_{\theta}(x|z)] - \text{KL}[q_{\phi}(z|x) \| p(z)]}_{\text{ELBO}}
 $$
 
 This is a tractable objective because we can estimate it by sampling from $q_{\phi}(z|x)$. Note that maximizing the ELBO does two things:
