@@ -56,13 +56,13 @@ A simple algorithm would be
 To get less noisy estimates of the gradient, we would normally do minibatches of $x$.
 
 ### After We've Learned
-After we have learned [1], we can generate samples by doing the following:
+After we have learned$^*$, we can generate samples by doing the following:
 
 - sample from our prior over the latent variable $z \sim p(z)$.
 - sample from our likelihood model $x \sim p_{\theta}(x\|z)$.
 
 
-[1]: Note that most latent variable models are parameterized as 
+$^*$ Note that most latent variable models are parameterized as 
 $$
 p_{\theta}(x, z) = p_{\theta}(x | z)p(z)
 $$
