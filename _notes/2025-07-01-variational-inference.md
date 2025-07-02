@@ -37,3 +37,37 @@ This is a tractable objective because we can estimate it by sampling from $q_{\p
 
 1. Increases the log probability of observed samples (i.e. we are learning a good latent variable model that represents the data well)
 2. Reduces the "distance" between the variational distribution and the true posterior (i.e. we are learning a good approximate posterior distribution)
+
+
+### Learning the Model
+A simple algorithm would be
+
+
+- x $\gets$ get datapoint from dataset
+- sample $z \sim q_{\phi}(\cdot |x)$ several times
+- use set of sampled $z$ to get Monte Carlo Estimate of ELBO, call it $\mathcal{L}$.
+- Take gradient of ELBO, $\nabla_{\theta}\mathcal{L}$ and $ \nabla_{\phi}\mathcal{L}$
+- Take a gradient step
+   - $\theta \gets \theta + \nabla_{\theta}\mathcal{L}$
+   - $\phi \gets \phi + \nabla_{\phi}\mathcal{L}$
+- Repeat until converged
+
+
+To get less noisy estimates of the gradient, we would normally do minibatches of $x$.
+
+### After We've Learned
+After we have learned [1], we can generate samples by doing the following:
+
+- sample from our prior over the latent variable $z \sim p(z)$.
+- sample from our likelihood model $x \sim p_{\theta}(x|z)$.
+
+
+[1]: Note that most latent variable models are parameterized as 
+$$
+p_{\theta}(x, z) = p_{\theta}(x | z)p(z)
+$$
+That is, we have a known prior $p(z)$ over the latent variable that is not learned. Typically it is a tractable distribution like a Gaussian.
+
+
+
+
