@@ -44,7 +44,7 @@ A simple algorithm would be
 
 
 - x $\gets$ get datapoint from dataset
-- sample $z \sim q_{\phi}(\cdot |x)$ several times
+- sample $z \sim q_{\phi}(\cdot \|x)$ several times
 - use set of sampled $z$ to get Monte Carlo Estimate of ELBO, call it $\mathcal{L}$.
 - Take gradient of ELBO, $\nabla_{\theta}\mathcal{L}$ and $ \nabla_{\phi}\mathcal{L}$
 - Take a gradient step
@@ -59,7 +59,7 @@ To get less noisy estimates of the gradient, we would normally do minibatches of
 After we have learned [1], we can generate samples by doing the following:
 
 - sample from our prior over the latent variable $z \sim p(z)$.
-- sample from our likelihood model $x \sim p_{\theta}(x|z)$.
+- sample from our likelihood model $x \sim p_{\theta}(x\|z)$.
 
 
 [1]: Note that most latent variable models are parameterized as 
