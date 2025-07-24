@@ -50,7 +50,7 @@ $$
 We can learn the velocity field approximator $v_{\theta}$ by regressing against its target value:
 
 $$
-\mathcal{L} = \mathbb{E}[\|(x_1 - x_0) - v_{\theta}(x_t, x_0)\|_2^2]
+\mathcal{L} = \mathbb{E}[\|(x_1 - x_0) - v_{\theta}(x_t, x_0)\|^2]
 $$
 
 
@@ -62,7 +62,7 @@ A simple algorithm would be
 -  $x_0 \sim \mathcal{N}(0, I)$
 -  $ t \sim U(0, 1)$
 -  $x_t \gets tx_1 + (1-t)x_0$
-- $\mathcal{L} \gets\|(x_1 - x_0) - v_{\theta}(x_t, x_0)\|_2^2$
+- $\mathcal{L} \gets \_|(x_1 - x_0) - v_{\theta}(x_t, x_0)\_|^2$
 - Take gradient, $\nabla_{\theta}\mathcal{L}$ 
 - Take a gradient step
    - $\theta \gets \theta - \alpha\nabla_{\theta}\mathcal{L}$
