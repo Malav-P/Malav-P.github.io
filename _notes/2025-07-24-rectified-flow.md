@@ -62,7 +62,7 @@ A simple algorithm would be
 -  $x_0 \sim \mathcal{N}(0, I)$
 -  $ t \sim U(0, 1)$
 -  $x_t \gets tx_1 + (1-t)x_0$
-- $\mathcal{L} \gets \_|(x_1 - x_0) - v_{\theta}(x_t, x_0)\_|^2$
+- $\mathcal{L} \gets \lVert (x_1 - x_0) - v_{\theta}(x_t, x_0)\rVert^2$
 - Take gradient, $\nabla_{\theta}\mathcal{L}$ 
 - Take a gradient step
    - $\theta \gets \theta - \alpha\nabla_{\theta}\mathcal{L}$
@@ -81,7 +81,8 @@ After we have learned our velocity field model, we can generate samples by doing
 5. Keep integrating until we get to $x_1$
 
 
+### References
 
+Liu, Xingchao, Chengyue Gong, and Qiang Liu. "Flow straight and fast: Learning to generate and transfer data with rectified flow." arXiv preprint arXiv:2209.03003 (2022).
 
-
-
+https://www.cs.utexas.edu/~lqiang/rectflow/html/intro.html
