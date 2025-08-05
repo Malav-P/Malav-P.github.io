@@ -66,3 +66,9 @@ where $\mu$ is the overall average rating of item $i$ and $b_u$ and $b_i$ are bi
 $$
 \mathcal{L} = \sum_{r_{ui}}(r_{ui} - \hat{r}_{ui})^2 + \lambda(b_i^2 + b_u^2 + \|q_i\|^2 + \|p_u\|^2)
 $$
+
+References
+
+1. https://surprise.readthedocs.io/en/stable/matrix_factorization.html
+
+2. Koren, Yehuda. "Factorization meets the neighborhood: a multifaceted collaborative filtering model." Proceedings of the 14th ACM SIGKDD international conference on Knowledge discovery and data mining. 2008.
