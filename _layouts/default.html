@@ -9,16 +9,18 @@
     <link href='/css/trac.css' rel='stylesheet'/>
     <link href='/css/markdown.css' rel='stylesheet'/>
 
-    <script type="text/x-mathjax-config">
-        MathJax.Hub.Config({
-            tex2jax: {
+    <script>
+        MathJax = {
+            tex: {
                 inlineMath: [['$','$'], ['\\(','\\)']],
                 displayMath: [['$$','$$'], ['\\[','\\]']],
-                processEscapes: true
-            }
-        });
+                processEscapes: true,
+                tags: 'ams'
+            },
+            svg: { fontCache: 'global' }
+        };
     </script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
 </head>
 <body>
 <div class='content'>
