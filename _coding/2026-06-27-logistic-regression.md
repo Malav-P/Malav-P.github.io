@@ -21,7 +21,7 @@ $$
     P(Y=y) = p^y(1-p)^{1-y}
 $$
 
-In logistic regression, we let the probability parameter be a function of our data, $x$. Specifically, we allow p to be the composition of two transformations: first any differentiable function $f_{\theta}$ followed by the sigmoid function. The range of the sigmoid function is (0, 1), ensuring that our probability parameter $p$ is indeed a probability.
+In logistic regression, we let the probability parameter be a function of our data, $x$. Specifically, we allow $p$ to be the composition of two transformations: first any differentiable function $f_{\theta}$ followed by the sigmoid function. The range of the sigmoid function is (0, 1), ensuring that our probability parameter $p$ is indeed a probability.
 
 $$
 \begin{aligned}
