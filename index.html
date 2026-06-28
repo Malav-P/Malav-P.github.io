@@ -1,4 +1,95 @@
 ---
-layout: home
-title: Home
+title: Malav Patel
 ---
+
+<html>
+<head>
+    <title>Malav Patel</title>
+    <meta charset='UTF-8'>
+    <meta content='width=device-width, initial-scale=1' name='viewport'/>
+    <meta name='author' content='Malav Patel'>
+
+    <link href='/css/blog.css' rel='stylesheet'/>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" crossorigin="anonymous">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js" crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    {% include nav.html %}
+    <div id='home' class='wrap'>
+
+        <div class='bio'>
+            <div class='bio-text'>
+                <p>
+                    I'm an aerospace engineering PhD student at Georgia Tech. I'm also a MS student in CS.
+                    My research involves optimization of space situational awareness architectures. I am also
+                    broadly interested in deep learning, statistical modeling, and reinforcement learning.
+                </p>
+            </div>
+            <div class='bio-photo'>
+                <img src='/assets/img/cards.jpg' alt='Malav Patel'>
+            </div>
+        </div>
+
+        <hr>
+
+        <h2>Projects</h2>
+        <p>Here are some of the projects I've enjoyed working on.</p>
+
+        <div class='project'>
+            <a href='https://malav-p.github.io/soundstream/' target='_blank'>
+                <img src='/assets/img/soundstream.png' alt='SoundStream'/>
+            </a>
+            <div class='project-text'>
+                <h3><a href='https://github.com/Malav-P/soundstream'>SoundStream: An End-to-End Neural Audio Codec in PyTorch</a></h3>
+                <p>Implemented and trained SoundStream from scratch, a neural audio codec forming the foundation for audio tokenizers used in SOTA audio modeling. We provide modules for causal convolutions, vector quantization, and all discriminators in addition to the SoundStream model itself. Training is fast, taking approximately 8 hours on a single NVIDIA L40S GPU.</p>
+            </div>
+        </div>
+
+        <div class='project'>
+            <img src='/assets/img/modernbert_prec.png' alt='ModernBERT' style='cursor:pointer;' onclick="toggleModal('prec_zoom')"/>
+            <div class='project-text'>
+                <h3><a href='https://github.com/Malav-P/modernpatentBERT'>ModernBERT for the Patent Classification Task</a></h3>
+                <p>ModernBERT for complex patent classification, demonstrating &gt;2x faster inference than traditional BERT with state-of-the-art precision and F1 scores on a domain <a href='https://huggingface.co/datasets/0zo/google_patentsview_claims_2016'>test set</a>. Introduced <a href='https://huggingface.co/datasets/MalavP/USPTO-3M'>USPTO-3M</a>, a large public dataset of 3 million patents.</p>
+            </div>
+        </div>
+
+        <div id='prec_zoom' class='modal' onclick="toggleModal('prec_zoom')">
+            <img src='/assets/img/modernbert_prec.png' alt='ModernBERT enlarged'/>
+        </div>
+
+        <div class='project'>
+            <img src='/assets/img/yap.gif' alt='On Device LLM' style='cursor:pointer;' onclick="toggleModal('imageModal')"/>
+            <div class='project-text'>
+                <h3><a href='https://github.com/Malav-P/staticgrad'>On Device LLM Inference</a></h3>
+                <p>Built a library from scratch in C++ for constructing the GPT2 language model. KV Caching and cache friendly access patterns accelerate tokens/sec. Inference is done locally on an M1 chip! Half precision GELU operations yield a 1.27x inference speedup.</p>
+            </div>
+        </div>
+
+        <div id='imageModal' class='modal' onclick="toggleModal('imageModal')">
+            <img src='/assets/img/yap.gif' alt='LLM demo enlarged'/>
+        </div>
+
+        <div class='project'>
+            <img src='/assets/img/cnn.gif' alt='CNN' style='cursor:pointer;' onclick="toggleModal('cnngif')"/>
+            <div class='project-text'>
+                <h3><a href='https://github.com/Malav-P/CNN'>On Device Character Recognition</a></h3>
+                <p>Built a library from scratch in C++ for constructing convolutional neural networks. Trained on MNIST dataset. Real time inference on an M1 chip.</p>
+            </div>
+        </div>
+
+        <div id='cnngif' class='modal' onclick="toggleModal('cnngif')">
+            <img src='/assets/img/cnn.gif' alt='CNN demo enlarged'/>
+        </div>
+
+    </div>
+
+    <script>
+        function toggleModal(id) {
+            const modal = document.getElementById(id);
+            modal.style.display = modal.style.display === 'flex' ? 'none' : 'flex';
+        }
+    </script>
+</body>
+</html>

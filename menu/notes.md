@@ -1,24 +1,25 @@
 ---
-layout: default
+layout: page
 title: Notes
 permalink: /notes
 ---
 
-<h1>Notes</h1>
-
+<div id='blog'>
 {% assign all_notes = site.notes | concat: site.coding | sort: 'date' | reverse %}
 {% assign current_year = '' %}
 
-<ul class="notes-list">
 {% for note in all_notes %}
   {% capture year %}{{ note.date | date: '%Y' }}{% endcapture %}
   {% if year != current_year %}
     {% assign current_year = year %}
-    <li class="notes-year">{{ year }}</li>
+    <p class='year'>{{ year }}</p>
   {% endif %}
-  <li class="notes-entry">
-    <p class="notes-date">{{ note.date | date: "%B %-d" }}</p>
-    <p class="notes-title"><a href="{{ note.url }}">{{ note.title }}</a></p>
-  </li>
+  <p class='post-title'><a href='{{ note.url }}'>{{ note.title }}</a></p>
+  <p class='post-date'>{{ note.date | date: '%d %B %Y' }}</p>
+  {% if note.blurb and note.blurb != '' %}
+    <p class='post-subtitle'>{{ note.blurb }}</p>
+  {% else %}
+    <p class='post-subtitle'></p>
+  {% endif %}
 {% endfor %}
-</ul>
+</div>
