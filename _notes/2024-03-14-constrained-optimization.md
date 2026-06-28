@@ -49,15 +49,15 @@ $$
 \mathcal{F}(\boldsymbol{x}) = \{\boldsymbol{d}\in \mathbb{R}^n : \boldsymbol{d}^T \, \nabla c_i(\boldsymbol{x}) \leq 0 \, \, \, \,\forall\, i \in \mathcal{A}(\boldsymbol{x}), \quad \lVert \boldsymbol{d}\rVert_2 = 1\}
 $$
 
-Note that if $\boldsymbol{x}^{\*}$ is a local optimal solution of (1), then $\mathcal{D}(\boldsymbol{x}^{\*})\, \cap\, \mathcal{F}(\boldsymbol{x}^{\*}) = \empty$. In other words, there are no directions that we may step from $\boldsymbol{x}^{\*}$ that simultaneously reduces the objective and keep the new point feasible. This can be easily proved by contradiction:
+Note that if $\boldsymbol{x}^{\*}$ is a local optimal solution of (1), then $\mathcal{D}(\boldsymbol{x}^{\*})\, \cap\, \mathcal{F}(\boldsymbol{x}^{\*}) = \emptyset$. In other words, there are no directions that we may step from $\boldsymbol{x}^{\*}$ that simultaneously reduces the objective and keep the new point feasible. This can be easily proved by contradiction:
 - Proof <br>
-  Suppose that $\mathcal{D}(\boldsymbol{x}^{\*})\, \cap\, \mathcal{F}(\boldsymbol{x}^{\*}) \neq \empty$. Then we can choose a direction $\boldsymbol{d} \in \mathcal{D}(\boldsymbol{x}^{\*})\, \cap\, \mathcal{F}(\boldsymbol{x}^{\*})$. Let $\bar{\boldsymbol{x}} = \boldsymbol{x}^{\*} + \alpha\boldsymbol{d}$ for a small value of $\alpha > 0$. Then $\bar{\boldsymbol{x}}$ is feasible and $f(\bar{\boldsymbol{x}}) \leq f(\boldsymbol{x}^{\*})$ since $\boldsymbol{d}$ is both a feasible and descent direction. This violates our initial assumption that $\boldsymbol{x}^{\*}$ was the local minimizer.
+  Suppose that $\mathcal{D}(\boldsymbol{x}^{\*})\, \cap\, \mathcal{F}(\boldsymbol{x}^{\*}) \neq \emptyset$. Then we can choose a direction $\boldsymbol{d} \in \mathcal{D}(\boldsymbol{x}^{\*})\, \cap\, \mathcal{F}(\boldsymbol{x}^{\*})$. Let $\bar{\boldsymbol{x}} = \boldsymbol{x}^{\*} + \alpha\boldsymbol{d}$ for a small value of $\alpha > 0$. Then $\bar{\boldsymbol{x}}$ is feasible and $f(\bar{\boldsymbol{x}}) \leq f(\boldsymbol{x}^{\*})$ since $\boldsymbol{d}$ is both a feasible and descent direction. This violates our initial assumption that $\boldsymbol{x}^{\*}$ was the local minimizer.
 
 ## Towards the KKT Conditions
 At $\boldsymbol{x}^{\*}$ we must have
 
 $$
-\mathcal{D}(\boldsymbol{x}^{*})\, \cap\, \mathcal{F}(\boldsymbol{x}^{*}) = \empty \tag{2}
+\mathcal{D}(\boldsymbol{x}^{*})\, \cap\, \mathcal{F}(\boldsymbol{x}^{*}) = \emptyset \tag{2}
 $$
 
 From this, we intuit a form for the gradient of the objective at the optimizer:
