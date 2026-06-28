@@ -57,9 +57,7 @@ Note that if $\boldsymbol{x}^{\*}$ is a local optimal solution of (1), then $\ma
 At $\boldsymbol{x}^{\*}$ we must have
 
 $$
-\begin{aligned}
-&\mathcal{D}(\boldsymbol{x}^{*})\, \cap\, \mathcal{F}(\boldsymbol{x}^{*}) = \empty \tag{2}
-\end{aligned} 
+\mathcal{D}(\boldsymbol{x}^{*})\, \cap\, \mathcal{F}(\boldsymbol{x}^{*}) = \empty \tag{2}
 $$
 
 From this, we intuit a form for the gradient of the objective at the optimizer:
@@ -94,8 +92,8 @@ $$
 \begin{aligned}
   \boldsymbol{d}^T\,\nabla f(\boldsymbol{x}^{*}) 
   &= \sum_{i \in \mathcal{A}(\boldsymbol{x}^{*})} -\lambda_i \, \boldsymbol{d}^T \nabla c_i(\boldsymbol{x}^{*})
-  \leq 0 \tag{3}
-\end{aligned} 
+  \leq 0
+\end{aligned} \tag{3}
 $$
 
 Since $\lambda_i \geq 0$, there exists at least one $j$ such that $\boldsymbol{d}^T \nabla c_j(\boldsymbol{x}^{\*}) > 0$ so that (3) is satisfied. As a result, $ d \notin \mathcal{F}(\boldsymbol{x}^{\*})$.
