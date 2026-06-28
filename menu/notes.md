@@ -17,8 +17,8 @@ permalink: /notes
     <li class="notes-year">{{ year }}</li>
   {% endif %}
   <li class="notes-entry">
-    <span class="notes-date">{{ note.date | date: "%b %-d" }}</span>
-    <a href="{{ note.url }}">{{ note.title }}</a>
+    <p class="notes-date">{{ note.date | date: "%B %-d" }}</p>
+    <p class="notes-title"><a href="{{ note.url }}">{{ note.title }}</a></p>
   </li>
 {% endfor %}
 </ul>

@@ -1,12 +1,12 @@
 ---
 ---
 
-$sans-serif-font-family: "Quattrocento Sans", sans-serif;
-$serif-font-family:      "PT Serif", Georgia, "Times New Roman", serif;
+$sans-serif-font-family: -apple-system, Helvetica, Arial, sans-serif;
+$serif-font-family:      -apple-system, Helvetica, Arial, sans-serif;
 $code-font-family:       "Source Code Pro", monospace;
 
-$body-color:             #505050;
-$link-color:             black;
+$body-color:             rgba(0, 0, 0, 0.8);
+$link-color:             rgba(0, 0, 0, 0.5);
 
 $code-background-color:   #f5f5f5;
 $pagination-button-color: #e0e0e0;

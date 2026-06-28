@@ -9,37 +9,41 @@
 }
 
 .notes-year {
-  font-family: $sans-serif-font-family;
-  font-size: 0.85rem;
-  color: $light-gray-color;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
+  font-size: 18px;
+  position: relative;
+  right: 100px;
+  color: rgba(0, 0, 0, 0.5);
+  width: 100px;
+  margin-bottom: -22px;
   margin-top: 2rem;
-  margin-bottom: 0.5rem;
-  border-bottom: 1px solid $extra-light-gray-color;
-  padding-bottom: 0.25rem;
 }
 
 .notes-entry {
-  display: flex;
-  align-items: baseline;
-  gap: 1.2rem;
-  padding: 0.3rem 0;
+  padding: 0.15rem 0;
+  margin-bottom: 20px;
 }
 
 .notes-date {
-  font-family: $sans-serif-font-family;
-  font-size: 0.8rem;
-  color: $light-gray-color;
-  min-width: 4rem;
-  flex-shrink: 0;
+  text-transform: uppercase;
+  color: rgba(0, 0, 0, 0.7);
+  font-size: 12px;
+  font-weight: bold;
+  margin-top: 4px;
+  margin-bottom: 4px;
 }
 
-.notes-entry a {
+.notes-title {
+  display: inline-block;
+  font-weight: bold;
+  margin-bottom: 0;
+}
+
+.notes-title a {
+  font-size: 18px;
   text-decoration: none;
 }
 
-.notes-entry a:hover {
+.notes-title a:hover {
   text-decoration: underline;
 }
 
