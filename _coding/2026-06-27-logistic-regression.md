@@ -69,7 +69,6 @@ $$
 
 
 ## Coding It Up
-
 ```python
 def sigma(x):
     """
