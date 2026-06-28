@@ -51,7 +51,11 @@ $$
 $$
 
 
-Suppose $f_\theta(x) := w^\top x + b$. We can rewrite this as a single dot product by letting $x \gets \begin{bmatrix} x \\ 1 \end{bmatrix}$ and $\theta :=\begin{bmatrix}w \\ b \end{bmatrix} $. Then we have the equivalent expression 
+Suppose $f_\theta(x) := w^\top x + b$. We can rewrite this as a single dot product by letting
+
+$$x \gets \begin{bmatrix} x \\ 1 \end{bmatrix}, \qquad \theta := \begin{bmatrix} w \\ b \end{bmatrix}$$
+
+Then we have the equivalent expression 
 
 $$
 f_\theta(x) = \theta^\top x
@@ -91,6 +95,9 @@ class LogisticRegression:
         Args:
             X_train: np array of shape (N, d)
             y_train: np array of shape (N,)
+
+        Returns:
+            theta: np array of shape (d+1,), the fitted parameters
         """
 
         N, d = X_train.shape
