@@ -7,14 +7,21 @@ permalink: /publications
 Below are some articles I've published.
 
 ## Journal Articles
-1. [Cislunar Satellite Constellation Design via Integer Linear Programming](https://rdcu.be/dG8ER)
+1. [Generalized Framework for Cislunar Satellite Placement and Operations Optimization](https://rdcu.be/x6wRG5G7Q3va)
+   - **Authors:** Malav Patel, Anay Naik, Koki Ho
+   - **Journal:** The Journal of the Astronautical Sciences 
+   - **Year:** 2026
+   - **DOI:** [DOI Link](https://doi.org/10.1007/s40295-026-00642-7)
+   - **Abstract:** Expanding infrastructure and traffic in the region between the Earth and Moon necessitates commensurate commitments in monitoring and surveillance architectures. This work presents a formulation for optimizing the placement of space assets via a hierarchical optimization scheme. The outer stage leverages first order methods to optimize asset placement in a continuous space, while the inner stage optimizes operation-level decisions; the gradient information generated from the inner loop is used in the outer loop for iterations. We show that this formulation, unlike previous approaches, is modular, allowing researchers to optimize a constellation’s phasing while remaining agnostic to the underlying optimization signal. We show its applicability on two application problems, namely the sensor tasking and communication packet routing problems. This formulation can be generalized to various dynamical systems with periodic orbits in state space, which yields a broader set of potential applications.
+
+2. [Cislunar Satellite Constellation Design via Integer Linear Programming](https://rdcu.be/dG8ER)
    - **Authors:** Malav Patel, Yuri Shimane, Hang Woon Lee, Koki Ho
    - **Journal:** The Journal of the Astronautical Sciences 
    - **Year:** 2024
    - **DOI:** [DOI Link](https://doi.org/10.1007/s40295-024-00445-8)
    - **Abstract:** Cislunar space domain awareness is of increasing interest to the international com-munity as Earth-Moon traffic is projected to increase, which raises the problem of placing space-based sensors optimally in a constellation to satisfy the space domain awareness demand in cislunar space. This demand profile can vary over space and time, making the design optimization problem challenging. This paper tackles the problem of satellite constellation design for spatio-temporally varying coverage demand by leveraging an integer linear programming formulation. The developed optimization formulation assumes the circular restricted 3-body dynamics and attempts to minimize the number of satellites required for the requested demand profile.
 
-2. [Concurrent Optimization of Satellite Phasing and Tasking for Cislunar Space Situational Awareness](https://rdcu.be/eH39w)
+3. [Concurrent Optimization of Satellite Phasing and Tasking for Cislunar Space Situational Awareness](https://rdcu.be/eH39w)
    - **Authors:** Malav Patel, Kento Tomita, Koki Ho
    - **Journal:** The Journal of the Astronautical Sciences 
    - **Year:** 2025
